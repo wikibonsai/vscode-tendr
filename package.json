@@ -1,0 +1,736 @@
+{
+  "name": "vscode-wikibonsai",
+  "displayName": "WikiBonsai",
+  "version": "0.0.1",
+  "description": "PKM tooling for semantically inclined digital gardeners (with [[wikirefs]], semantic trees, and graphs).",
+  "license": "GPL-3.0",
+  "icon": "icons/wikibonsai-light-nobg.png",
+  "author": {
+    "name": "manunamz",
+    "email": "manuanmz@pm.me"
+  },
+  "publisher": "manunamz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wikibonsai/vscode-wikibonsai"
+  },
+  "engines": {
+    "vscode": "^1.72.2"
+  },
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "main": "./dist/extension.js",
+  "browser": "./dist/extension.js",
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "clean": "del-cli dist out",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "precompile-tests": "del-cli ./test-workspace && mkdirp ./test-workspace",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "caml-mkdn": "^0.0.1",
+    "caudex": "^0.0.1",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
+    "luxon": "^3.1.0",
+    "markdown-it": "^12.3.2",
+    "markdown-it-caml": "^0.0.1",
+    "markdown-it-criticmarkup": "^0.0.1",
+    "markdown-it-footnote": "^3.0.3",
+    "markdown-it-highlightjs": "^4.0.1",
+    "markdown-it-textual-uml": "^0.12.0",
+    "markdown-it-wikirefs": "^0.0.1",
+    "semtree": "^0.0.1",
+    "vscode-uri": "^3.0.6",
+    "wikirefs": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/del": "^4.0.0",
+    "@types/glob": "^7.2.0",
+    "@types/js-yaml": "^4.0.5",
+    "@types/lodash": "^4.14.191",
+    "@types/luxon": "^3.0.1",
+    "@types/markdown-it": "^12.2.3",
+    "@types/mkdirp": "^1.0.2",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "14.x",
+    "@types/rimraf": "^3.0.2",
+    "@types/sinon": "^10.0.11",
+    "@types/vscode": "^1.72.0",
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
+    "@vscode/test-electron": "^2.1.2",
+    "del": "6.0.0",
+    "del-cli": "^5.0.0",
+    "eslint": "^8.9.0",
+    "glob": "^7.2.0",
+    "mkdirp": "^1.0.4",
+    "mocha": "^9.2.1",
+    "rimraf": "^3.0.2",
+    "sinon": "^14.0.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.5",
+    "vsce": "^2.14.0",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "contributes": {
+    "markdown.markdownItPlugins": true,
+    "configuration": {
+      "title": "wikibonsai",
+      "properties": {
+        "wikibonsai.debug.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle debug features (mostly logging and commands to trigger logging)"
+        },
+        "wikibonsai.attrs.caml.opts.format": {
+          "enum": [
+            "pad",
+            "pretty",
+            "none"
+          ],
+          "enumDescriptions": [
+            "pad with single spaces",
+            "pad with number of spaces necessary to align double colons",
+            "do not any whitespace to caml attributes -- do not pad or pretty print"
+          ],
+          "default": "pretty",
+          "description": "select bonsai species to cultivate"
+        },
+        "wikibonsai.attrs.caml.opts.render.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "render caml attributes (including wikiattrs) in markdown preview (changing this setting will require a vscode restart)"
+        },
+        "wikibonsai.attrs.caml.opts.prefix": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle colon prefix for caml attributes (ex with: :key::value; ex without: key::value)"
+        },
+        "wikibonsai.attrs.engine": {
+          "enum": [
+            "caml",
+            "yaml"
+          ],
+          "enumDescriptions": [
+            "Colon Attribute Markup Language (: key :: val)",
+            "yaml frontmatter (key: val)"
+          ],
+          "default": "caml",
+          "description": "the engine that handles attributes"
+        },
+        "wikibonsai.attrs.id.alpha": {
+          "type": "string",
+          "default": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+          "description": "what characters to use when generating a document's attribute 'id'"
+        },
+        "wikibonsai.attrs.id.size": {
+          "type": "number",
+          "default": 21,
+          "description": "what number of characters to use when generating a document's attribute 'id'"
+        },
+        "wikibonsai.bonsai.root": {
+          "type": "string",
+          "default": "i.bonsai",
+          "description": "filename for the markdown file that is the root of the bonsai."
+        },
+        "wikibonsai.bonsai.sync.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle bonsai build command on/off"
+        },
+        "wikibonsai.emoji.tree": {
+          "type": "string",
+          "enum": [
+            "🎋",
+            "🌲",
+            "🌳",
+            "🌴"
+          ],
+          "enumDescriptions": [
+            "bamboo",
+            "evergreen",
+            "maple",
+            "palm"
+          ],
+          "default": "🎋",
+          "description": "select bonsai species to cultivate"
+        },
+        "wikibonsai.file.config": {
+          "type": "string",
+          "default": "config.toml",
+          "description": "toml (or yaml) file for garden configurations"
+        },
+        "wikibonsai.file.doc-types": {
+          "type": "string",
+          "default": "t.doc.toml",
+          "description": "toml (or yaml) file for document type declarations"
+        },
+        "wikibonsai.file.name.opts.id.alpha": {
+          "type": "string",
+          "default": "abcdefghijklmnopqrstuvwxyz0123456789",
+          "description": "what characters to use when generating a filename 'id'"
+        },
+        "wikibonsai.file.name.opts.id.size": {
+          "type": "number",
+          "default": 6,
+          "description": "what number of characters to use when generating a filename 'id'"
+        },
+        "wikibonsai.file.open.loc": {
+          "type": "string",
+          "default": "one",
+          "description": "which window panel to open file in"
+        },
+        "wikibonsai.file.sync.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle file sync (you probably don't want to turn this off unless you're debugging)"
+        },
+        "wikibonsai.graph.coords.tree": {
+          "type": "string",
+          "default": "coords-tree.json",
+          "description": "json file that stores node coordinate data for tree graph"
+        },
+        "wikibonsai.graph.coords.web": {
+          "type": "string",
+          "default": "coords-web.json",
+          "description": "json file that stores node coordinate data for web graph"
+        },
+        "wikibonsai.graph.ctrls.dim": {
+          "type": "string",
+          "enum": [
+            "2d",
+            "3d",
+            "vr"
+          ],
+          "enumDescriptions": [
+            "2d graph",
+            "3d graph",
+            "vr"
+          ],
+          "default": "2d",
+          "description": "select which dimension to render the graph in"
+        },
+        "wikibonsai.graph.ctrls.fix.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "toggle active ability to fix nodes to position in graph"
+        },
+        "wikibonsai.graph.ctrls.follow.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle active node following of doc from the active editor in graph"
+        },
+        "wikibonsai.graph.ctrls.autosync.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "toggle graph data autosync"
+        },
+        "wikibonsai.graph.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle graphs"
+        },
+        "wikibonsai.graph.open-loc": {
+          "type": "string",
+          "default": "beside",
+          "description": "which multiplexer panel to open graph in"
+        },
+        "wikibonsai.graph.sync.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle on/off auto-update graph data on file changes"
+        },
+        "wikibonsai.graph.tree.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle tree graph"
+        },
+        "wikibonsai.graph.web.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle web graph"
+        },
+        "wikibonsai.log.level": {
+          "type": "string",
+          "enum": [
+            "none",
+            "error",
+            "warn",
+            "info",
+            "debug",
+            "verbose"
+          ],
+          "enumDescriptions": [
+            "no logging",
+            "only log errors",
+            "log errors and warnings",
+            "log errors, warnings, and info",
+            "log all errors, warnings, info, and debug",
+            "all logging"
+          ],
+          "default": "info",
+          "description": "select log level"
+        },
+        "wikibonsai.panel.bonsai.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle bonsai treeview panel"
+        },
+        "wikibonsai.panel.ancestors.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle document ancestors treeview panel"
+        },
+        "wikibonsai.panel.children.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle document children treeview panel"
+        },
+        "wikibonsai.panel.forerefs.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle document forward references treeview panel"
+        },
+        "wikibonsai.panel.backrefs.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle document backward references treeview panel"
+        },
+        "wikibonsai.panel.orphans.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle orphaned documents treeview panel"
+        },
+        "wikibonsai.panel.zombies.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle zombie links treeview panel"
+        },
+        "wikibonsai.wizard.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle wikibonsai's custom command wizard (for searching and creating)"
+        },
+        "wikibonsai.syntax-highlight.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle syntax highlighting"
+        },
+        "wikibonsai.tag.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle #tag functionality (useful to toggle off if #tag syntax is used in another extension)"
+        },
+        "wikibonsai.tag.open-doc": {
+          "enum": [
+            "index",
+            "entry"
+          ],
+          "enumDescriptions": [
+            "open the index/trunk document that contains the #tag title",
+            "open the entry/leaf document whose filename matches the #tag title"
+          ],
+          "default": "index",
+          "description": "select which document to open when clicking on a #tag -- the index/trunk doc or entry/leaf doc"
+        },
+        "wikibonsai.tag.open-loc": {
+          "type": "string",
+          "default": "one",
+          "description": "which multiplex panel to open #tag document in"
+        },
+        "wikibonsai.wikiref.affix-rename.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "todo"
+        },
+        "wikibonsai.wikiref.completion.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle tab completion for [[wikirefs]]"
+        },
+        "wikibonsai.wikiref.hover-preview.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle hover preview on [[wikirefs]]"
+        },
+        "wikibonsai.wikiref.goto.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle cmd/ctrl+click on [[wikirefs]] to open document"
+        },
+        "wikibonsai.wikiref.refactor.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle document rename refactor from [[wikiref]] text"
+        },
+        "wikibonsai.wikiref.type.completion.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle tab completion for :types::"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "mac": "cmd+k",
+        "win": "ctrl+k",
+        "linux": "ctrl+k",
+        "key": "ctrl+k",
+        "command": "wikibonsai.open.wizard"
+      }
+    ],
+    "commands": [
+      {
+        "command": "wikibonsai.debug.dump.bonsai",
+        "title": "wikibonsai: dump bonsai to .json file"
+      },
+      {
+        "command": "wikibonsai.debug.dump.index",
+        "title": "wikibonsai: dump index to .json file"
+      },
+      {
+        "command": "wikibonsai.debug.print.index",
+        "title": "wikibonsai: print link index in console"
+      },
+      {
+        "command": "wikibonsai.debug.print.bonsai",
+        "title": "wikibonsai: print bonsai in console"
+      },
+      {
+        "command": "wikibonsai.debug.reset.index",
+        "title": "wikibonsai: clear index and rebuild from files"
+      },
+      {
+        "command": "wikibonsai.create.file",
+        "title": "wikibonsai: create new document",
+        "icon": {
+          "light": "icons/light/add.svg",
+          "dark": "icons/dark/add.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.create.file.bulk",
+        "title": "wikibonsai: create new documents from zombies"
+      },
+      {
+        "command": "wikibonsai.file.name",
+        "title": "wikibonsai: name new document"
+      },
+      {
+        "command": "wikibonsai.open.graph.tree",
+        "title": "wikibonsai: open tree graph",
+        "icon": {
+          "light": "icons/graph-tree.svg",
+          "dark": "icons/graph-tree.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.open.graph.web",
+        "title": "wikibonsai: open web graph",
+        "icon": {
+          "light": "icons/graph-web.svg",
+          "dark": "icons/graph-web.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.open.wizard",
+        "title": "wikibonsai: search and create files from the wikibonsai wizard"
+      },
+      {
+        "command": "wikibonsai.refresh.panel.bonsai",
+        "title": "wikibonsai: refresh bonsai panel",
+        "icon": {
+          "light": "icons/light/refresh.svg",
+          "dark": "icons/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.refresh.panel.ancestors",
+        "title": "wikibonsai: refresh ancestors panel",
+        "icon": {
+          "light": "icons/light/refresh.svg",
+          "dark": "icons/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.refresh.panel.children",
+        "title": "wikibonsai: refresh children panel",
+        "icon": {
+          "light": "icons/light/refresh.svg",
+          "dark": "icons/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.refresh.panel.forerefs",
+        "title": "wikibonsai: refresh forerefs panel",
+        "icon": {
+          "light": "icons/light/refresh.svg",
+          "dark": "icons/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.refresh.panel.backrefs",
+        "title": "wikibonsai: refresh backrefs panel",
+        "icon": {
+          "light": "icons/light/refresh.svg",
+          "dark": "icons/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.refresh.panel.orphans",
+        "title": "wikibonsai: refresh orphans panel",
+        "icon": {
+          "light": "icons/light/refresh.svg",
+          "dark": "icons/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.refresh.panel.zombies",
+        "title": "wikibonsai: refresh zombies panel",
+        "icon": {
+          "light": "icons/light/refresh.svg",
+          "dark": "icons/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.resurrect",
+        "title": "wikibonsai: create doc",
+        "icon": {
+          "light": "icons/light/add.svg",
+          "dark": "icons/dark/add.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.resurrect.tmpl",
+        "title": "wikibonsai: create doc from template",
+        "icon": {
+          "light": "icons/light/add-circle.svg",
+          "dark": "icons/dark/add-circle.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.sync.bonsai",
+        "title": "wikibonsai: sync bonsai",
+        "icon": {
+          "light": "icons/light/sync.svg",
+          "dark": "icons/dark/sync.svg"
+        }
+      },
+      {
+        "command": "wikibonsai.toggle.graph.ctrls.dim",
+        "title": "wikibonsai: update graph dimensions"
+      },
+      {
+        "command": "wikibonsai.toggle.graph.ctrls.fix",
+        "title": "wikibonsai: toggle on/off fixed nodes in graph"
+      },
+      {
+        "command": "wikibonsai.toggle.graph.ctrls.follow",
+        "title": "wikibonsai: toggle on/off active doc following in graph"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "wikibonsai-explorer",
+          "title": "wikibonsai",
+          "icon": "icons/wikibonsai.svg"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "wikibonsai.create.file.bulk",
+          "when": "editorHasSelection && resourceFilename in wikibonsai.bonsaiTrunkFiles"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "wikibonsai.open.graph.tree",
+          "when": "view == wikibonsai.panel.bonsai",
+          "group": "navigation@1"
+        },
+        {
+          "command": "wikibonsai.open.graph.web",
+          "when": "view == wikibonsai.panel.bonsai",
+          "group": "navigation@2"
+        },
+        {
+          "command": "wikibonsai.sync.bonsai",
+          "when": "view == wikibonsai.panel.bonsai",
+          "group": "navigation@3"
+        },
+        {
+          "command": "wikibonsai.refresh.panel.bonsai",
+          "when": "view == wikibonsai.panel.bonsai",
+          "group": "navigation@4"
+        },
+        {
+          "command": "wikibonsai.refresh.panel.ancestors",
+          "when": "view == wikibonsai.panel.ancestors",
+          "group": "navigation"
+        },
+        {
+          "command": "wikibonsai.refresh.panel.children",
+          "when": "view == wikibonsai.panel.children",
+          "group": "navigation"
+        },
+        {
+          "command": "wikibonsai.refresh.panel.forerefs",
+          "when": "view == wikibonsai.panel.forerefs",
+          "group": "navigation"
+        },
+        {
+          "command": "wikibonsai.refresh.panel.backrefs",
+          "when": "view == wikibonsai.panel.backrefs",
+          "group": "navigation"
+        },
+        {
+          "command": "wikibonsai.refresh.panel.orphans",
+          "when": "view == wikibonsai.panel.orphans",
+          "group": "navigation"
+        },
+        {
+          "command": "wikibonsai.refresh.panel.zombies",
+          "when": "view == wikibonsai.panel.zombies",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "wikibonsai.resurrect",
+          "when": "viewItem == zombie",
+          "group": "inline@2"
+        },
+        {
+          "command": "wikibonsai.resurrect.tmpl",
+          "when": "viewItem == zombie",
+          "group": "inline@1"
+        }
+      ]
+    },
+    "views": {
+      "wikibonsai-explorer": [
+        {
+          "id": "wikibonsai.panel.bonsai",
+          "name": "🎋 bonsai"
+        },
+        {
+          "id": "wikibonsai.panel.ancestors",
+          "name": "⬆️ ancestors"
+        },
+        {
+          "id": "wikibonsai.panel.children",
+          "name": "⬇️ children"
+        },
+        {
+          "id": "wikibonsai.panel.forerefs",
+          "name": "➡️ fore refs"
+        },
+        {
+          "id": "wikibonsai.panel.backrefs",
+          "name": "⬅️ back refs"
+        },
+        {
+          "id": "wikibonsai.panel.orphans",
+          "name": "⏺ orphan docs"
+        },
+        {
+          "id": "wikibonsai.panel.zombies",
+          "name": "🧟 zombie refs"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "wikibonsai.panel.bonsai",
+        "contents": "no bonsai found."
+      },
+      {
+        "view": "wikibonsai.panel.ancestors",
+        "contents": "Has no ancestors or not in bonsai."
+      },
+      {
+        "view": "wikibonsai.panel.children",
+        "contents": "Has no children or not in bonsai."
+      },
+      {
+        "view": "wikibonsai.panel.forerefs",
+        "contents": "No fore(ward) references found."
+      },
+      {
+        "view": "wikibonsai.panel.backrefs",
+        "contents": "No back(ward) references found."
+      },
+      {
+        "view": "wikibonsai.panel.orphans",
+        "contents": "No orphans found."
+      },
+      {
+        "view": "wikibonsai.panel.zombies",
+        "contents": "No zombies found."
+      }
+    ],
+    "markdown.previewStyles": [
+      "./static/markdown.css"
+    ]
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "bamboo",
+    "bidirectional link",
+    "bidirectional links",
+    "bonsai",
+    "digital garden",
+    "evergreen",
+    "exocortex",
+    "graph",
+    "hierarchy",
+    "internal link",
+    "internal links",
+    "knowledge base",
+    "knowledge bonsai",
+    "markdown",
+    "note taking",
+    "notes",
+    "ontology",
+    "personal knowledge management",
+    "personal wiki",
+    "pkm",
+    "reference",
+    "references",
+    "second brain",
+    "semantic tree",
+    "taxonomy",
+    "tree",
+    "web",
+    "wiki",
+    "wiki-link",
+    "wiki-links",
+    "wikiattr",
+    "wikiattrs",
+    "wikiembed",
+    "wikiembeds",
+    "wikibonsai",
+    "wikilink",
+    "wikilinks",
+    "wikiref",
+    "wikirefs",
+    "zettelkasten"
+  ]
+}

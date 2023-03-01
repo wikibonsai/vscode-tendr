@@ -1,0 +1,21 @@
+<svg class="graph-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 50 50" overflow="visible" stroke-width="5" stroke-linecap="round"> 
+  <defs>
+    <style>
+      <!-- dark -->
+      .branch {
+      <!-- light: #8C6239 -->
+        stroke: #44434d;
+      }
+      .leaf {
+      	fill: #31AF31;
+      }
+    </style>
+  </defs>
+  <line class="link branch" x1="25" y1="33" x2="2" y2="50" />
+  <line class="link branch" x1="25" y1="33" x2="25" y2="5" />
+  <line class="link branch" x1="25" y1="33" x2="47" y2="50" />
+  <circle class="node leaf" cx="25" cy="33" r="10" />
+  <circle class="node leaf" cx="2" cy="50" r="6" />
+  <circle class="node leaf" cx="25" cy="5" r="6" />
+  <circle class="node leaf" cx="47" cy="50" r="6" />
+</svg>
