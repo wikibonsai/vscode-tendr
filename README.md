@@ -1,7 +1,7 @@
 # 🎋 vscode-wikibonsai
 
 ![[A WikiBonsai Project](https://github.com/wikibonsai/wikibonsai)](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)
-[![vscode marketplace](https://img.shields.io/vscode-marketplace/v/manunamz.wikibonsai.svg)](https://marketplace.visualstudio.com/items?itemName=manunamz.wikibonsai)
+[![VSCode Marketplace](https://img.shields.io/visual-studio-marketplace/v/manunamz.vscode-wikibonsai)](https://marketplace.visualstudio.com/items?itemName=manunamz.vscode-wikibonsai)
 
 <div style="width:50%; margin: auto; padding-block: 2em; display: flex; justify-content: center;">
   <img src="./icons/wikibonsai-light-nobg.png"/>
