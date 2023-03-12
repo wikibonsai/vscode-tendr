@@ -82,6 +82,7 @@ export class CommandProvider {
 
   // todo: keep an eye on whether 'encodeURIComponent' will be needed...docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
   public async createDoc(payload: Payload): Promise<vscode.Uri | undefined> {
+    logger.debug('CommandProvider.createDoc()');
     let affixedFilename: string | undefined;
     let unfixedFilename: string | undefined;
     let thisTypeOpts: any;
@@ -199,6 +200,7 @@ export class CommandProvider {
   }
 
   public async createDocBulk(): Promise<void> {
+    logger.debug('CommandProvider.createDocBulk()');
     const editor: vscode.TextEditor | undefined = vscode.window.activeTextEditor;
     if (!editor) { return; }
     /* eslint-disable indent */
@@ -241,6 +243,7 @@ export class CommandProvider {
   }
 
   public async executeDecoratorProvider(editor: vscode.TextEditor): Promise<void> {
+    logger.debug('CommandProvider.executeDecoratorProvider()');
     this.camlTextDecorationProvider.updateDecorations(editor);
     this.wikiRefDecorationProvider.updateDecorations(editor);
     if (getConfigProperty('wikibonsai.tag.enabled', true)){
@@ -249,6 +252,7 @@ export class CommandProvider {
   }
 
   public async nameFile(payload: any): Promise<(string | undefined)> {
+    logger.debug('CommandProvider.nameFile()');
     return vscode.window.showInputBox({
       title: payload.createFrom,
       prompt: 'do not use these characters: ' + INVALID_FNAME_CHARS + '; doctype prefixes and suffixes will be automatically populated',
@@ -265,6 +269,7 @@ export class CommandProvider {
   //       this way we can be absolutely sure all references are updated.
 
   public async syncWikiRefs(oldFilename: string, newFilename: string): Promise<void> {
+    logger.debug('CommandProvider.syncWikiRefs() -- start');
     // update wikirefs in rest of files
     const mdfileVscUris: vscode.Uri[] = await getMDUris();
     for (const uri of mdfileVscUris) {
@@ -281,9 +286,11 @@ export class CommandProvider {
         // refs updated in index via 'FileWatcherProvider'
       }
     }
+    logger.debug('CommandProvider.syncWikiRefs() -- end');
   }
 
   public async syncRefTypes(oldType: string, newType: string): Promise<void> {
+    logger.debug('CommandProvider.syncRefTypes() -- start');
     // update reftypes in rest of files
     const mdfileVscUris: vscode.Uri[] = await getMDUris();
     for (const uri of mdfileVscUris) {
@@ -300,9 +307,11 @@ export class CommandProvider {
         // refs updated in index via 'FileWatcherProvider'
       }
     }
+    logger.debug('CommandProvider.syncRefTypes() -- end');
   }
 
   public async syncBonsai(): Promise<void> {
+    logger.debug('CommandProvider.syncBonsai() -- start');
     if (!getConfigProperty('wikibonsai.bonsai.sync.enabled', true)) { return; }
     vscode.window.showInformationMessage('building bonsai...' + SEED);
     // flush tree
@@ -317,9 +326,11 @@ export class CommandProvider {
     await this.bonsai.build();
     this.syncGUI();
     vscode.window.showInformationMessage('bonsai complete! ' + ts.emoji);
+    logger.debug('CommandProvider.syncBonsai() -- end');
   }
 
   public async syncGUI(): Promise<void> {
+    logger.debug('CommandProvider.syncGUI() -- start');
     // open document status
     // update docwikirefs (mostly for zombies' sake)
     // todo: there's still a lag between save and the link population if a
@@ -346,11 +357,14 @@ export class CommandProvider {
     }
     // todo:
     // - update 'setContext' from 'extension.ts'
+    logger.debug('CommandProvider.syncGUI() -- end');
   }
 
   public async syncIndex(): Promise<void> {
+    logger.debug('CommandProvider.syncIndex() -- start');
     this.index.flushRels();
     this.index.init();
     this.bonsai.build();
+    logger.debug('CommandProvider.syncIndex() -- end');
   }
 }
