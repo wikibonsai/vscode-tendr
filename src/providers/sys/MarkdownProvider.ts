@@ -107,6 +107,8 @@ export class MarkdownProvider {
         return node?.type;
       },
       resolveEmbedContent: (env: any, filename: string): (string | undefined) => {
+        // markdown-only
+        if (wikirefs.isMedia(filename)) { return; }
         // cycle detection
         if (!env.cycleStack) {
           env.cycleStack = [];
@@ -116,26 +118,24 @@ export class MarkdownProvider {
             return '♻️ cycle detected';
           }
         }
-        // markdown
-        if (!wikirefs.isMedia(filename)) {
-          env.cycleStack.push(filename);
-          let htmlContent: string | undefined;
-          const node: Node | undefined = this.index.find('filename', filename);
-          if (!node || (node.kind === NODE.KIND.ZOMBIE)) {
-            delete env.cycleStack;
-            return '🧟';
-          }
-          const mkdnContent: string | undefined = this.index.cacheContent[filename];
-          if (mkdnContent === undefined) {
-            htmlContent = undefined;
-          } else if (mkdnContent.length === 0) {
-            htmlContent = '';
-          } else {
-            htmlContent = md.render(mkdnContent, env);
-          }
+        env.cycleStack.push(filename);
+        // get content
+        let htmlContent: string | undefined;
+        const node: Node | undefined = this.index.find('filename', filename);
+        if (!node || (node.kind === NODE.KIND.ZOMBIE)) {
           delete env.cycleStack;
-          return htmlContent;
+          return '🧟';
         }
+        const mkdnContent: string | undefined = this.index.cacheContent[filename];
+        if (mkdnContent === undefined) {
+          htmlContent = undefined;
+        } else if (mkdnContent.length === 0) {
+          htmlContent = '';
+        } else {
+          htmlContent = md.render(mkdnContent, env);
+        }
+        delete env.cycleStack;
+        return htmlContent;
       },
       // metadata
       prepFile: (env: any): void => {
