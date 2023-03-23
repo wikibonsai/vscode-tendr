@@ -45,6 +45,9 @@ export const TAG_RGX = /(?:^|\s)#([^\n\r!:^|[\] ]+)/ig;
 // export const FILENAME              : string = 'filename';
 // export const URI                   : string = 'uri';
 
+// syntax decorations
+export const BRACKET               : string = 'bracket';
+export const EXCLAMATION           : string = 'exclamation';
 export const FALLBACK              : string = 'fallback';     // syntax for errors / media
 
 // attr engines

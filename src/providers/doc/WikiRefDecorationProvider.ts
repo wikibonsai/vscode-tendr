@@ -7,6 +7,8 @@ import { NODE, Node } from 'caudex';
 
 import logger from '../../util/logger';
 import {
+  BRACKET,
+  EXCLAMATION,
   EXT_MD,
   FALLBACK,
 } from '../../util/const';
@@ -16,6 +18,16 @@ import { TypeProvider } from '../sys/TypeProvider';
 
 export class WikiRefDecorationProvider {
   private decorations: Record<string, vscode.TextEditorDecorationType> = {
+    [BRACKET]: vscode.window.createTextEditorDecorationType({
+      rangeBehavior: 1,
+      dark: { color: '#5e5640' },
+      light: { color: '#decb97' },
+    }),
+    [EXCLAMATION]: vscode.window.createTextEditorDecorationType({
+      rangeBehavior: 1,
+      dark: { color: '#decb97' },
+      light: { color: '#5e5640' },
+    }),
     [wikirefs.CONST.TYPE.LINK]: vscode.window.createTextEditorDecorationType({
       color: new vscode.ThemeColor('terminal.ansiBlue'),
     }),
@@ -86,6 +98,8 @@ export class WikiRefDecorationProvider {
       const content = editor.document.getText();
       // init
       const decorations: Record<string, any[]> = {};
+      decorations[BRACKET] = [];
+      decorations[EXCLAMATION] = [];
       decorations[wikirefs.CONST.WIKI.REF] = [];
       decorations[NODE.KIND.ZOMBIE] = [];
       decorations[NODE.TYPE.INDEX] = [];
@@ -114,6 +128,16 @@ export class WikiRefDecorationProvider {
               editor.document.positionAt(fnamePos),
               editor.document.positionAt(fnamePos + fnameText.length),
             ));
+            // left bracket
+            decorations[BRACKET].push(new vscode.Range(
+              editor.document.positionAt(fnamePos - 2),
+              editor.document.positionAt(fnamePos),
+            ));
+            // right bracket
+            decorations[BRACKET].push(new vscode.Range(
+              editor.document.positionAt(fnamePos + fnameText.length),
+              editor.document.positionAt(fnamePos + fnameText.length + 2),
+            ));
           }
         }
         if (payload.kind === wikirefs.CONST.WIKI.LINK) {
@@ -130,6 +154,16 @@ export class WikiRefDecorationProvider {
             editor.document.positionAt(fnamePos),
             editor.document.positionAt(fnamePos + fullOffset),
           ));
+          // left bracket
+          decorations[BRACKET].push(new vscode.Range(
+            editor.document.positionAt(fnamePos - 2),
+            editor.document.positionAt(fnamePos),
+          ));
+          // right bracket
+          decorations[BRACKET].push(new vscode.Range(
+            editor.document.positionAt(fnamePos + fnameText.length),
+            editor.document.positionAt(fnamePos + fnameText.length + 2),
+          ));
         }
         if (payload.kind === wikirefs.CONST.WIKI.EMBED) {
           // @ts-expect-error: validated via wikirefs.CONST.WIKI.EMBED
@@ -140,6 +174,21 @@ export class WikiRefDecorationProvider {
           decorations[decType].push(new vscode.Range(
             editor.document.positionAt(fnamePos),
             editor.document.positionAt(fnamePos + fnameText.length),
+          ));
+          // !
+          decorations[EXCLAMATION].push(new vscode.Range(
+            editor.document.positionAt(fnamePos - 3),
+            editor.document.positionAt(fnamePos - 2),
+          ));
+          // left bracket
+          decorations[BRACKET].push(new vscode.Range(
+            editor.document.positionAt(fnamePos - 2),
+            editor.document.positionAt(fnamePos),
+          ));
+          // right bracket
+          decorations[BRACKET].push(new vscode.Range(
+            editor.document.positionAt(fnamePos + fnameText.length),
+            editor.document.positionAt(fnamePos + fnameText.length + 2),
           ));
         }
       }
