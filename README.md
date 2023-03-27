@@ -761,7 +761,7 @@ To see the available configurations, open your [workspace settings](https://code
 
 ## Embeddings
 
-Since the [graph](#graph-properties) supports fixed node coordinates, it is possible to play around with visualizing your markdown notes alongside [word embeddings](https://en.wikipedia.org/wiki/Word_embedding) if those note filenames correspond to words word senses.
+Since the [graph](#graph-properties) supports fixed node coordinates, it is possible to play around with visualizing your markdown notes alongside [word embeddings](https://en.wikipedia.org/wiki/Word_embedding) if those note filenames correspond to words or word senses.
 
 Just generate a json file called `coords-web.json` (or `coords-tree.json` if you have coordinates for a hierarchical [tree](#semantic-tree) structure), place it at the root of your project.
 
