@@ -37,22 +37,22 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "caml-mkdn": "^0.0.1",
+    "caml-mkdn": "^0.0.2",
     "caudex": "^0.0.1",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "luxon": "^3.1.0",
     "markdown-it": "^12.3.2",
-    "markdown-it-caml": "^0.0.1",
+    "markdown-it-caml": "^0.0.2",
     "markdown-it-criticmarkup": "^0.0.1",
     "markdown-it-footnote": "^3.0.3",
     "markdown-it-highlightjs": "^4.0.1",
     "markdown-it-textual-uml": "^0.12.0",
-    "markdown-it-wikirefs": "^0.0.1",
-    "semtree": "^0.0.1",
+    "markdown-it-wikirefs": "^0.0.2",
+    "semtree": "^0.0.2",
     "vscode-uri": "^3.0.6",
-    "wikirefs": "^0.0.1"
+    "wikirefs": "^0.0.2"
   },
   "devDependencies": {
     "@types/del": "^4.0.0",

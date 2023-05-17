@@ -782,10 +782,10 @@ camelcase@^6.0.0, camelcase@^6.3.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
-caml-mkdn@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.1.tgz#c192b525bf13a3ed6c41854c1404d151a447a960"
-  integrity sha512-5IouiXqhKtCu5HzcIqzdMhLsxK3uSNnDs/+8bj95JOBnlw+u5xkm1xgxiHzpaorIxvxRlWyOYj/pQf/7j3TtfA==
+caml-mkdn@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.2.tgz#4bdd7d4c2625e8d62fe05ff200ed3a8f9aa45965"
+  integrity sha512-xe7ogLRSj209b1rP5bTsk4pLxgDQAkl/uqugo/48RVVjKN7aNlhVpXM60fCoaIsud29tbiJvI3GT6pC02wqRFA==
 
 caniuse-lite@^1.0.30001317:
   version "1.0.30001319"
@@ -2106,12 +2106,12 @@ map-obj@^4.1.0:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.3.0.tgz#9304f906e93faae70880da102a9f1df0ea8bb05a"
   integrity sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==
 
-markdown-it-caml@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/markdown-it-caml/-/markdown-it-caml-0.0.1.tgz#56737165d6338acd3a26e7ccd3b3c9fba10017ed"
-  integrity sha512-qilFJNqY0wFC7Ix99Br9fOEpeCVui0DIlhj7iJCPsgy385loXzKAotGYjbgyLXwV0OWEvxjLcgDdyW8RMFrZyw==
+markdown-it-caml@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/markdown-it-caml/-/markdown-it-caml-0.0.2.tgz#f1a5d387cc57d9a868aeccb382b9d0ebddda8ce1"
+  integrity sha512-o0W43OuuJsYpU9ZC2L27uA8y7Y1S0ZWJ4tDTUv3H+dsc/6azuJLpcyI5oHECHr+U+c3uElHvB6DvAr9xQr6+6Q==
   dependencies:
-    caml-mkdn "^0.0.1"
+    caml-mkdn "^0.0.2"
     lodash "^4.17.21"
     markdown-it "^12.3.2"
 
@@ -2154,14 +2154,14 @@ markdown-it-textual-uml@^0.12.0:
   resolved "https://registry.yarnpkg.com/markdown-it-textual-uml/-/markdown-it-textual-uml-0.12.0.tgz#ac39a69c9354d0e13fa6c6f659563f0e77fb4b3a"
   integrity sha512-UfOW0mKpEBZm3sA74FYcz0LL4beHBK14y05uketxxC62StomNKcjbpgclOW+iR7xV345TJP1Z4yw/0uTt5yS6A==
 
-markdown-it-wikirefs@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/markdown-it-wikirefs/-/markdown-it-wikirefs-0.0.1.tgz#9b0d16885c24f1ebe8586fca6c40de114a8ffc30"
-  integrity sha512-iwW28vG7MgMj+s2FSLVibl+G+2UsdrdqH1saaxU8pbibM5spN8rUCMGnuaLHjkGXqxt+Kj12l3pOqPVe7dWjHg==
+markdown-it-wikirefs@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/markdown-it-wikirefs/-/markdown-it-wikirefs-0.0.2.tgz#11b946c691be5f62c0085d4b4ce12c8098fc55ba"
+  integrity sha512-8xHqW7ggO+poPQuoRrpT6C+t53O8AeIkghpLGC6NEsT//KUinZItNflNMra/l7/VybYsOuGMycgg1dHfbN5jJw==
   dependencies:
     lodash "^4.17.21"
     markdown-it "^12.3.2"
-    wikirefs "^0.0.1"
+    wikirefs "^0.0.2"
 
 markdown-it@^12.3.2:
   version "12.3.2"
@@ -2868,10 +2868,10 @@ section-matter@^1.0.0:
     extend-shallow "^2.0.1"
     kind-of "^6.0.0"
 
-semtree@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/semtree/-/semtree-0.0.1.tgz#4a79a1f47657450e7e6365bb6b39e8b5f49f9fe4"
-  integrity sha512-QjDHNrjm2K05wXFWm3qLm/4ZxKC8ocB3bli7SFr8TsrYHyxqw9C/5f3CbHwPjPorr7vbShZI1pwisai9VIZ94g==
+semtree@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/semtree/-/semtree-0.0.2.tgz#49f1a30d1b8f56e83d2c23ed8cb8c04cc77f9f6a"
+  integrity sha512-1iybW0+FYQRK7rRirvc7+/GkFl0ik8m6n8EXzBU9spfKT6FHkVy1b6mUfZ1or0rYd3D2E2w1dqh0UerFBxp0zw==
   dependencies:
     nanoid "^3.3.4"
 
@@ -3447,10 +3447,10 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2 || 2 || 3 || 4"
 
-wikirefs@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/wikirefs/-/wikirefs-0.0.1.tgz#15914b9ecc986c17ed0c6ac0ce71c18359b207d8"
-  integrity sha512-O46dSbuZQdDi3SE9pB88UhwqtGAvbV0+j7zD95158xul9YceCrEX/dWsidTzfoW0oJkI7zFCkCOWE3YzUHGagQ==
+wikirefs@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/wikirefs/-/wikirefs-0.0.2.tgz#eb8bdb3506f6fe75f683198b9343e0228a5ed716"
+  integrity sha512-G57eZB6VcYmm8umCOYIkmfzX497EEbhtlPwP/qLI+vYYIp4POIlkA67VE+PrYMsVVf5YxQ+QukElAK9hE5VROQ==
   dependencies:
     escape-mkdn "^0.0.3"
 
