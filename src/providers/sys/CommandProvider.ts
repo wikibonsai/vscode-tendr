@@ -226,9 +226,10 @@ export class CommandProvider {
     for (const wikiDocLink of wikiDocLinks) {
     // todo: or, execute the uri the documentlink already has access to...
       if (wikiDocLink
-      && wikiDocLink.target
-      && wikiDocLink.target.scheme === 'command'
-      && wikiDocLink.target.query.includes('filename')) {
+        && wikiDocLink.target
+        && wikiDocLink.target.scheme === 'command'
+        && wikiDocLink.target.query.includes('filename')
+      ) {
         const payload: any = JSON.parse(wikiDocLink.target.query);
         const node: any = this.index.find('filename', payload.filename);
         await vscode.commands.executeCommand(
