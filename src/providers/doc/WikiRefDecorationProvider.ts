@@ -19,14 +19,12 @@ import { TypeProvider } from '../sys/TypeProvider';
 export class WikiRefDecorationProvider {
   private decorations: Record<string, vscode.TextEditorDecorationType> = {
     [BRACKET]: vscode.window.createTextEditorDecorationType({
-      rangeBehavior: 1,
-      dark: { color: '#5e5640' },
-      light: { color: '#decb97' },
+      // matches graph link color
+      color: new vscode.ThemeColor('editorLineNumber.foreground'),
     }),
     [EXCLAMATION]: vscode.window.createTextEditorDecorationType({
-      rangeBehavior: 1,
-      dark: { color: '#decb97' },
-      light: { color: '#5e5640' },
+      // matches graph link color
+      color: new vscode.ThemeColor('editorLineNumber.foreground'),
     }),
     [wikirefs.CONST.TYPE.LINK]: vscode.window.createTextEditorDecorationType({
       color: new vscode.ThemeColor('terminal.ansiBlue'),
