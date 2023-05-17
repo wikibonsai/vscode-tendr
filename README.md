@@ -1,7 +1,7 @@
 # 🎋 vscode-wikibonsai
 
 [![A WikiBonsai Project](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)](https://github.com/wikibonsai/wikibonsai)
-[![vscode marketplace](https://img.shields.io/vscode-marketplace/v/manunamz.wikibonsai.svg)](https://marketplace.visualstudio.com/items?itemName=manunamz.wikibonsai)
+[![VSCode Marketplace](https://img.shields.io/visual-studio-marketplace/v/manunamz.vscode-wikibonsai)](https://marketplace.visualstudio.com/items?itemName=manunamz.vscode-wikibonsai)
 
 <div style="width:50%; margin: auto; padding-block: 2em; display: flex; justify-content: center;">
   <img src="./icons/wikibonsai-light-nobg.png"/>
@@ -761,7 +761,7 @@ To see the available configurations, open your [workspace settings](https://code
 
 ## Embeddings
 
-Since the [graph](#graph-properties) supports fixed node coordinates, it is possible to play around with visualizing your markdown notes alongside [word embeddings](https://en.wikipedia.org/wiki/Word_embedding) if those note filenames correspond to words word senses.
+Since the [graph](#graph-properties) supports fixed node coordinates, it is possible to play around with visualizing your markdown notes alongside [word embeddings](https://en.wikipedia.org/wiki/Word_embedding) if those note filenames correspond to words or word senses.
 
 Just generate a json file called `coords-web.json` (or `coords-tree.json` if you have coordinates for a hierarchical [tree](#semantic-tree) structure), place it at the root of your project.
 
