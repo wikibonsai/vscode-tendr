@@ -225,11 +225,17 @@ export class TypeProvider {
   public resolve(filename: string, uri?: string, attrs?: any): string {
     if (!this.hasTypes()) { return NODE.TYPE.DEFAULT; }
     const paths: string[][] = [];
+    // order of precedence:
+    // prefix > attr metadata > directory
     // @ts-expect-error: hasTypes()
     for (const [type, opts] of Object.entries(this.typeOpts)) {
       // filename prefix
       if (opts.prefix) {
-        if (filename.indexOf(opts.prefix) === 0) {
+        const prefix: string = opts.prefix;
+        const filenameContainsPrefix: boolean = (filename.indexOf(prefix) === 0);
+        const placeholderRegex: RegExp = this.convertPlaceholderToRgx(prefix);
+        const filenameContainsPrefixWithPlaceholder: boolean = placeholderRegex.test(filename);
+        if (filenameContainsPrefix || filenameContainsPrefixWithPlaceholder) {
           return type;
         }
       }
@@ -335,13 +341,14 @@ export class TypeProvider {
   // i have a bad feeling this is going to breed bugs...👀
   public convertPlaceholderToRgx(str: string): RegExp {
     /* eslint-disable indent */
-    return new RegExp(str.replace(/(?::id)/, this.getRgxIDFormat().source)
-                          .replace(/(?::date)/, 'd{4}-d{2}-d{2}')
-                          .replace(/(?::year)/, 'd{4}')
-                          .replace(/(?::month)/, 'd{2}')
-                          .replace(/(?::day)/, 'd{2}')
-                          .replace(/(?::hour)/, 'd{2}')
-                          .replace(/(?::minute)/, 'd{2}'));
+    return new RegExp(str.replace('.', '\\.')
+                          .replace(/(?::id)/, this.getRgxIDFormat().source)
+                          .replace(/(?::date)/, '\\d{4}-\\d{2}-\\d{2}')
+                          .replace(/(?::year)/, '\\d{4}')
+                          .replace(/(?::month)/, '\\d{2}')
+                          .replace(/(?::day)/, '\\d{2}')
+                          .replace(/(?::hour)/, '\\d{2}')
+                          .replace(/(?::minute)/, '\\d{2}'));
     /* eslint-enable indent */
   }
 }
