@@ -52,7 +52,7 @@
     "markdown-it-wikirefs": "^0.0.2",
     "semtree": "^0.0.2",
     "vscode-uri": "^3.0.6",
-    "wikirefs": "^0.0.3"
+    "wikirefs": "^0.0.4"
   },
   "devDependencies": {
     "@types/del": "^4.0.0",

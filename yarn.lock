@@ -3454,10 +3454,10 @@ wikirefs@^0.0.2:
   dependencies:
     escape-mkdn "^0.0.3"
 
-wikirefs@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/wikirefs/-/wikirefs-0.0.3.tgz#2072f376b06600ac47af7e77b115db4081b3060a"
-  integrity sha512-+3lvLvW7+NKC4MZ7n13/vjoIl+rf3THu10nFS9Q8+uPdz10KW5BOZPCOEkgIxnI2Lfa35x66WkoywvWwGDb7tA==
+wikirefs@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/wikirefs/-/wikirefs-0.0.4.tgz#edf0163c15e72e644fc6e36339b7fa4d362cd811"
+  integrity sha512-R4rKxGToR5ejpNKVfTOzhcKHvWR+4F3WaAy+ACWvDiDIrspWjabXdepWSYrbnrBlzorjMVUT98KVw9nJi8UAMQ==
   dependencies:
     escape-mkdn "^0.0.3"
 
