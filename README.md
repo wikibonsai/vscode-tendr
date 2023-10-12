@@ -3,13 +3,13 @@
 [![A WikiBonsai Project](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)](https://github.com/wikibonsai/wikibonsai)
 [![VSCode Marketplace](https://img.shields.io/visual-studio-marketplace/v/manunamz.vscode-wikibonsai)](https://marketplace.visualstudio.com/items?itemName=manunamz.vscode-wikibonsai)
 
-<div style="width:50%; margin: auto; padding-block: 2em; display: flex; justify-content: center;">
-  <img src="./icons/wikibonsai-light-nobg.png"/>
-</div>
-
-`vscode-wikibonsai` is a vscode extension that transforms a collection of markdown files into a jungle gym for thought with an API for the mind. It's a personal knowledge management (PKM) system that's got [`[[wikirefs]]`](#wikiref), [semantic trees](#semantic-tree), and [graphs](#graph) that you can visualize on screens, in headets, or map to [embeddings](#embeddings)!
+<p align="center">
+  <img src="./icons/wikibonsai-light-nobg.png" width="35%" height="35%"/>
+</p>
 
 🧑‍🌾 🚰 ✂️ Tend your [🎋 WikiBonsai](https://github.com/wikibonsai/wikibonsai) digital garden from vscode.
+
+`vscode-wikibonsai` is a vscode extension that transforms a collection of markdown files into a jungle gym for thought with an API for the mind. It's a personal knowledge management (PKM) system that's got [`[[wikirefs]]`](#wikiref), [semantic trees](#semantic-tree), and [graphs](#graph) that you can visualize on screens, in headets, or map to [embeddings](#embeddings)!
 
 ⚠️ 🌱 This project is newly sprouted! So please consider it a beta: Remember to backup all data and please use version control.
 
