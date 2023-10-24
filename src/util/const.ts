@@ -59,6 +59,7 @@ export const YAML_SEPERATOR        : string = '---';
 export const ATTR_ID               : string = 'id';
 export const ATTR_NODETYPE         : string = 'nodetype'; // =~ 'doctype'
 export const ATTR_TITLE            : string = 'title';
+export const ATTR_TYPE             : string = 'type';
 // export const ATTR_TLDR             : string = 'tldr'; // | 'def' | 'definition'
 // date
 export const ATTR_CDATE            : string = 'cdate'; // | 'created'

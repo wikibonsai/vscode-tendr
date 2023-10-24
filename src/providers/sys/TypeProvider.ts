@@ -12,7 +12,7 @@ import { NODE } from 'caudex';
 import { getConfigProperty } from '../../config';
 import logger from '../../util/logger';
 import {
-  ATTR_NODETYPE,
+  ATTR_TYPE,
   DEFAULT_DOCTYPE_FILE,
   EXT_MD,
   EXT_TOML,
@@ -242,7 +242,7 @@ export class TypeProvider {
       // attribute
       if (attrs && opts.attr) {
         for (const key of Object.keys(attrs)) {
-          if (key === ATTR_NODETYPE) {
+          if (key === ATTR_TYPE) {
             return type;
           }
         }
