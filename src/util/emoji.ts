@@ -41,8 +41,8 @@ export class TreeSpecies {
         await workspaceState.update('beenOpened', true);
         await vscode.workspace.getConfiguration().update('wikibonsai.emoji.tree', this.emoji, vscode.ConfigurationTarget.Workspace);
       }
+      this.emoji = getConfigProperty('wikibonsai.emoji.tree', TREE.bamboo);
     }
-    this.emoji = getConfigProperty('wikibonsai.emoji.tree', TREE.bamboo);
   }
 
   public static isXmas(): boolean {
