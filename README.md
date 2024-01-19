@@ -13,6 +13,10 @@
 
 ⚠️ 🌱 This project is newly sprouted! So please consider it a beta: Remember to backup all data and please use version control.
 
+<p align="center">
+  <img src="./media/demo-vscode-wikibonsai.png" />
+</p>
+
 ## Getting Started
 
 Checkout one of the [garden-beds](https://github.com/wikibonsai/garden-beds) for starter digital gardens.
