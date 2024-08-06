@@ -24,8 +24,9 @@ export class TagLinkProvider implements vscode.DocumentLinkProvider {
     if ((node.kind !== NODE.KIND.ZOMBIE)) {
       const openWhich: string = getConfigProperty('wikibonsai.tag.open-doc', NODE.TYPE.INDEX);
       if (openWhich === NODE.TYPE.INDEX) {
-        if (Object.keys(this.bonsai.petioleMap).includes(fnameText)) {
-          const trunkFileName: string = this.bonsai.petioleMap[fnameText];
+        if (this.bonsai.hasPetiole(fnameText)) {
+          // @ts-ignore: 'petiole' is checked above
+          const trunkFileName: string = this.bonsai.petiole(fnameText);
           const node: Node | undefined = this.index.find('filename', trunkFileName);
           // @ts-expect-error: 'node' is checked above
           const vscUri: vscode.Uri = vscode.Uri.parse(node.data.uri);

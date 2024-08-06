@@ -240,7 +240,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
           fileWatcher.handleDidView(event);
         }
       }),
-      vscode.commands.registerCommand('wikibonsai.genID.attrs', () => {
+      vscode.commands.registerCommand('wikibonsai.genID', () => {
         const id = index.genID();
         return id;
       }),
@@ -261,10 +261,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
       }),
       vscode.commands.registerCommand('wikibonsai.create.file.bulk', () => {
         return commands.createDocBulk();
-      }),
-      vscode.commands.registerCommand('wikibonsai.genID.fname', () => {
-        const id = bonsai.genID();
-        return id;
       }),
       vscode.commands.registerCommand('wikibonsai.open.file', (uri: vscode.Uri) => {
         commands.openDoc(uri);

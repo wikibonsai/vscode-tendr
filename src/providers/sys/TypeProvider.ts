@@ -325,7 +325,7 @@ export class TypeProvider {
   }
 
   public async fillPlaceholderData(str: string): Promise<string> {
-    const id: string = await vscode.commands.executeCommand('wikibonsai.genID.fname');
+    const id: string = await vscode.commands.executeCommand('wikibonsai.genID');
     const now = luxon.DateTime.local(luxon.DateTime.now());
     /* eslint-disable indent */
     return str.replace(/(?::id)/, id)

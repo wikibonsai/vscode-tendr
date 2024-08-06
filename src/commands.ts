@@ -24,8 +24,7 @@ export type WikiBonsaiCommands =
   | 'wikibonsai.create.file'
   | 'wikibonsai.create.file.bulk'
   // generate id
-  | 'wikibonsai.genID.attrs'
-  | 'wikibonsai.genID.fname'
+  | 'wikibonsai.genID'
   // name
   | 'wikibonsai.name.file'
   // open

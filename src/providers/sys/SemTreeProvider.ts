@@ -21,6 +21,30 @@ export class SemTreeProvider {
   private tree: SemTree | undefined;
   private opts: SemTreeOpts;
 
+  public petiole(fname: string): string | undefined {
+    if (this.tree === undefined) {
+      logger.warn('SemTreeProvider.petioleMap() -- tree is undefined -- aborting');
+      return;
+    }
+    return this.tree.petioleMap[fname];
+  }
+
+  public hasPetiole(fname: string): boolean {
+    if (this.tree === undefined) {
+      logger.warn('SemTreeProvider.petioleMap() -- tree is undefined -- aborting');
+      return false;
+    }
+    return Object.keys(this.tree.petioleMap).includes(fname);
+  }
+
+  public isTrunk(fname: string): boolean | undefined {
+    if (this.tree === undefined) {
+      logger.warn('SemTreeProvider.petioleMap() -- tree is undefined -- aborting');
+      return;
+    }
+    return this.tree.trunk.includes(fname);
+  }
+
   constructor(attrs: AttributesProvider, index: IndexProvider) {
     logger.debug('creating SemTreeProvider...');
     this.opts = {
