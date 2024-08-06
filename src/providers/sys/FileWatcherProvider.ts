@@ -414,13 +414,6 @@ export class FileWatcherProvider {
       // reresolve types
       this.types.build();
       this.index.refreshNodeTypes(this.attrs, this.types);
-      // todo: when partial bonsai updates work
-      // // if bonsai root updated
-      // if (this.config.root !== this.index.root(QUERY_TYPE.node)?.data.filename) {
-      //   // rebuild tree
-      //   this.index.flushRelFams();
-      //   await this.bonsai.build();
-      // }
       vscode.commands.executeCommand('wikibonsai.sync.gui');
       logger.debug('FileWatcherProvider.handleDidSave() -- finished saving doctype file');
       return;
@@ -457,22 +450,34 @@ export class FileWatcherProvider {
         // update 'title'
         this.index.edit(attrData.id, ATTR_TITLE, attrData.title);
       }
-      // todo: when partial bonsai updates work
-      // update rels
       // index file
-      // if (type === NODE.TYPE.INDEX) {
-      //   // tree
-      //   this.index.flushRelFams();
-      //   await this.bonsai.build();
-      // }
+      if (type === NODE.TYPE.INDEX) {
+        logger.debug('FileWatcherProvider.handleDidSave() -- updating tree from index doc');
+        // tree
+        const attrPayload: any = await this.attrs.load(docText);
+        const cleanContent: string = attrPayload.content.replace(/^\n*/, '');
+        const updated: boolean = await this.bonsai.updateSubTree(filename, cleanContent);
+        if (updated) { vscode.commands.executeCommand('wikibonsai.refresh.panel.bonsai'); }
+        else { logger.debug('FileWatcherProvider.handleDidSave() -- unable to update tree'); }
+      }
       // web
       // ('flushRelRefs()' is called internally)
-      await this.index.refreshRelRefs(vscUri);
+      try {
+        await this.index.refreshRelRefs(vscUri, node);
+      } catch (e) {
+        logger.error(e, vscUri, JSON.stringify(node));
+      }
       // update embed cache
       const foreembeds: any[] | undefined = this.index.foreembeds(node.id);
       if (foreembeds && (foreembeds.length !== 0)) {
         this.index.cacheContent[filename] = docText;
       }
+      // todo: when partial bonsai updates work
+      // // if bonsai root updated
+      // if (this.config.root !== this.index.root(QUERY_TYPE.node)?.data.filename) {
+      //   // rebuild tree
+      //   await this.bonsai.update(docText, filename);
+      // }
       vscode.commands.executeCommand('wikibonsai.sync.gui');
       logger.debug('FileWatcherProvider.handleDidSave() -- finished saving mkdn file');
       return;

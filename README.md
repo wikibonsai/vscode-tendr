@@ -369,7 +369,7 @@ graph TD;
   style id4 stroke:#66FF00;
 ```
 
-⚠️ Also note that the semantic tree intializes on startup, but it does not stay in sync at all times. In order to re-sync the semantic tree in vscode with what is in your files, just use the `wikibonsai: sync bonsai` [command](#commands).
+You can force a re-sync between the semantic tree in markdown and the index in vscode, just use the `wikibonsai: sync bonsai` [command](#commands). There is also a sync button on the semantic tree [treeview panel](#tree-based-treeviews).
 
 ## Graph
 

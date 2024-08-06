@@ -210,7 +210,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
       }),
       vscode.commands.registerCommand('wikibonsai.debug.print.bonsai', () => {
         if (getConfigProperty('wikibonsai.debug.enabled', true)) {
-          index.printTree();
+          bonsai.print();
         }
       }),
       vscode.commands.registerCommand('wikibonsai.debug.print.index', () => {
