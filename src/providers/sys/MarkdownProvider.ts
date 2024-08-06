@@ -132,6 +132,8 @@ export class MarkdownProvider {
         } else if (mkdnContent.length === 0) {
           htmlContent = '';
         } else {
+          // reset attrs for embeds
+          env.attrs = {};
           htmlContent = md.render(mkdnContent, env);
         }
         delete env.cycleStack;
@@ -168,7 +170,7 @@ export class MarkdownProvider {
               }
             }
             if (sourceNode && targetNode) {
-              if (this.index.connect(REL.REF.ATTR, sourceNode.id, targetNode.id, attrtype)) {
+              if (this.index.connect(sourceNode.id, targetNode.id, REL.REF.ATTR, attrtype)) {
                 logger.verbose(`MarkdownProvider.wikirefs.addAttr -- connection succeeded for 'source': "${sourceNode.data.filename}" to 'target': "${target}" with 'type': "${attrtype}"`);
                 return;
               }
@@ -194,7 +196,7 @@ export class MarkdownProvider {
               }
             }
             if (sourceNode && targetNode) {
-              if (this.index.connect(REL.REF.LINK, sourceNode.id, targetNode.id, linktype)) {
+              if (this.index.connect(sourceNode.id, targetNode.id, REL.REF.LINK, linktype)) {
                 logger.verbose(`MarkdownProvider.wikirefs.addLink -- connection succeeded for 'source': "${sourceNode.data.filename}" to 'target': "${target}" with 'type': "${linktype}"`);
                 return;
               }
@@ -223,7 +225,7 @@ export class MarkdownProvider {
               }
             }
             if (sourceNode && targetNode) {
-              if (this.index.connect(REL.REF.EMBED, sourceNode.id, targetNode.id)) {
+              if (this.index.connect(sourceNode.id, targetNode.id, REL.REF.EMBED)) {
                 logger.verbose(`MarkdownProvider.wikirefs.addEmbed -- connection succeeded for 'source': "${sourceNode.data.filename}" to 'target': "${target}"`);
                 return;
               }
