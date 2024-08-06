@@ -166,7 +166,7 @@ export class SemTreeProvider {
       }
       logger.debug('SemTreeProvider.updateSubTree() -- finished successfully');
       return true;
-    } catch (error) {
+    } catch (error: any) {
       logger.error(`Error updating subtree with subroot "${subroot}": ${error.message}`);
       return false;
     }
