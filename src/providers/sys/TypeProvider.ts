@@ -233,7 +233,7 @@ export class TypeProvider {
       if (opts.prefix) {
         const prefix: string = opts.prefix;
         const filenameContainsPrefix: boolean = (filename.indexOf(prefix) === 0);
-        const placeholderRegex: RegExp = this.convertPlaceholderToRgx(prefix);
+        const placeholderRegex: RegExp = this.convertPlaceholderToRgx(prefix, 'prefix');
         const filenameContainsPrefixWithPlaceholder: boolean = placeholderRegex.test(filename);
         if (filenameContainsPrefix || filenameContainsPrefixWithPlaceholder) {
           return type;
@@ -304,8 +304,8 @@ export class TypeProvider {
     if (!this.hasTypes()) { return ''; }
     let rgxPrefix: RegExp | undefined;
     let rgxSuffix: RegExp | undefined;
-    if (prefix) { rgxPrefix = this.convertPlaceholderToRgx(prefix); }
-    if (suffix) { rgxSuffix = this.convertPlaceholderToRgx(suffix); }
+    if (prefix) { rgxPrefix = this.convertPlaceholderToRgx(prefix, 'prefix'); }
+    if (suffix) { rgxSuffix = this.convertPlaceholderToRgx(suffix, 'suffix'); }
     const hasPrefix: boolean = ((prefix !== undefined) && (filename.indexOf(prefix) === 0));
     const hasSuffix: boolean = ((suffix !== undefined) && (filename.indexOf(suffix) > 0) && (filename.indexOf(suffix) === (filename.length - suffix.length)));
     let unfixedFilename: string = filename;
@@ -339,16 +339,19 @@ export class TypeProvider {
   }
 
   // i have a bad feeling this is going to breed bugs...👀
-  public convertPlaceholderToRgx(str: string): RegExp {
+  public convertPlaceholderToRgx(str: string, kind: 'prefix' | 'suffix'): RegExp {
     /* eslint-disable indent */
-    return new RegExp(str.replace('.', '\\.')
-                          .replace(/(?::id)/, this.getRgxIDFormat().source)
-                          .replace(/(?::date)/, '\\d{4}-\\d{2}-\\d{2}')
-                          .replace(/(?::year)/, '\\d{4}')
-                          .replace(/(?::month)/, '\\d{2}')
-                          .replace(/(?::day)/, '\\d{2}')
-                          .replace(/(?::hour)/, '\\d{2}')
-                          .replace(/(?::minute)/, '\\d{2}'));
+    let replacements: string = str.replace('.', '\\.')
+                                    .replace(/(?::id)/, this.getRgxIDFormat().source)
+                                    .replace(/(?::date)/, '\\d{4}-\\d{2}-\\d{2}')
+                                    .replace(/(?::year)/, '\\d{4}')
+                                    .replace(/(?::month)/, '\\d{2}')
+                                    .replace(/(?::day)/, '\\d{2}')
+                                    .replace(/(?::hour)/, '\\d{2}')
+                                    .replace(/(?::minute)/, '\\d{2}');
+    replacements = kind === 'prefix' ? '^' + replacements : replacements;
+    replacements = kind === 'suffix' ? replacements + '$' : replacements;
+    return new RegExp(replacements);
     /* eslint-enable indent */
   }
 }

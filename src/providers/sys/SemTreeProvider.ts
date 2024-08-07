@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import type { SemTree, SemTreeOpts, TreeNode } from 'semtree';
 import * as semtree from 'semtree';
 
-import { NODE, QUERY_TYPE, Node } from 'caudex';
+import { NODE, Node } from 'caudex';
 
 import { getConfigProperty } from '../../config';
 import logger from '../../util/logger';
@@ -48,7 +48,6 @@ export class SemTreeProvider {
   constructor(attrs: AttributesProvider, index: IndexProvider) {
     logger.debug('creating SemTreeProvider...');
     this.opts = {
-      strict: false,
       setRoot: function (fname: string) {
         const node: Node | undefined = index.find('filename', fname);
         if (!node) {
@@ -57,19 +56,18 @@ export class SemTreeProvider {
         }
         index.setRoot(node.id);
       },
-      graft: function (fname: string, ancestryFnames: string[]) {
+      graft: function (parentName: string, childName: string) {
         // child node
-        let childNode: Node | undefined = index.find('filename', fname);
-        if (!childNode) { childNode = index.add(fname); }
-        if (!childNode) { logger.warn(`encountered error with childNode with fname "${fname}" -- abort graft`); return; }
+        let childNode: Node | undefined = index.find('filename', childName);
+        if (!childNode) { childNode = index.add(childName); }
+        if (!childNode) { logger.warn(`encountered error with childNode with fname "${childName}" -- abort graft`); return; }
         // parent node
-        const parentFname: string = ancestryFnames[ancestryFnames.length - 1];
-        let parentNode: Node | undefined = index.find('filename', parentFname);
-        if (!parentNode) { parentNode = index.add(parentFname); }
-        if (!parentNode) { logger.warn(`encountered error with parentNode with fname "${parentFname}" -- abortin graft`); return; }
+        let parentNode: Node | undefined = index.find('filename', parentName);
+        if (!parentNode) { parentNode = index.add(parentName); }
+        if (!parentNode) { logger.warn(`encountered error with parentNode with fname "${parentName}" -- abortin graft`); return; }
         // graft
-        const grafted: boolean = index.graft(parentNode.id, childNode.id);
-        if (!grafted) { logger.warn(`grafting "${fname}" to "${parentFname}" failed`); return; }
+        const grafted: boolean = index.graft(parentNode.id, childNode.id, true);
+        if (!grafted) { logger.warn(`grafting "${childName}" to "${parentName}" failed`); return; }
       }
     };
     this.attrs = attrs;
@@ -79,43 +77,48 @@ export class SemTreeProvider {
 
   public async build(): Promise<boolean> {
     logger.debug('SemTreeProvider.build() -- start...');
-    // { filename: content } hash
-    const bonsaiText: Record<string, string> = {};
-    // root
-    const rootBonsaiFilename: string | undefined = getConfigProperty('wikibonsai.bonsai.root', 'i.bonsai');
-    if (!rootBonsaiFilename) {
-      vscode.window.showErrorMessage(`no root filename given in ${getConfigProperty('wikibonsai.file.doc-types', DEFAULT_DOCTYPE_FILE)} file`);
+    try {
+      // { filename: content } hash
+      const bonsaiText: Record<string, string> = {};
+      // root
+      const rootBonsaiFilename: string | undefined = getConfigProperty('wikibonsai.bonsai.root', 'i.bonsai');
+      if (!rootBonsaiFilename) {
+        vscode.window.showErrorMessage(`no root filename given in ${getConfigProperty('wikibonsai.file.doc-types', DEFAULT_DOCTYPE_FILE)} file`);
+        return false;
+      }
+      // index/trunk
+      const indexNodes: Node[] | undefined = this.index.filter(ATTR_NODETYPE, NODE.TYPE.INDEX);
+      if (!indexNodes || (indexNodes.length === 0)) {
+        vscode.window.showErrorMessage('unable to find index nodes');
+        return false;
+      }
+      for (const node of indexNodes) {
+        const vscUri: vscode.Uri = vscode.Uri.parse(node.data.uri);
+        const document = await vscode.workspace.openTextDocument(vscUri);
+        const attrPayload: any = await this.attrs.load(document.getText());
+        const cleanContent: string = attrPayload.content.replace(/^\n*/, '');
+        bonsaiText[node.data.filename] = cleanContent;
+      }
+      const buildRes: SemTree | string = semtree.parse(bonsaiText, rootBonsaiFilename, this.opts);
+      if (typeof buildRes === 'string') {
+        vscode.window.showWarningMessage('bonsai did not build:\n\n' + buildRes);
+      } else {
+        this.tree = buildRes;
+        logger.debug('SemTreeProvider.build() -- \n'
+          + '\n---\n'
+          + 'root: ' + this.tree.root
+          + '\n---\n'
+          + 'trunk: ' + this.tree.trunk
+          + '\n---\n'
+          + 'petioleMap: ' + JSON.stringify(this.tree.petioleMap)
+          + '\n---\n'
+          + 'nodes: ' + JSON.stringify(this.tree)
+          + '\n---\n'
+        );
+      }
+    } catch (error: any) {
+      logger.error(`SemTreeProvider.build() -- \n\n${error}`);
       return false;
-    }
-    // index/trunk
-    const indexNodes: Node[] | undefined = this.index.filter(ATTR_NODETYPE, NODE.TYPE.INDEX);
-    if (!indexNodes || (indexNodes.length === 0)) {
-      vscode.window.showErrorMessage('unable to find index nodes');
-      return false;
-    }
-    for (const node of indexNodes) {
-      const vscUri: vscode.Uri = vscode.Uri.parse(node.data.uri);
-      const document = await vscode.workspace.openTextDocument(vscUri);
-      const attrPayload: any = await this.attrs.load(document.getText());
-      const cleanContent: string = attrPayload.content.replace(/^\n*/, '');
-      bonsaiText[node.data.filename] = cleanContent;
-    }
-    const buildRes: SemTree | string = semtree.parse(bonsaiText, rootBonsaiFilename, this.opts);
-    if (typeof buildRes === 'string') {
-      vscode.window.showWarningMessage('bonsai did not build:\n' + this.tree);
-    } else {
-      this.tree = buildRes;
-      logger.debug('SemTreeProvider.build() -- \n'
-        + '\n---\n'
-        + 'root: ' + this.tree.root
-        + '\n---\n'
-        + 'trunk: ' + this.tree.trunk
-        + '\n---\n'
-        + 'petioleMap: ' + JSON.stringify(this.tree.petioleMap)
-        + '\n---\n'
-        + 'nodes: ' + JSON.stringify(this.tree)
-        + '\n---\n'
-      );
     }
     logger.debug('SemTreeProvider.build() -- ...finished');
     return true;
@@ -127,7 +130,7 @@ export class SemTreeProvider {
   public async updateSubTree(subroot: string, content: string): Promise<boolean> {
     logger.debug('SemTreeProvider.updateSubTree() -- start...');
     if ((this.tree === undefined) || (typeof this.tree === 'string')) {
-      vscode.window.showErrorMessage('SemTreeProvider.updateSubTree() -- tree is a string -- aborting');
+      logger.warn('SemTreeProvider.updateSubTree() -- tree is a string -- aborting update');
       return false;
     }
     try {
@@ -186,7 +189,9 @@ export class SemTreeProvider {
     // loop through each content page
     // split content by newlines
     for (const entry of content[indexFname].split('\n')) {
-      const maybeBranch: string = entry.replace(/- \[\[/, '').replace(/\]\]/, '');
+      const mkdn: boolean = /[-+*] /.test(entry);
+      const wiki: boolean = /\[\[.*\]\]/.test(entry);
+      const maybeBranch: string = semtree.rawText(entry.trim(), { hasBullets: mkdn, hasWiki: wiki });
       const node: Node | undefined = this.index.find('filename', maybeBranch);
       if (node && (node.type === NODE.TYPE.INDEX)) {
         const branchUri: string | undefined = node.data.uri;
