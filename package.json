@@ -38,7 +38,7 @@
   "dependencies": {
     "@iarna/toml": "^2.2.5",
     "caml-mkdn": "^0.0.2",
-    "caudex": "^0.0.2",
+    "caudex": "^0.0.4",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
@@ -50,7 +50,7 @@
     "markdown-it-highlightjs": "^4.0.1",
     "markdown-it-textual-uml": "^0.12.0",
     "markdown-it-wikirefs": "^0.0.2",
-    "semtree": "^0.0.6",
+    "semtree": "^0.0.7",
     "vscode-uri": "^3.0.6",
     "wikirefs": "^0.0.4"
   },

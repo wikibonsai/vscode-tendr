@@ -792,10 +792,10 @@ caniuse-lite@^1.0.30001317:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001319.tgz#eb4da4eb3ecdd409f7ba1907820061d56096e88f"
   integrity sha512-xjlIAFHucBRSMUo1kb5D4LYgcN1M45qdKP++lhqowDpwJwGkpIRTt5qQqnhxjj1vHcI7nrJxWhCC1ATrCEBTcw==
 
-caudex@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/caudex/-/caudex-0.0.2.tgz#4e41985df9cd7760046c58d1b0e97dfc96d54f7e"
-  integrity sha512-XesP6U8kP7LPQszrYvNBFegs6NH22zNiemLZqVwYwVBBMoZZ3IMlvsXSQefMwcIhVoXTaXDbCStUDtfDNH4L2g==
+caudex@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/caudex/-/caudex-0.0.4.tgz#ac3f8c2ef419615c714662e103e7feba7be20ede"
+  integrity sha512-ZG7isVIbMOo7Gto09kQeRgUVS2KEjgDOot6YKHu26Of14XhNhwwhhonJnMhuy3cihQrgfqL7U5YZzyOD4cs1fg==
   dependencies:
     async-mutex "^0.4.0"
     nanoid "^3.3.4"
@@ -2868,10 +2868,10 @@ section-matter@^1.0.0:
     extend-shallow "^2.0.1"
     kind-of "^6.0.0"
 
-semtree@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/semtree/-/semtree-0.0.6.tgz#4c2bdf2fc532434ab90f6ae101e49e85e1ae47d6"
-  integrity sha512-xeINa97M6VSfXr3FRg+bqHVgyaYNyY6pQhPbuf4d/AjzHQ3bmmlXad7ni4I/gTdJ8QLDiLdNzprKDmxS2/ns4A==
+semtree@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/semtree/-/semtree-0.0.7.tgz#bdfc35b93297e261ad4f8d1feeb7492c9b23d506"
+  integrity sha512-rwvJ+x3j9Ir199wvY9oUVKSXpJDYl4fbsQIlA4zhcJhWtq9+T7X7AbWdRtQ5VABX2Evy9vAt7ABYAhUP/mPjBQ==
 
 semver@^5.1.0:
   version "5.7.1"
