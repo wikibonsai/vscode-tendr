@@ -456,7 +456,7 @@ export class FileWatcherProvider {
         // tree
         const attrPayload: any = await this.attrs.load(docText);
         const cleanContent: string = attrPayload.content.replace(/^\n*/, '');
-        const updated: boolean = await this.bonsai.updateSubTree(filename, cleanContent);
+        const updated: boolean = await this.bonsai.update(filename, cleanContent);
         if (updated) { vscode.commands.executeCommand('wikibonsai.refresh.panel.bonsai'); }
         else { logger.debug('FileWatcherProvider.handleDidSave() -- unable to update tree'); }
       }
