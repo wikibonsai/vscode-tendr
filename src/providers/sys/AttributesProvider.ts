@@ -113,7 +113,7 @@ export class AttributesProvider {
   public async init(vscUri: vscode.Uri, id?: string): Promise<[any, string] | undefined> {
     logger.debug('AttributesProvider.init()');
     const engine = await this.getEngine();
-    if (!id) { id = await vscode.commands.executeCommand('wikibonsai.genID.attrs'); }
+    if (!id) { id = await vscode.commands.executeCommand('wikibonsai.genID'); }
     const date: string = printISONowDate();
     const timestamp: string = printISONowTimestamp();
     const unslugifiedFileName: string = getFilename(vscUri).replaceAll('-', ' ');
