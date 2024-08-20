@@ -274,17 +274,24 @@ export class CommandProvider {
     // update wikirefs in rest of files
     const mdfileVscUris: vscode.Uri[] = await getMDUris();
     for (const uri of mdfileVscUris) {
+      const node: Node | undefined = this.index.find('uri', uri.toString());
+      if (node && (node.type === NODE.TYPE.INDEX)) { continue; }
       const docToUpdate = await vscode.workspace.openTextDocument(uri);
       const docToUpdateText: string = docToUpdate.getText();
-      const updatedContent = wikirefs.renameFileName(oldFilename, newFilename, docToUpdateText);
-      if (docToUpdateText !== updatedContent) {
-        const edit = new vscode.WorkspaceEdit();
-        const start = new vscode.Position(0, 0);
-        const end = docToUpdate.positionAt(docToUpdateText.length);
-        edit.replace(uri, new vscode.Range(start, end), updatedContent);
-        await vscode.workspace.applyEdit(edit);
-        await docToUpdate.save();
-        // refs updated in index via 'FileWatcherProvider'
+      const updatedContent: string = wikirefs.renameFileName(oldFilename, newFilename, docToUpdateText);
+      const error: boolean = (updatedContent === 'wikirefs.renameFileName() error: content \'content\' is shorter than \'newFileName\', aborting.');
+      if (error) {
+        logger.warn(`CommandProvider.syncWikiRefs() -- could not update "${uri}"`);
+      } else {
+        if (docToUpdateText !== updatedContent) {
+          const edit: vscode.WorkspaceEdit = new vscode.WorkspaceEdit();
+          const start: vscode.Position = new vscode.Position(0, 0);
+          const end: vscode.Position = docToUpdate.positionAt(docToUpdateText.length);
+          edit.replace(uri, new vscode.Range(start, end), updatedContent);
+          await vscode.workspace.applyEdit(edit);
+          await docToUpdate.save();
+          // refs updated in index via 'FileWatcherProvider'
+        }
       }
     }
     logger.debug('CommandProvider.syncWikiRefs() -- end');
@@ -297,15 +304,20 @@ export class CommandProvider {
     for (const uri of mdfileVscUris) {
       const docToUpdate = await vscode.workspace.openTextDocument(uri);
       const docToUpdateText: string = docToUpdate.getText();
-      const updatedContent = wikirefs.retypeRefType(oldType, newType, docToUpdateText);
-      if (docToUpdateText !== updatedContent) {
-        const edit = new vscode.WorkspaceEdit();
-        const start = new vscode.Position(0, 0);
-        const end = docToUpdate.positionAt(docToUpdateText.length);
-        edit.replace(uri, new vscode.Range(start, end), updatedContent);
-        await vscode.workspace.applyEdit(edit);
-        await docToUpdate.save();
-        // refs updated in index via 'FileWatcherProvider'
+      const updatedContent: string = wikirefs.retypeRefType(oldType, newType, docToUpdateText);
+      const error: boolean = (updatedContent === 'wikirefs.retypeRefType() error: content \'content\' is shorter than \'oldRefType\', aborting.');
+      if (error) {
+        logger.warn(`CommandProvider.syncRefTypes() -- could not update "${uri}"`);
+      } else {
+        if (docToUpdateText !== updatedContent) {
+          const edit: vscode.WorkspaceEdit = new vscode.WorkspaceEdit();
+          const start: vscode.Position = new vscode.Position(0, 0);
+          const end: vscode.Position = docToUpdate.positionAt(docToUpdateText.length);
+          edit.replace(uri, new vscode.Range(start, end), updatedContent);
+          await vscode.workspace.applyEdit(edit);
+          await docToUpdate.save();
+          // refs updated in index via 'FileWatcherProvider'
+        }
       }
     }
     logger.debug('CommandProvider.syncRefTypes() -- end');
