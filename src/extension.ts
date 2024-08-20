@@ -30,7 +30,7 @@ import { NoDocTreeItem } from './items/TreeItems';
 import { BonsaiTreeDataProvider } from './providers/views/BonsaiTreeViewProvider';
 import { AncestorsTreeDataProvider, ChildrenTreeDataProvider } from './providers/views/RelFamTreeViewProvider';
 import { BackRefsTreeDataProvider, ForeRefsTreeDataProvider } from './providers/views/RelRefTreeViewProvider';
-import { OrphanTreeDataProvider, ZombieTreeDataProvider } from './providers/views/RelPartTreeViewProvider';
+import { DanglerTreeDataProvider, ZombieTreeDataProvider } from './providers/views/RelPartTreeViewProvider';
 // utils
 import logger from './util/logger';
 import { getWorkspaceDir } from './util/wrapVSCode';
@@ -110,7 +110,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
   // init view providers //
   //   refresh on file changes
   const bonsaiTreeDataProvider        = new BonsaiTreeDataProvider(types, index);
-  const orphanTreeDataProvider        = new OrphanTreeDataProvider(types, index);
+  const danglerTreeDataProvider       = new DanglerTreeDataProvider(types, index);
   const zombieTreeDataProvider        = new ZombieTreeDataProvider(types, index);
   //   refresh on active editor
   const ancestorsTreeDataProvider     = new AncestorsTreeDataProvider(types, index);
@@ -387,14 +387,14 @@ export const activate = async (context: vscode.ExtensionContext) => {
           backRefsTreeDataProvider.refresh();
         }
       }),
-      // orphan
-      vscode.window.createTreeView('wikibonsai.panel.orphans', {
-        treeDataProvider: orphanTreeDataProvider,
+      // dangling
+      vscode.window.createTreeView('wikibonsai.panel.danglers', {
+        treeDataProvider: danglerTreeDataProvider,
         // showCollapseAll: true,
       }),
-      vscode.commands.registerCommand('wikibonsai.refresh.panel.orphans', () => {
-        if (getConfigProperty('wikibonsai.panel.orphans.enabled', true)) {
-          orphanTreeDataProvider.refresh();
+      vscode.commands.registerCommand('wikibonsai.refresh.panel.danglers', () => {
+        if (getConfigProperty('wikibonsai.panel.danglers.enabled', true)) {
+          danglerTreeDataProvider.refresh();
         }
       }),
       // zombies

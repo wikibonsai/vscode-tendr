@@ -792,10 +792,10 @@ caniuse-lite@^1.0.30001317:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001319.tgz#eb4da4eb3ecdd409f7ba1907820061d56096e88f"
   integrity sha512-xjlIAFHucBRSMUo1kb5D4LYgcN1M45qdKP++lhqowDpwJwGkpIRTt5qQqnhxjj1vHcI7nrJxWhCC1ATrCEBTcw==
 
-caudex@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/caudex/-/caudex-0.0.4.tgz#ac3f8c2ef419615c714662e103e7feba7be20ede"
-  integrity sha512-ZG7isVIbMOo7Gto09kQeRgUVS2KEjgDOot6YKHu26Of14XhNhwwhhonJnMhuy3cihQrgfqL7U5YZzyOD4cs1fg==
+caudex@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/caudex/-/caudex-0.0.5.tgz#da362eebbb9cec2ed2ba87afa376f3033ea85afb"
+  integrity sha512-21pic+pc6JPgOkJhD0fz666CYRL3ir8sOnC0DjOk5fFutLyaGMqZfZLURrv8Uo7yBxXRs6EzhpgmFW/xEGr3jw==
   dependencies:
     async-mutex "^0.4.0"
     nanoid "^3.3.4"

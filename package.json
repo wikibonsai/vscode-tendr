@@ -38,7 +38,7 @@
   "dependencies": {
     "@iarna/toml": "^2.2.5",
     "caml-mkdn": "^0.0.2",
-    "caudex": "^0.0.4",
+    "caudex": "^0.0.5",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
@@ -308,10 +308,10 @@
           "default": true,
           "description": "toggle document backward references treeview panel"
         },
-        "wikibonsai.panel.orphans.enabled": {
+        "wikibonsai.panel.danglers.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "toggle orphaned documents treeview panel"
+          "description": "toggle dangling documents treeview panel"
         },
         "wikibonsai.panel.zombies.enabled": {
           "type": "boolean",
@@ -489,8 +489,8 @@
         }
       },
       {
-        "command": "wikibonsai.refresh.panel.orphans",
-        "title": "wikibonsai: refresh orphans panel",
+        "command": "wikibonsai.refresh.panel.danglers",
+        "title": "wikibonsai: refresh danglers panel",
         "icon": {
           "light": "icons/light/refresh.svg",
           "dark": "icons/dark/refresh.svg"
@@ -599,8 +599,8 @@
           "group": "navigation"
         },
         {
-          "command": "wikibonsai.refresh.panel.orphans",
-          "when": "view == wikibonsai.panel.orphans",
+          "command": "wikibonsai.refresh.panel.danglers",
+          "when": "view == wikibonsai.panel.danglers",
           "group": "navigation"
         },
         {
@@ -645,8 +645,8 @@
           "name": "⬅️ back refs"
         },
         {
-          "id": "wikibonsai.panel.orphans",
-          "name": "⏺ orphan docs"
+          "id": "wikibonsai.panel.danglers",
+          "name": "⏺ dangling docs"
         },
         {
           "id": "wikibonsai.panel.zombies",
@@ -676,8 +676,8 @@
         "contents": "No back(ward) references found."
       },
       {
-        "view": "wikibonsai.panel.orphans",
-        "contents": "No orphans found."
+        "view": "wikibonsai.panel.danglers",
+        "contents": "No danglers found."
       },
       {
         "view": "wikibonsai.panel.zombies",

@@ -350,7 +350,7 @@ export class CommandProvider {
     vscode.commands.executeCommand('wikibonsai.refresh.panel.forerefs');
     // follow file changes treeviews; views that change on file changes
     vscode.commands.executeCommand('wikibonsai.refresh.panel.bonsai');
-    vscode.commands.executeCommand('wikibonsai.refresh.panel.orphans');
+    vscode.commands.executeCommand('wikibonsai.refresh.panel.danglers');
     vscode.commands.executeCommand('wikibonsai.refresh.panel.zombies');
     // 
     if (getConfigProperty('wikibonsai.graph.ctrls.autosync.enabled', false)) {

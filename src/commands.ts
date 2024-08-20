@@ -42,7 +42,7 @@ export type WikiBonsaiCommands =
   | 'wikibonsai.refresh.panel.children'
   | 'wikibonsai.refresh.panel.forerefs'
   | 'wikibonsai.refresh.panel.backrefs'
-  | 'wikibonsai.refresh.panel.orphans'
+  | 'wikibonsai.refresh.panel.danglers'
   | 'wikibonsai.refresh.panel.zombies'
   // 'resurrect' (create doc from zombie [[ref]] in treeview panel)
   | 'wikibonsai.resurrect.tmpl'

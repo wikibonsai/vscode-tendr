@@ -70,7 +70,7 @@ export type WikiBonsaiTreeViewPanels =
   | 'wikibonsai.panel.backrefs.enabled'
   | 'wikibonsai.panel.children.enabled'
   | 'wikibonsai.panel.forerefs.enabled'
-  | 'wikibonsai.panel.orphans.enabled'
+  | 'wikibonsai.panel.danglers.enabled'
   | 'wikibonsai.panel.zombies.enabled'
   ;
 

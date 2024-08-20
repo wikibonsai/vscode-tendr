@@ -20,7 +20,7 @@ interface Item {
 }
 
 // documents without links
-export class OrphanTreeDataProvider extends BaseTreeDataProvider {
+export class DanglerTreeDataProvider extends BaseTreeDataProvider {
 
   public async getChildren(element?: any): Promise<BaseTreeItem[]> {
     const treeItems: BaseTreeItem[] = [];
@@ -44,16 +44,16 @@ export class OrphanTreeDataProvider extends BaseTreeDataProvider {
         }
         items = items.concat(orphansQuery);
       }
-      // web orphans
-      const floatersQuery: any[] | undefined = this.index.floaters([ATTR_ID, 'uri', ATTR_TITLE]);
-      if (floatersQuery) {
-        for (const floater of floatersQuery) {
-          const duplicateOrphan = items.find((item: any) => item.id === floater.id);
+      // web isolates
+      const isolatesQuery: any[] | undefined = this.index.isolates([ATTR_ID, 'uri', ATTR_TITLE]);
+      if (isolatesQuery) {
+        for (const isolate of isolatesQuery) {
+          const duplicateOrphan = items.find((item: any) => item.id === isolate.id);
           if (duplicateOrphan) {
             duplicateOrphan.title = WEB + ' ' + duplicateOrphan.title;
           } else {
-            floater.title = WEB + ' ' + floater.title;
-            items.push(floater);
+            isolate.title = WEB + ' ' + isolate.title;
+            items.push(isolate);
           }
         }
       }
