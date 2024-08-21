@@ -197,7 +197,14 @@ export const activate = async (context: vscode.ExtensionContext) => {
           tree.panelTitle = ts.emoji + ' Tree';
         }
       }),
+      // lint
+      vscode.commands.registerCommand('wikibonsai.debug.lint.bonsai', () => {
+        if (getConfigProperty('wikibonsai.debug.enabled', true)) {
+          bonsai.lint();
+        }
+      }),
       // debug
+      //   dump
       // vscode.commands.registerCommand('wikibonsai.debug.dump.bonsai', () => {
       //   if (getConfigProperty('wikibonsai.debug.enabled', true)) {
       //     index.dumpTree();
@@ -208,18 +215,24 @@ export const activate = async (context: vscode.ExtensionContext) => {
           index.dump();
         }
       }),
+      //   print
       vscode.commands.registerCommand('wikibonsai.debug.print.bonsai', () => {
         if (getConfigProperty('wikibonsai.debug.enabled', true)) {
+          index.printIndexTree();
           bonsai.print();
         }
       }),
       vscode.commands.registerCommand('wikibonsai.debug.print.index', () => {
         if (getConfigProperty('wikibonsai.debug.enabled', true)) {
-          index.print();
+          index.printIndex();
         }
       }),
+      //   reset
       vscode.commands.registerCommand('wikibonsai.debug.reset.index', () => {
-        if (getConfigProperty('wikibonsai.debug.enabled', true)) {
+        if (!getConfigProperty('wikibonsai.debug.enabled', true)) {
+          vscode.window.showWarningMessage('debug features are disabled, turn them on in vscode\'s wikibonsai settings to enable.');
+        } else {
+          vscode.window.showInformationMessage('resetting index...');
           index.flushRels();
           () => {
             index.init();

@@ -213,6 +213,16 @@ export class IndexProvider extends Caudex {
 
   // debug
 
+  public printIndex(): void {
+    const index: string = super.print();
+    logger.debug('IndexProvider.print() -- index:\n\n' + index);
+  }
+
+  public printIndexTree(): void {
+    const tree: string = super.printTree('filename');
+    logger.debug('IndexProvider.printTree() -- tree:\n\n' + tree);
+  }
+
   public async dump(): Promise<void> {
     const data: any = {
       index: JSON.stringify(this.index),

@@ -13,6 +13,7 @@ export type WikiBonsaiCommands =
   // print
   | 'wikibonsai.debug.print.index'
   | 'wikibonsai.debug.print.bonsai'
+  | 'wikibonsai.debug.lint.bonsai'
   // reset
   | 'wikibonsai.debug.reset.index'
   ////
