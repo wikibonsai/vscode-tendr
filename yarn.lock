@@ -2868,10 +2868,14 @@ section-matter@^1.0.0:
     extend-shallow "^2.0.1"
     kind-of "^6.0.0"
 
-semtree@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/semtree/-/semtree-0.0.7.tgz#bdfc35b93297e261ad4f8d1feeb7492c9b23d506"
-  integrity sha512-rwvJ+x3j9Ir199wvY9oUVKSXpJDYl4fbsQIlA4zhcJhWtq9+T7X7AbWdRtQ5VABX2Evy9vAt7ABYAhUP/mPjBQ==
+semtree@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/semtree/-/semtree-0.0.8.tgz#e6186e6163673b4e60f7a1b6f710085de56a6b48"
+  integrity sha512-mORIBdEZrz2oXMyOJAIb275GM1ABK4Aj7asNRCy+r4BDCsulFqL1d/ePNsKWfn1Lboh7goxFnEsJ0aW8PHsL8A==
+  dependencies:
+    caml-mkdn "^0.0.2"
+    gray-matter "^4.0.3"
+    wikirefs "^0.0.5"
 
 semver@^5.1.0:
   version "5.7.1"
@@ -3456,6 +3460,13 @@ wikirefs@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/wikirefs/-/wikirefs-0.0.4.tgz#edf0163c15e72e644fc6e36339b7fa4d362cd811"
   integrity sha512-R4rKxGToR5ejpNKVfTOzhcKHvWR+4F3WaAy+ACWvDiDIrspWjabXdepWSYrbnrBlzorjMVUT98KVw9nJi8UAMQ==
+  dependencies:
+    escape-mkdn "^0.0.3"
+
+wikirefs@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/wikirefs/-/wikirefs-0.0.5.tgz#78a097a72ac6a0a5215c9be753c9e27643d70a17"
+  integrity sha512-wxGl7+XC+f4/dfhf9Z2J+dozgHDZoKvX6UpHRohQyTKDHIxfFMdoN3pDx9ySFNG5vC0xQXF9iIfPhLUwKXjXVg==
   dependencies:
     escape-mkdn "^0.0.3"
 

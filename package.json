@@ -50,7 +50,7 @@
     "markdown-it-highlightjs": "^4.0.1",
     "markdown-it-textual-uml": "^0.12.0",
     "markdown-it-wikirefs": "^0.0.2",
-    "semtree": "^0.0.7",
+    "semtree": "^0.0.8",
     "vscode-uri": "^3.0.6",
     "wikirefs": "^0.0.4"
   },
@@ -403,6 +403,10 @@
       {
         "command": "wikibonsai.debug.print.index",
         "title": "wikibonsai: print link index in console"
+      },
+      {
+        "command": "wikibonsai.debug.lint.bonsai",
+        "title": "wikibonsai: lint index docs / bonsai files"
       },
       {
         "command": "wikibonsai.debug.print.bonsai",
