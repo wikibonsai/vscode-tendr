@@ -200,22 +200,22 @@
         "wikibonsai.lint.indentKind": {
           "type": "string",
           "default": "space",
-          "description": "what kind of indentation to use for markdown lists"
+          "description": "what kind of indentation to use for markdown lists when linting semantic tree / knowledge bonsai"
         },
         "wikibonsai.lint.indentSize": {
           "type": "number",
           "default": 2,
-          "description": "what size of indentation to use for markdown lists"
+          "description": "what size of indentation to use for markdown lists when linting semantic tree / knowledge bonsai"
         },
         "wikibonsai.lint.mkdnBullet": {
           "type": "boolean",
           "default": true,
-          "description": "toggle markdown bullet lists"
+          "description": "toggle markdown bullet lists when linting semantic tree / knowledge bonsai"
         },
         "wikibonsai.lint.wikiLink": {
           "type": "boolean",
           "default": true,
-          "description": "toggle wiki links"
+          "description": "toggle wiki links when linting semantic tree / knowledge bonsai"
         },
         "wikibonsai.graph.coords.tree": {
           "type": "string",

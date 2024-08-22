@@ -186,24 +186,24 @@ export const activate = async (context: vscode.ExtensionContext) => {
         }
         // lint
         if (e.affectsConfiguration('wikibonsai.lint.indentKind')) {
-          config.lint.indentKind = getConfigProperty('wikibonsai.lint.indentKind', 'space');
-          config.updateConfigLint('indentKind', getConfigProperty('wikibonsai.lint.indentKind', config.lint.indentKind));
-          bonsai.opts.indentKind = config.lint.indentKind;
+          config.lint.indent_kind = getConfigProperty('wikibonsai.lint.indentKind', 'space');
+          config.updateConfigLint('indent_kind', getConfigProperty('wikibonsai.lint.indentKind', config.lint.indent_kind));
+          bonsai.opts.indentKind = config.lint.indent_kind;
         }
         if (e.affectsConfiguration('wikibonsai.lint.indentSize')) {
-          config.lint.indentSize = getConfigProperty('wikibonsai.lint.indentSize', 2);
-          config.updateConfigLint('indentSize', getConfigProperty('wikibonsai.lint.indentSize', config.lint.indentSize));
-          bonsai.opts.indentSize = config.lint.indentSize;
+          config.lint.indent_size = getConfigProperty('wikibonsai.lint.indentSize', 2);
+          config.updateConfigLint('indent_size', getConfigProperty('wikibonsai.lint.indentSize', config.lint.indent_size));
+          bonsai.opts.indentSize = config.lint.indent_size;
         }
         if (e.affectsConfiguration('wikibonsai.lint.mkdnBullet')) {
-          config.lint.mkdnBullet = getConfigProperty('wikibonsai.lint.mkdnBullet', true);
-          config.updateConfigLint('mkdnBullet', getConfigProperty('wikibonsai.lint.mkdnBullet', config.lint.mkdnBullet));
-          bonsai.opts.mkdnBullet = config.lint.mkdnBullet;
+          config.lint.mkdn_bullet = getConfigProperty('wikibonsai.lint.mkdnBullet', true);
+          config.updateConfigLint('mkdn_bullet', getConfigProperty('wikibonsai.lint.mkdnBullet', config.lint.mkdn_bullet));
+          bonsai.opts.mkdnBullet = config.lint.mkdn_bullet;
         }
         if (e.affectsConfiguration('wikibonsai.lint.wikiLink')) {
-          config.lint.wikiLink = getConfigProperty('wikibonsai.lint.wikiLink', true);
-          config.updateConfigLint('wikiLink', getConfigProperty('wikibonsai.lint.wikiLink', config.lint.wikiLink));
-          bonsai.opts.wikiLink = config.lint.wikiLink;
+          config.lint.wikilink = getConfigProperty('wikibonsai.lint.wikiLink', true);
+          config.updateConfigLint('wikilink', getConfigProperty('wikibonsai.lint.wikiLink', config.lint.wikiLink));
+          bonsai.opts.wikiLink = config.lint.wikilink;
         }
         // tree species
         if (e.affectsConfiguration('wikibonsai.emoji.tree')) {

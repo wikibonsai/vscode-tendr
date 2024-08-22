@@ -45,10 +45,10 @@ export class ConfigProvider {
   };
   // default linting options
   public lint: any = {
-    indentKind: 'space',
-    indentSize: 2,
-    mkdnBullet: true,
-    wikiLink: true,
+    indent_kind: 'space',
+    indent_size: 2,
+    mkdn_bullet: true,
+    wikilink: true,
   };
   private RGX_TOML_ATTRS = /attrs( +)=( +)(['"])(caml|yaml)(['"])/;
   private RGX_TOML_ROOT  = new RegExp('root( +)=( +)([\'"])(' + wikirefs.RGX.VALID_CHARS.FILENAME.source + ')([\'"])', 'i');
@@ -89,20 +89,20 @@ export class ConfigProvider {
       // lint options
       // todo: update bonsai opts too...
       const curLintIndentKind: string = getConfigProperty('wikibonsai.lint.indentKind', 'space');
-      if (this.lint.indentKind !== curLintIndentKind) {
-        updateConfigProperty('wikibonsai.lint.indentKind', this.lint.indentKind);
+      if (this.lint.indent_kind !== curLintIndentKind) {
+        updateConfigProperty('wikibonsai.lint.indentKind', this.lint.indent_kind);
       }
       const curLintIndentSize: number = getConfigProperty('wikibonsai.lint.indentSize', 2);
-      if (this.lint.indentSize !== curLintIndentSize) {
-        updateConfigProperty('wikibonsai.lint.indentSize', this.lint.indentSize);
+      if (this.lint.indent_size !== curLintIndentSize) {
+        updateConfigProperty('wikibonsai.lint.indentSize', this.lint.indent_size);
       }
       const curLintMkdnBullet: boolean = getConfigProperty('wikibonsai.lint.mkdnBullet', true);
-      if (this.lint.mkdnBullet !== curLintMkdnBullet) {
-        updateConfigProperty('wikibonsai.lint.mkdnBullet', this.lint.mkdnBullet);
+      if (this.lint.mkdn_bullet !== curLintMkdnBullet) {
+        updateConfigProperty('wikibonsai.lint.mkdnBullet', this.lint.mkdn_bullet);
       }
       const curLintWikiLink: boolean = getConfigProperty('wikibonsai.lint.wikiLink', true);
-      if (this.lint.wikiLink !== curLintWikiLink) {
-        updateConfigProperty('wikibonsai.lint.wikiLink', this.lint.wikiLink);
+      if (this.lint.wikilink !== curLintWikiLink) {
+        updateConfigProperty('wikibonsai.lint.wikiLink', this.lint.wikilink);
       }
     } catch (e: any) {
       logger.error(e);
@@ -229,26 +229,24 @@ export class ConfigProvider {
       let updatedText: string | undefined;
       let match: RegExpExecArray | null = null;
       if (Utils.extname(docVscUri) === EXT_TOML) {
-        const regex: RegExp = new RegExp(`^(\\s*)${key}(\\s*)=(\\s*)(["']?)(.*?)\\2\\s*$`, 'm');
+        const regex: RegExp = new RegExp(`^(\\s*)${key}(\\s*)=(\\s*)(["']?)(.*?)\\4\\s*$`, 'm');
         match = regex.exec(docText);
         if (match !== null) {
           const pad1: string = match[1];
           const pad2: string = match[2];
           const pad3: string = match[3];
-          const quoteOpen = key === 'indentKind' ? match[4] : '';
-          const quoteClose = key === 'indentKind' ? match[6] : '';
-          updatedText = `${pad1}${key}${pad2}=${pad3}${quoteOpen}${value}${quoteClose}`;
+          const quote: string = match[4];
+          updatedText = `${pad1}${key}${pad2}=${pad3}${quote}${value}${quote}`;
         }
       } else if (isYaml(Utils.extname(docVscUri))) {
-        const regex: RegExp = new RegExp(`^(\\s*)${key}(\\s*):(\\s*)(["']?)(.*?)\\1\\s*$`, 'm');
+        const regex: RegExp = new RegExp(`^(\\s*)${key}(\\s*):(\\s*)(["']?)(.*?)\\4\\s*$`, 'm');
         match = regex.exec(docText);
         if (match !== null) {
           const pad1: string = match[1];
           const pad2: string = match[2];
           const pad3: string = match[3];
-          const quoteOpen = key === 'indentKind' ? match[4] : '';
-          const quoteClose = key === 'indentKind' ? match[6] : '';
-          updatedText = `${pad1}${key}${pad2}:${pad3}${quoteOpen}${value}${quoteClose}`;
+          const quote: string = match[4] ? match[4] : '';
+          updatedText = `${pad1}${key}${pad2}:${pad3}${quote}${value}${quote}`;
         }
       }
       if (match !== null && updatedText !== undefined) {
