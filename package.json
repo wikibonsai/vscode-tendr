@@ -1,7 +1,7 @@
 {
   "name": "vscode-wikibonsai",
   "displayName": "WikiBonsai",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "PKM tooling for semantically inclined digital gardeners (with [[wikirefs]], semantic trees, and graphs).",
   "license": "GPL-3.0",
   "icon": "icons/wikibonsai-light-nobg.png",
