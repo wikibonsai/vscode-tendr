@@ -19,7 +19,7 @@ export class SemTreeProvider {
   private attrs: AttributesProvider;
   private index: IndexProvider;
   private tree: SemTree | undefined;
-  private opts: SemTreeOpts;
+  public opts: SemTreeOpts;
   // 
   protected panel: vscode.WebviewPanel | undefined = undefined;
   protected disposables: vscode.Disposable[] = [];
@@ -27,6 +27,10 @@ export class SemTreeProvider {
   constructor(attrs: AttributesProvider, index: IndexProvider) {
     logger.debug('creating SemTreeProvider...');
     this.opts = {
+      indentKind: getConfigProperty('wikibonsai.lint.indentKind', 'space'),
+      indentSize: getConfigProperty('wikibonsai.lint.indentSize', 2),
+      mkdnBullet: getConfigProperty('wikibonsai.lint.mkdnBullet', true),
+      wikiLink: getConfigProperty('wikibonsai.lint.wikiLink', true),
       setRoot: function (fname: string) {
         const node: Node | undefined = index.find('filename', fname);
         if (!node) {
@@ -106,20 +110,6 @@ export class SemTreeProvider {
         vscode.window.showErrorMessage(`no root filename given in ${getConfigProperty('wikibonsai.file.doc-types', DEFAULT_DOCTYPE_FILE)} file`);
         return false;
       }
-      // // index/trunk
-      // const indexNodes: Node[] | undefined = this.index.filter(ATTR_NODETYPE, NODE.TYPE.INDEX);
-      // if (!indexNodes || (indexNodes.length === 0)) {
-      //   vscode.window.showErrorMessage('unable to find index nodes');
-      //   return false;
-      // }
-      // for (const node of indexNodes) {
-      //   const vscUri: vscode.Uri = vscode.Uri.parse(node.data.uri);
-      //   const document = await vscode.workspace.openTextDocument(vscUri);
-      //   const attrPayload: any = await this.attrs.load(document.getText());
-      //   // strip preceding newlines
-      //   const cleanContent: string = attrPayload.content.replace(/^\n*/, '');
-      //   bonsaiText[node.data.filename] = cleanContent;
-      // }
       const buildRes: SemTree | string = semtree.create(rootBonsaiFilename, bonsaiText, this.opts);
       if (typeof buildRes === 'string') {
         vscode.window.showWarningMessage('bonsai did not build:\n\n' + buildRes);
@@ -202,15 +192,12 @@ export class SemTreeProvider {
           retainContextWhenHidden: true,
         }
       );
-
       // Set the HTML content
       this.panel.webview.html = this.getLintResultsHtml(lintResults);
-
       // Handle closing of the panel
       this.panel.onDidDispose(() =>
         this.dispose(), null, this.disposables
       );
-
     } catch (error) {
       console.error('Error displaying lint results:', error);
       vscode.window.showErrorMessage('Failed to display lint results.');

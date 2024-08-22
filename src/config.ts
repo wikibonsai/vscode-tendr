@@ -27,7 +27,7 @@ export type WikiBonsaiBonsai =
   | 'wikibonsai.bonsai.root'
   // enabled
   | 'wikibonsai.bonsai.sync.enabled'
-;
+  ;
 
 export type WikiBonsaiFile = 
   | 'wikibonsai.file.config'
@@ -39,6 +39,13 @@ export type WikiBonsaiFile =
   | 'wikibonsai.file.sync.enabled'
   ;
 
+export type WikiBonsaiLint = 
+  | 'wikibonsai.lint.indentKind'
+  | 'wikibonsai.lint.indentSize'
+  | 'wikibonsai.lint.mkdnBullet'
+  | 'wikibonsai.lint.wikiLink'
+  ;
+  
 export type WikiBonsaiGraph = 
   | 'wikibonsai.graph.ctrls.dim'
   | 'wikibonsai.graph.open-loc'
@@ -87,6 +94,7 @@ export type WikiBonsaiWikiRefs =
 export type WikiBonsaiConfigs = 
   | WikiBonsaiAttrs
   | WikiBonsaiBonsai
+  | WikiBonsaiLint
   | 'wikibonsai.debug.enabled'
   | 'wikibonsai.emoji.tree'
   | WikiBonsaiFile

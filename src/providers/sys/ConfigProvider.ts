@@ -43,6 +43,13 @@ export class ConfigProvider {
       },
     }
   };
+  // default linting options
+  public lint: any = {
+    indentKind: 'space',
+    indentSize: 2,
+    mkdnBullet: true,
+    wikiLink: true,
+  };
   private RGX_TOML_ATTRS = /attrs( +)=( +)(['"])(caml|yaml)(['"])/;
   private RGX_TOML_ROOT  = new RegExp('root( +)=( +)([\'"])(' + wikirefs.RGX.VALID_CHARS.FILENAME.source + ')([\'"])', 'i');
   private RGX_YAML_ATTRS = /attrs:( +)(['"])?(caml|yaml)(['"])?/;
@@ -69,6 +76,7 @@ export class ConfigProvider {
       // set
       this.garden = data.garden;
       this.doc = data.doc;
+      this.lint = data.lint;
       // sync vscode configs
       const curAttrEngine: string = getConfigProperty('wikibonsai.attrs.engine', 'caml');
       if (this.garden.attrs !== curAttrEngine) {
@@ -77,6 +85,24 @@ export class ConfigProvider {
       const curRoot: string = getConfigProperty('wikibonsai.bonsai.root', 'i.bonsai');
       if (this.garden.root !== curRoot) {
         updateConfigProperty('wikibonsai.bonsai.root', this.garden.root);
+      }
+      // lint options
+      // todo: update bonsai opts too...
+      const curLintIndentKind: string = getConfigProperty('wikibonsai.lint.indentKind', 'space');
+      if (this.lint.indentKind !== curLintIndentKind) {
+        updateConfigProperty('wikibonsai.lint.indentKind', this.lint.indentKind);
+      }
+      const curLintIndentSize: number = getConfigProperty('wikibonsai.lint.indentSize', 2);
+      if (this.lint.indentSize !== curLintIndentSize) {
+        updateConfigProperty('wikibonsai.lint.indentSize', this.lint.indentSize);
+      }
+      const curLintMkdnBullet: boolean = getConfigProperty('wikibonsai.lint.mkdnBullet', true);
+      if (this.lint.mkdnBullet !== curLintMkdnBullet) {
+        updateConfigProperty('wikibonsai.lint.mkdnBullet', this.lint.mkdnBullet);
+      }
+      const curLintWikiLink: boolean = getConfigProperty('wikibonsai.lint.wikiLink', true);
+      if (this.lint.wikiLink !== curLintWikiLink) {
+        updateConfigProperty('wikibonsai.lint.wikiLink', this.lint.wikiLink);
       }
     } catch (e: any) {
       logger.error(e);
@@ -187,6 +213,52 @@ export class ConfigProvider {
         vscode.workspace.applyEdit(edit);
       }
       await vscode.workspace.saveAll();
+    } catch (e: any) {
+      logger.error(e);
+    }
+  }
+
+  // update 'lint' config in config file
+  public async updateConfigLint(key: string, value: any): Promise<void> {
+    if (this.configFileUri === undefined) { return; }
+    try {
+      const docVscUri: vscode.Uri = vscode.Uri.parse(this.configFileUri);
+      const doc: vscode.TextDocument = await vscode.workspace.openTextDocument(docVscUri);
+      const docText: string | undefined = await this.getText();
+      if (docText === undefined) { return; }
+      let updatedText: string | undefined;
+      let match: RegExpExecArray | null = null;
+      if (Utils.extname(docVscUri) === EXT_TOML) {
+        const regex: RegExp = new RegExp(`^(\\s*)${key}(\\s*)=(\\s*)(["']?)(.*?)\\2\\s*$`, 'm');
+        match = regex.exec(docText);
+        if (match !== null) {
+          const pad1: string = match[1];
+          const pad2: string = match[2];
+          const pad3: string = match[3];
+          const quoteOpen = key === 'indentKind' ? match[4] : '';
+          const quoteClose = key === 'indentKind' ? match[6] : '';
+          updatedText = `${pad1}${key}${pad2}=${pad3}${quoteOpen}${value}${quoteClose}`;
+        }
+      } else if (isYaml(Utils.extname(docVscUri))) {
+        const regex: RegExp = new RegExp(`^(\\s*)${key}(\\s*):(\\s*)(["']?)(.*?)\\1\\s*$`, 'm');
+        match = regex.exec(docText);
+        if (match !== null) {
+          const pad1: string = match[1];
+          const pad2: string = match[2];
+          const pad3: string = match[3];
+          const quoteOpen = key === 'indentKind' ? match[4] : '';
+          const quoteClose = key === 'indentKind' ? match[6] : '';
+          updatedText = `${pad1}${key}${pad2}:${pad3}${quoteOpen}${value}${quoteClose}`;
+        }
+      }
+      if (match !== null && updatedText !== undefined) {
+        const start: vscode.Position = doc.positionAt(match.index);
+        const end: vscode.Position = doc.positionAt(match.index + match[0].length);
+        const edit = new vscode.WorkspaceEdit();
+        edit.replace(doc.uri, new vscode.Range(start, end), updatedText);
+        await vscode.workspace.applyEdit(edit);
+        await vscode.workspace.saveAll();
+      }
     } catch (e: any) {
       logger.error(e);
     }

@@ -197,6 +197,26 @@
           "default": true,
           "description": "toggle file sync (you probably don't want to turn this off unless you're debugging)"
         },
+        "wikibonsai.lint.indentKind": {
+          "type": "string",
+          "default": "space",
+          "description": "what kind of indentation to use for markdown lists"
+        },
+        "wikibonsai.lint.indentSize": {
+          "type": "number",
+          "default": 2,
+          "description": "what size of indentation to use for markdown lists"
+        },
+        "wikibonsai.lint.mkdnBullet": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle markdown bullet lists"
+        },
+        "wikibonsai.lint.wikiLink": {
+          "type": "boolean",
+          "default": true,
+          "description": "toggle wiki links"
+        },
         "wikibonsai.graph.coords.tree": {
           "type": "string",
           "default": "coords-tree.json",
