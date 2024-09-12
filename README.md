@@ -3,6 +3,8 @@
 [![A WikiBonsai Project](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)](https://github.com/wikibonsai/wikibonsai)
 [![VSCode Marketplace](https://img.shields.io/visual-studio-marketplace/v/manunamz.vscode-wikibonsai)](https://marketplace.visualstudio.com/items?itemName=manunamz.vscode-wikibonsai)
 
+## ⚠️ [`vscode-wikibonsai`](https://github.com/wikibonsai/vscode-wikibonsai) has moved to [`vscode-tendr`](https://github.com/wikibonsai/vscode-tendr) ⚠️
+
 <p align="center">
   <img src="./icons/wikibonsai-light-nobg.png" width="35%" height="35%"/>
 </p>
