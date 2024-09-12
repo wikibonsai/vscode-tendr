@@ -198,8 +198,8 @@ export class IndexProvider extends Caudex {
   // certain markdown render calls is to update the index
   // note: putting an await in here will break everything
   //       ⚠️ do not nest 'await's: https://stackoverflow.com/a/44090244
-  public async refreshRelRefs(vscUri: vscode.Uri): Promise<void> {
-    logger.verbose('IndexProvider.refreshRelRefs() -- refreshing:\n' + vscUri);
+  public async refreshRelRefs(vscUri: vscode.Uri, node?: any): Promise<void> {
+    logger.verbose('IndexProvider.refreshRelRefs() -- refreshing:\n' + vscUri, node);
     try {
       // todo:
       // - cache media urls and check for duplicates
