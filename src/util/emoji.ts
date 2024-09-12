@@ -27,7 +27,7 @@ export class TreeSpecies {
     if (TreeSpecies.isXmas()) {
       this.emoji = TREE.xmas;
     } else {
-      let treeEmoji: TREE | typeof SEED | undefined = getConfigProperty('wikibonsai.emoji.tree', SEED);
+      let treeEmoji: TREE | typeof SEED | undefined = getConfigProperty('tendr.emoji.tree', SEED);
       if (treeEmoji === SEED) {
         treeEmoji = await vscode.window.showInformationMessage(
           `please select a species of bonsai to tend:
@@ -39,9 +39,9 @@ export class TreeSpecies {
         );
         if (!treeEmoji) { treeEmoji = TREE.bamboo; }
         await workspaceState.update('beenOpened', true);
-        await vscode.workspace.getConfiguration().update('wikibonsai.emoji.tree', this.emoji, vscode.ConfigurationTarget.Workspace);
+        await vscode.workspace.getConfiguration().update('tendr.emoji.tree', this.emoji, vscode.ConfigurationTarget.Workspace);
       }
-      this.emoji = getConfigProperty('wikibonsai.emoji.tree', TREE.bamboo);
+      this.emoji = getConfigProperty('tendr.emoji.tree', TREE.bamboo);
     }
   }
 

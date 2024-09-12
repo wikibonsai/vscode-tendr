@@ -18,11 +18,11 @@ export class TagLinkProvider implements vscode.DocumentLinkProvider {
   }
 
   private buildDocLink(fnameText: string, range: vscode.Range): vscode.DocumentLink | undefined {
-    if (!getConfigProperty('wikibonsai.tag.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.tag.enabled', true)) { return; }
     const node: Node | undefined = this.index.find('filename', fnameText);
     if (node === undefined) { return undefined; }
     if ((node.kind !== NODE.KIND.ZOMBIE)) {
-      const openWhich: string = getConfigProperty('wikibonsai.tag.open-doc', NODE.TYPE.INDEX);
+      const openWhich: string = getConfigProperty('tendr.tag.open-doc', NODE.TYPE.INDEX);
       if (openWhich === NODE.TYPE.INDEX) {
         if (this.bonsai.hasPetiole(fnameText)) {
           // @ts-ignore: 'petiole' is checked above
@@ -45,7 +45,7 @@ export class TagLinkProvider implements vscode.DocumentLinkProvider {
     // eslint-disable-next-line
     token: vscode.CancellationToken,
   ): Promise<vscode.DocumentLink[]> {
-    if (!getConfigProperty('wikibonsai.tag.enabled', true)) { return []; }
+    if (!getConfigProperty('tendr.tag.enabled', true)) { return []; }
     const docLinks: vscode.DocumentLink[] = [];
     const docTxt: string = document.getText();
     // 🦨 do-while: https://stackoverflow.com/a/6323598

@@ -1,20 +1,20 @@
-# 🎋 vscode-wikibonsai
+# 🎋 vscode-tendr
 
 [![A WikiBonsai Project](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)](https://github.com/wikibonsai/wikibonsai)
-[![VSCode Marketplace](https://img.shields.io/visual-studio-marketplace/v/manunamz.vscode-wikibonsai)](https://marketplace.visualstudio.com/items?itemName=manunamz.vscode-wikibonsai)
+[![VSCode Marketplace](https://img.shields.io/visual-studio-marketplace/v/manunamz.vscode-tendr)](https://marketplace.visualstudio.com/items?itemName=manunamz.vscode-tendr)
 
 <p align="center">
-  <img src="./icons/wikibonsai-light-nobg.png" width="35%" height="35%"/>
+  <img src="./icons/tendr.png" width="35%" height="35%"/>
 </p>
 
-🧑‍🌾 🚰 ✂️ Tend your [🎋 WikiBonsai](https://github.com/wikibonsai/wikibonsai) digital garden from vscode.
+`vscode-tendr` is a vscode extension that transforms a collection of markdown files into a jungle gym for thought with an API for the mind. It's a personal knowledge management (PKM) system that's got [`[[wikirefs]]`](#wikiref), [semantic trees](#semantic-tree), and [graphs](#graph) that you can visualize on screens, in headets, or map to [embeddings](#embeddings)!
 
-`vscode-wikibonsai` is a vscode extension that transforms a collection of markdown files into a jungle gym for thought with an API for the mind. It's a personal knowledge management (PKM) system that's got [`[[wikirefs]]`](#wikiref), [semantic trees](#semantic-tree), and [graphs](#graph) that you can visualize on screens, in headets, or map to [embeddings](#embeddings)!
+🧑‍🌾 🚰 ✂️ Tend your [🎋 WikiBonsai](https://github.com/wikibonsai/wikibonsai) digital garden from vscode.
 
 ⚠️ 🌱 This project is newly sprouted! So please consider it a beta: Remember to backup all data and please use version control.
 
 <p align="center">
-  <img src="./media/demo-vscode-wikibonsai.png" />
+  <img src="./media/demo-vscode-tendr.png" />
 </p>
 
 ## Getting Started
@@ -23,9 +23,9 @@ Checkout one of the [garden-beds](https://github.com/wikibonsai/garden-beds) for
 
 ## Why Another VSCode Extension?
 
-The first and foremost reason to use `vscode-wikibonsai` is that each component has been modularized and released as a separate package. So by submitting issues or feature requests for this vscode extension, the changes and updates that result will percolate out to the other open source packages, thereby **improving the open source PKM tool chain for everyone**.
+The first and foremost reason to use `vscode-tendr` is that each component has been modularized and released as a separate package. So by submitting issues or feature requests for this vscode extension, the changes and updates that result will percolate out to the other open source packages, thereby **improving the open source PKM tool chain for everyone**.
 
-For example, if you want to use the same `[[wikiref]]` syntax for your notes from this extension in a personal blog, you can use the [markdown-it plugin](https://github.com/wikibonsai/markdown-it-wikirefs) with [eleventy](https://github.com/wikibonsai/eleventy-wikibonsai), or the [remark plugin](https://github.com/wikibonsai/remark-wikirefs) with [astro](https://github.com/wikibonsai/astro-wikibonsai), etc. Then, any bugs or features added to the wikiref syntax for `vscode-wikibonsai` will also be applied to the frameworks that power your blog.
+For example, if you want to use the same `[[wikiref]]` syntax for your notes from this extension in a personal blog, you can use the [markdown-it plugin](https://github.com/wikibonsai/markdown-it-wikirefs) with [eleventy](https://github.com/wikibonsai/eleventy-bloomz), or the [remark plugin](https://github.com/wikibonsai/remark-wikirefs) with [astro](https://github.com/wikibonsai/astro-bloomz), etc. Then, any bugs or features added to the wikiref syntax for `vscode-tendr` will also be applied to the frameworks that power your blog.
 
 ## Tell Me More!
 
@@ -369,13 +369,13 @@ graph TD;
   style id4 stroke:#66FF00;
 ```
 
-You can force a re-sync between the semantic tree in markdown and the index in vscode, just use the `wikibonsai: sync bonsai` [command](#commands). There is also a sync button on the semantic tree [treeview panel](#tree-based-treeviews).
+You can force a re-sync between the semantic tree in markdown and the index in vscode, just use the `tendr: sync bonsai` [command](#commands). There is also a sync button on the semantic tree [treeview panel](#tree-based-treeviews).
 
 ## Graph
 
 Uses the [treehouze](https://github.com/wikibonsai/treehouze) project.
 
-Open the tree graph with the `wikibonsai: open tree graph` and the web graph with the `wikibonsai: open web graph` commands or via the buttons the bonsai [treeview panel](#treeviews).
+Open the tree graph with the `tendr: open tree graph` and the web graph with the `tendr: open web graph` commands or via the buttons the bonsai [treeview panel](#treeviews).
 
 <div style="width:75%; margin: auto; padding-block: 2em; display: flex; justify-content: center;">
   <img src="./media/treeview-bonsai-panel-btns.png"/>
@@ -726,38 +726,38 @@ VSCode Treeviews to help you to navigate your digital garden and visualize relat
 
 ## Commands
 
-To see all possible commands, open the [VSCode command palette](https://code.visualstudio.com/api/ux-guidelines/command-palette) and type "wikibonsai". But keep in mind that there are several vscode commands in the WikiBonsai extension that are not meant for use in VSCode. They are used internally and should probably be left alone.
+To see all possible commands, open the [VSCode command palette](https://code.visualstudio.com/api/ux-guidelines/command-palette) and type "tendr". But keep in mind that there are several vscode commands in the extension that are not meant for manual use in VSCode. They are called by internal functions and should probably be left alone.
 
 Target commands are listed here:
 
 - [Graph](#graph):
-  - `wikibonsai: open tree graph`: Open the tree graph.
-  - `wikibonsai: open web graph`: Open the web graph.
-  - `wikibonsai: toggle on/off active doc following in graph`: toggle whether the graph should center on the node of the document in the active editor.
-  - `wikibonsai: toggle on/off fixed nodes in graph`: toggle whether nodes should used fixed coordinates in the graph or not.
+  - `tendr: open tree graph`: Open the tree graph.
+  - `tendr: open web graph`: Open the web graph.
+  - `tendr: toggle on/off active doc following in graph`: toggle whether the graph should center on the node of the document in the active editor.
+  - `tendr: toggle on/off fixed nodes in graph`: toggle whether nodes should used fixed coordinates in the graph or not.
 - [Semantic Tree](#semantic-tree):
-  - `wikibonsai: sync bonsai`: Sync the semantic tree with the index documents/files.
+  - `tendr: sync bonsai`: Sync the semantic tree with the index documents/files.
 - [Treeviews](#treeviews):
-  - `wikibonsai: refresh bonsai panel`: Refresh the Bonsai Treeview Panel.
-  - `wikibonsai: refresh ancestors panel`: Refresh the Ancestor Treeview Panel.
-  - `wikibonsai: refresh children panel`: Refresh the Children Treeview Panel.
-  - `wikibonsai: refresh forerefs panel`: Refresh the ForeRefs Treeview Panel.
-  - `wikibonsai: refresh backrefs panel`: Refresh the BackRefs Treeview Panel.
-  - `wikibonsai: refresh orphans panel`: Refresh the Orphans Treeview Panel.
-  - `wikibonsai: refresh zombies panel`: Refresh the Zombies Treeview Panel.
+  - `tendr: refresh bonsai panel`: Refresh the Bonsai Treeview Panel.
+  - `tendr: refresh ancestors panel`: Refresh the Ancestor Treeview Panel.
+  - `tendr: refresh children panel`: Refresh the Children Treeview Panel.
+  - `tendr: refresh forerefs panel`: Refresh the ForeRefs Treeview Panel.
+  - `tendr: refresh backrefs panel`: Refresh the BackRefs Treeview Panel.
+  - `tendr: refresh orphans panel`: Refresh the Orphans Treeview Panel.
+  - `tendr: refresh zombies panel`: Refresh the Zombies Treeview Panel.
 - [Wizard](#wizard):
-  - `wikibonsai: search and create files from the wikibonsai wizard` (also available via `ctrl/cmd + k`):
+  - `tendr: search and create files from the wikibonsai wizard` (also available via `ctrl/cmd + k`):
     - Begin typing to search documents.
     - Select a doctype/template to create a new file and then after selection type in the target filename.
 
 If you are experiencing issues, you can try using these debug commands:
 
 - Debug:
-  - `wikibonsai: dump bonsai to .json file`
-  - `wikibonsai: dump index to .json file`
-  - `wikibonsai: print link index in console`
-  - `wikibonsai: print bonsai in console`
-  - `wikibonsai: clear index and rebuild from files`
+  - `tendr: dump bonsai to .json file`
+  - `tendr: dump index to .json file`
+  - `tendr: print link index in console`
+  - `tendr: print bonsai in console`
+  - `tendr: clear index and rebuild from files`
 
 ## Configs
 
@@ -794,7 +794,7 @@ There is an internal index to speed things up so that larger gardens may be supp
 
 ## Issues
 
-Feature requests, bugs, and suggestions can be filed in the [issue tracker](https://github.com/wikibonsai/vscode-wikibonsai/issues).
+Feature requests, bugs, and suggestions can be filed in the [issue tracker](https://github.com/wikibonsai/vscode-tendr/issues).
 
 If you want to try tracking down issues yourself, you can check the logs by opening the "WikiBonsai" output channel.
 

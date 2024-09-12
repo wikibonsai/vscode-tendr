@@ -27,10 +27,10 @@ export class SemTreeProvider {
   constructor(attrs: AttributesProvider, index: IndexProvider) {
     logger.debug('creating SemTreeProvider...');
     this.opts = {
-      indentKind: getConfigProperty('wikibonsai.lint.indentKind', 'space'),
-      indentSize: getConfigProperty('wikibonsai.lint.indentSize', 2),
-      mkdnBullet: getConfigProperty('wikibonsai.lint.mkdnBullet', true),
-      wikiLink: getConfigProperty('wikibonsai.lint.wikiLink', true),
+      indentKind: getConfigProperty('tendr.lint.indentKind', 'space'),
+      indentSize: getConfigProperty('tendr.lint.indentSize', 2),
+      mkdnBullet: getConfigProperty('tendr.lint.mkdnBullet', true),
+      wikiLink: getConfigProperty('tendr.lint.wikiLink', true),
       setRoot: function (fname: string) {
         const node: Node | undefined = index.find('filename', fname);
         if (!node) {
@@ -105,9 +105,9 @@ export class SemTreeProvider {
       // { filename: content } hash
       const bonsaiText: Record<string, string> = await this.getTreeContent();
       // root
-      const rootBonsaiFilename: string | undefined = getConfigProperty('wikibonsai.bonsai.root', 'i.bonsai');
+      const rootBonsaiFilename: string | undefined = getConfigProperty('tendr.bonsai.root', 'i.bonsai');
       if (!rootBonsaiFilename) {
-        vscode.window.showErrorMessage(`no root filename given in ${getConfigProperty('wikibonsai.file.doc-types', DEFAULT_DOCTYPE_FILE)} file`);
+        vscode.window.showErrorMessage(`no root filename given in ${getConfigProperty('tendr.file.doc-types', DEFAULT_DOCTYPE_FILE)} file`);
         return false;
       }
       const buildRes: SemTree | string = semtree.create(rootBonsaiFilename, bonsaiText, this.opts);
@@ -169,7 +169,7 @@ export class SemTreeProvider {
         logger.warn('failed to update tree: \n\n', errorMsg);
         return false;
       }
-      // vscode.commands.executeCommand('wikibonsai.refresh.panel.bonsai');
+      // vscode.commands.executeCommand('tendr.refresh.panel.bonsai');
       logger.debug('SemTreeProvider.update() -- finished successfully');
       return true;
     } catch (error: any) {

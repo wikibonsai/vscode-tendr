@@ -16,10 +16,10 @@ const LVL: Record<string, number> = {
   'verbose': 1,
 };
 
-export const logger = window.createOutputChannel('WikiBonsai');
+export const logger = window.createOutputChannel('tendr');
 
 const log = (level: string) => (...params: (string | object | unknown)[]) => {
-  const configlvl: string = getConfigProperty('wikibonsai.log.level', 'info');
+  const configlvl: string = getConfigProperty('tendr.log.level', 'info');
   if (LVL[level] >= LVL[configlvl]) {
     logger.appendLine(
       `[${new Date().toISOString()}] [${level}] ${params

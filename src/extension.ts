@@ -42,7 +42,7 @@ import { ATTR_NODETYPE, EXT_MD } from './util/const';
 // your extension is activated the very first time the command is executed
 export const activate = async (context: vscode.ExtensionContext) => {
   context.subscriptions.push(logger.logger);
-  logger.info('WikiBonsai: start activation');
+  logger.info('tendr: start activation');
   // init bonsai species
   await ts.init(context.workspaceState);
 
@@ -130,7 +130,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
                                                             tagDecorationProvider,
                                                           );
   /* eslint-enable indent */
-  const bonsaiTreeView = vscode.window.createTreeView('wikibonsai.panel.bonsai', {
+  const bonsaiTreeView = vscode.window.createTreeView('tendr.panel.bonsai', {
     treeDataProvider: bonsaiTreeDataProvider,
     // showCollapseAll: true,
   });
@@ -140,7 +140,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
   // custom 'in' conditional for 'when' contexts in package.json
   vscode.commands.executeCommand(
     'setContext',
-    'wikibonsai.bonsaiTrunkFiles',
+    'tendr.bonsaiTrunkFiles',
     bonsaiFileNames,
   );
 
@@ -163,51 +163,51 @@ export const activate = async (context: vscode.ExtensionContext) => {
       // update tree species emoji
       vscode.workspace.onDidChangeConfiguration(async (e: vscode.ConfigurationChangeEvent) => {
         // configs
-        if (e.affectsConfiguration('wikibonsai.file.config')) {
+        if (e.affectsConfiguration('tendr.file.config')) {
           await config.setConfigFileUri();
           config.build();
         }
-        if (e.affectsConfiguration('wikibonsai.attrs.engine')) {
-          const curEngine: string = getConfigProperty('wikibonsai.attrs.engine', 'caml');
+        if (e.affectsConfiguration('tendr.attrs.engine')) {
+          const curEngine: string = getConfigProperty('tendr.attrs.engine', 'caml');
           if (curEngine !== config.garden.attrs) {
             config.updateConfigAttrs(curEngine);
           }
         }
-        if (e.affectsConfiguration('wikibonsai.bonsai.root')) {
-          const root: string = getConfigProperty('wikibonsai.bonsai.root', 'i.bonsai');
+        if (e.affectsConfiguration('tendr.bonsai.root')) {
+          const root: string = getConfigProperty('tendr.bonsai.root', 'i.bonsai');
           if (root !== config.garden.root) {
             config.updateConfigRoot(root);
           }
         }
         // doctypes
-        if (e.affectsConfiguration('wikibonsai.file.doc-types')) {
+        if (e.affectsConfiguration('tendr.file.doc-types')) {
           await types.setTypesFileUri();
           types.build();
         }
         // lint
-        if (e.affectsConfiguration('wikibonsai.lint.indentKind')) {
-          config.lint.indent_kind = getConfigProperty('wikibonsai.lint.indentKind', 'space');
-          config.updateConfigLint('indent_kind', getConfigProperty('wikibonsai.lint.indentKind', config.lint.indent_kind));
+        if (e.affectsConfiguration('tendr.lint.indentKind')) {
+          config.lint.indent_kind = getConfigProperty('tendr.lint.indentKind', 'space');
+          config.updateConfigLint('indent_kind', getConfigProperty('tendr.lint.indentKind', config.lint.indent_kind));
           bonsai.opts.indentKind = config.lint.indent_kind;
         }
-        if (e.affectsConfiguration('wikibonsai.lint.indentSize')) {
-          config.lint.indent_size = getConfigProperty('wikibonsai.lint.indentSize', 2);
-          config.updateConfigLint('indent_size', getConfigProperty('wikibonsai.lint.indentSize', config.lint.indent_size));
+        if (e.affectsConfiguration('tendr.lint.indentSize')) {
+          config.lint.indent_size = getConfigProperty('tendr.lint.indentSize', 2);
+          config.updateConfigLint('indent_size', getConfigProperty('tendr.lint.indentSize', config.lint.indent_size));
           bonsai.opts.indentSize = config.lint.indent_size;
         }
-        if (e.affectsConfiguration('wikibonsai.lint.mkdnBullet')) {
-          config.lint.mkdn_bullet = getConfigProperty('wikibonsai.lint.mkdnBullet', true);
-          config.updateConfigLint('mkdn_bullet', getConfigProperty('wikibonsai.lint.mkdnBullet', config.lint.mkdn_bullet));
+        if (e.affectsConfiguration('tendr.lint.mkdnBullet')) {
+          config.lint.mkdn_bullet = getConfigProperty('tendr.lint.mkdnBullet', true);
+          config.updateConfigLint('mkdn_bullet', getConfigProperty('tendr.lint.mkdnBullet', config.lint.mkdn_bullet));
           bonsai.opts.mkdnBullet = config.lint.mkdn_bullet;
         }
-        if (e.affectsConfiguration('wikibonsai.lint.wikiLink')) {
-          config.lint.wikilink = getConfigProperty('wikibonsai.lint.wikiLink', true);
-          config.updateConfigLint('wikilink', getConfigProperty('wikibonsai.lint.wikiLink', config.lint.wikiLink));
+        if (e.affectsConfiguration('tendr.lint.wikiLink')) {
+          config.lint.wikilink = getConfigProperty('tendr.lint.wikiLink', true);
+          config.updateConfigLint('wikilink', getConfigProperty('tendr.lint.wikiLink', config.lint.wikiLink));
           bonsai.opts.wikiLink = config.lint.wikilink;
         }
         // tree species
-        if (e.affectsConfiguration('wikibonsai.emoji.tree')) {
-          ts.emoji = getConfigProperty('wikibonsai.emoji.tree', TREE.bamboo);
+        if (e.affectsConfiguration('tendr.emoji.tree')) {
+          ts.emoji = getConfigProperty('tendr.emoji.tree', TREE.bamboo);
           // config
           // bonsai treeview
           bonsaiTreeView.title = ts.emoji + ' Bonsai';
@@ -219,39 +219,39 @@ export const activate = async (context: vscode.ExtensionContext) => {
         }
       }),
       // lint
-      vscode.commands.registerCommand('wikibonsai.debug.lint.bonsai', () => {
-        if (getConfigProperty('wikibonsai.debug.enabled', true)) {
+      vscode.commands.registerCommand('tendr.debug.lint.bonsai', () => {
+        if (getConfigProperty('tendr.debug.enabled', true)) {
           bonsai.lint();
         }
       }),
       // debug
       //   dump
-      // vscode.commands.registerCommand('wikibonsai.debug.dump.bonsai', () => {
-      //   if (getConfigProperty('wikibonsai.debug.enabled', true)) {
+      // vscode.commands.registerCommand('tendr.debug.dump.bonsai', () => {
+      //   if (getConfigProperty('tendr.debug.enabled', true)) {
       //     index.dumpTree();
       //   }
       // }),
-      vscode.commands.registerCommand('wikibonsai.debug.dump.index', () => {
-        if (getConfigProperty('wikibonsai.debug.enabled', true)) {
+      vscode.commands.registerCommand('tendr.debug.dump.index', () => {
+        if (getConfigProperty('tendr.debug.enabled', true)) {
           index.dump();
         }
       }),
       //   print
-      vscode.commands.registerCommand('wikibonsai.debug.print.bonsai', () => {
-        if (getConfigProperty('wikibonsai.debug.enabled', true)) {
+      vscode.commands.registerCommand('tendr.debug.print.bonsai', () => {
+        if (getConfigProperty('tendr.debug.enabled', true)) {
           index.printIndexTree();
           bonsai.print();
         }
       }),
-      vscode.commands.registerCommand('wikibonsai.debug.print.index', () => {
-        if (getConfigProperty('wikibonsai.debug.enabled', true)) {
+      vscode.commands.registerCommand('tendr.debug.print.index', () => {
+        if (getConfigProperty('tendr.debug.enabled', true)) {
           index.printIndex();
         }
       }),
       //   reset
-      vscode.commands.registerCommand('wikibonsai.debug.reset.index', () => {
-        if (!getConfigProperty('wikibonsai.debug.enabled', true)) {
-          vscode.window.showWarningMessage('debug features are disabled, turn them on in vscode\'s wikibonsai settings to enable.');
+      vscode.commands.registerCommand('tendr.debug.reset.index', () => {
+        if (!getConfigProperty('tendr.debug.enabled', true)) {
+          vscode.window.showWarningMessage('debug features are disabled, turn them on in vscode\'s tendr settings to enable.');
         } else {
           vscode.window.showInformationMessage('resetting index...');
           index.flushRels();
@@ -262,7 +262,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
         }
       }),
       // all gui
-      vscode.commands.registerCommand('wikibonsai.sync.gui', () => {
+      vscode.commands.registerCommand('tendr.sync.gui', () => {
         return commands.syncGUI();
       }),
       // attrs
@@ -274,12 +274,12 @@ export const activate = async (context: vscode.ExtensionContext) => {
           fileWatcher.handleDidView(event);
         }
       }),
-      vscode.commands.registerCommand('wikibonsai.genID', () => {
+      vscode.commands.registerCommand('tendr.genID', () => {
         const id = index.genID();
         return id;
       }),
       // bonsai
-      vscode.commands.registerCommand('wikibonsai.sync.bonsai', () => {
+      vscode.commands.registerCommand('tendr.sync.bonsai', () => {
         commands.syncBonsai();
       }),
       // file
@@ -290,28 +290,28 @@ export const activate = async (context: vscode.ExtensionContext) => {
       vscode.workspace.onWillSaveTextDocument((e: vscode.TextDocumentWillSaveEvent) => e.waitUntil(fileWatcher.handleWillSave(e))),
       vscode.workspace.onDidSaveTextDocument((e: vscode.TextDocument) => fileWatcher.handleDidSave(e)),
       vscode.workspace.onWillDeleteFiles((e: vscode.FileWillDeleteEvent) => fileWatcher.handleWillDelete(e)),
-      vscode.commands.registerCommand('wikibonsai.create.file', (payload: any) => {
+      vscode.commands.registerCommand('tendr.create.file', (payload: any) => {
         return commands.createDoc(payload);
       }),
-      vscode.commands.registerCommand('wikibonsai.create.file.bulk', () => {
+      vscode.commands.registerCommand('tendr.create.file.bulk', () => {
         return commands.createDocBulk();
       }),
-      vscode.commands.registerCommand('wikibonsai.open.file', (uri: vscode.Uri) => {
+      vscode.commands.registerCommand('tendr.open.file', (uri: vscode.Uri) => {
         commands.openDoc(uri);
       }),
-      vscode.commands.registerCommand('wikibonsai.name.file', (payload: any) => {
+      vscode.commands.registerCommand('tendr.name.file', (payload: any) => {
         return commands.nameFile(payload);
       }),
       // graph
-      vscode.commands.registerCommand('wikibonsai.open.graph.tree', () => {
+      vscode.commands.registerCommand('tendr.open.graph.tree', () => {
         tree.draw(context);
       }),
-      vscode.commands.registerCommand('wikibonsai.open.graph.web', () => {
+      vscode.commands.registerCommand('tendr.open.graph.web', () => {
         web.draw(context);
       }),
       vscode.window.onDidChangeActiveTextEditor((event) => {
         if (event
-        && getConfigProperty('wikibonsai.graph.ctrls.follow.enabled', true)
+        && getConfigProperty('tendr.graph.ctrls.follow.enabled', true)
         && (Utils.extname(event.document.uri) === EXT_MD)
         ) {
           const vscUri: vscode.Uri = event.document.uri;
@@ -320,27 +320,27 @@ export const activate = async (context: vscode.ExtensionContext) => {
           web.postFocusNode(uri);
         }
       }),
-      vscode.commands.registerCommand('wikibonsai.sync.graph', () => {
+      vscode.commands.registerCommand('tendr.sync.graph', () => {
         tree.postUpdateData();
         web.postUpdateData();
       }),
-      vscode.commands.registerCommand('wikibonsai.toggle.graph.ctrls.dim', (value: string) => {
-        updateConfigProperty('wikibonsai.graph.ctrls.dim', value);
+      vscode.commands.registerCommand('tendr.toggle.graph.ctrls.dim', (value: string) => {
+        updateConfigProperty('tendr.graph.ctrls.dim', value);
       }),
-      vscode.commands.registerCommand('wikibonsai.toggle.graph.ctrls.fix', (value: boolean) => {
-        updateConfigProperty('wikibonsai.graph.ctrls.fix.enabled', value);
+      vscode.commands.registerCommand('tendr.toggle.graph.ctrls.fix', (value: boolean) => {
+        updateConfigProperty('tendr.graph.ctrls.fix.enabled', value);
       }),
-      vscode.commands.registerCommand('wikibonsai.toggle.graph.ctrls.follow', (value: boolean) => {
-        updateConfigProperty('wikibonsai.graph.ctrls.follow.enabled', value);
+      vscode.commands.registerCommand('tendr.toggle.graph.ctrls.follow', (value: boolean) => {
+        updateConfigProperty('tendr.graph.ctrls.follow.enabled', value);
       }),
-      vscode.commands.registerCommand('wikibonsai.toggle.graph.ctrls.sync', (value: boolean) => {
-        updateConfigProperty('wikibonsai.graph.ctrls.autosync.enabled', value);
+      vscode.commands.registerCommand('tendr.toggle.graph.ctrls.sync', (value: boolean) => {
+        updateConfigProperty('tendr.graph.ctrls.autosync.enabled', value);
       }),
       // treeview panels
       // bonsai
       bonsaiTreeView, // initialized above
-      vscode.commands.registerCommand('wikibonsai.refresh.panel.bonsai', () => {
-        if (getConfigProperty('wikibonsai.panel.bonsai.enabled', true)) {
+      vscode.commands.registerCommand('tendr.refresh.panel.bonsai', () => {
+        if (getConfigProperty('tendr.panel.bonsai.enabled', true)) {
           bonsaiTreeDataProvider.refresh();
         }
       }),
@@ -351,7 +351,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
       // https://github.com/microsoft/vscode/issues/55879#issuecomment-433939474
       // 
       // vscode.window.onDidChangeActiveTextEditor((event) => {
-      //   if (event && getConfigProperty('wikibonsai.panel.bonsai.follow.enabled', true)) {
+      //   if (event && getConfigProperty('tendr.panel.bonsai.follow.enabled', true)) {
       //     const node: Node | undefined = index.find('uri', event.document.uri.toString());
       //     if (node) {
       //       bonsaiTreeView.reveal(
@@ -362,90 +362,90 @@ export const activate = async (context: vscode.ExtensionContext) => {
       //   }
       // }),
       // ancestors
-      vscode.window.createTreeView('wikibonsai.panel.ancestors', {
+      vscode.window.createTreeView('tendr.panel.ancestors', {
         treeDataProvider: ancestorsTreeDataProvider,
         // showCollapseAll: true,
       }),
-      vscode.commands.registerCommand('wikibonsai.refresh.panel.ancestors', () => {
-        if (getConfigProperty('wikibonsai.panel.ancestors.enabled', true)) {
+      vscode.commands.registerCommand('tendr.refresh.panel.ancestors', () => {
+        if (getConfigProperty('tendr.panel.ancestors.enabled', true)) {
           ancestorsTreeDataProvider.refresh();
         }
       }),
       vscode.window.onDidChangeActiveTextEditor(() => {
-        if (getConfigProperty('wikibonsai.panel.ancestors.enabled', true)) {
+        if (getConfigProperty('tendr.panel.ancestors.enabled', true)) {
           ancestorsTreeDataProvider.refresh();
         }
       }),
       // children
-      vscode.window.createTreeView('wikibonsai.panel.children', {
+      vscode.window.createTreeView('tendr.panel.children', {
         treeDataProvider: childrenTreeDataProvider,
         // showCollapseAll: true,
       }),
-      vscode.commands.registerCommand('wikibonsai.refresh.panel.children', () => {
-        if (getConfigProperty('wikibonsai.panel.children.enabled', true)) {
+      vscode.commands.registerCommand('tendr.refresh.panel.children', () => {
+        if (getConfigProperty('tendr.panel.children.enabled', true)) {
           childrenTreeDataProvider.refresh();
         }
       }),
       vscode.window.onDidChangeActiveTextEditor(() => {
-        if (getConfigProperty('wikibonsai.panel.children.enabled', true)) {
+        if (getConfigProperty('tendr.panel.children.enabled', true)) {
           childrenTreeDataProvider.refresh();
         }
       }),
       // forerefs
-      vscode.window.createTreeView('wikibonsai.panel.forerefs', {
+      vscode.window.createTreeView('tendr.panel.forerefs', {
         treeDataProvider: foreRefsTreeDataProvider,
         // showCollapseAll: true,
       }),
-      vscode.commands.registerCommand('wikibonsai.refresh.panel.forerefs', () => {
-        if (getConfigProperty('wikibonsai.panel.forerefs.enabled', true)) {
+      vscode.commands.registerCommand('tendr.refresh.panel.forerefs', () => {
+        if (getConfigProperty('tendr.panel.forerefs.enabled', true)) {
           foreRefsTreeDataProvider.refresh();
         }
       }),
       vscode.window.onDidChangeActiveTextEditor(() => {
-        if (getConfigProperty('wikibonsai.panel.forerefs.enabled', true)) {
+        if (getConfigProperty('tendr.panel.forerefs.enabled', true)) {
           foreRefsTreeDataProvider.refresh();
         }
       }),
       // backrefs
-      vscode.window.createTreeView('wikibonsai.panel.backrefs', {
+      vscode.window.createTreeView('tendr.panel.backrefs', {
         treeDataProvider: backRefsTreeDataProvider,
         // showCollapseAll: true,
       }),
-      vscode.commands.registerCommand('wikibonsai.refresh.panel.backrefs', () => {
-        if (getConfigProperty('wikibonsai.panel.backrefs.enabled', true)) {
+      vscode.commands.registerCommand('tendr.refresh.panel.backrefs', () => {
+        if (getConfigProperty('tendr.panel.backrefs.enabled', true)) {
           backRefsTreeDataProvider.refresh();
         }
       }),
       vscode.window.onDidChangeActiveTextEditor(() => {
-        if (getConfigProperty('wikibonsai.panel.backrefs.enabled', true)) {
+        if (getConfigProperty('tendr.panel.backrefs.enabled', true)) {
           backRefsTreeDataProvider.refresh();
         }
       }),
       // dangling
-      vscode.window.createTreeView('wikibonsai.panel.danglers', {
+      vscode.window.createTreeView('tendr.panel.danglers', {
         treeDataProvider: danglerTreeDataProvider,
         // showCollapseAll: true,
       }),
-      vscode.commands.registerCommand('wikibonsai.refresh.panel.danglers', () => {
-        if (getConfigProperty('wikibonsai.panel.danglers.enabled', true)) {
+      vscode.commands.registerCommand('tendr.refresh.panel.danglers', () => {
+        if (getConfigProperty('tendr.panel.danglers.enabled', true)) {
           danglerTreeDataProvider.refresh();
         }
       }),
       // zombies
-      vscode.window.createTreeView('wikibonsai.panel.zombies', {
+      vscode.window.createTreeView('tendr.panel.zombies', {
         treeDataProvider: zombieTreeDataProvider,
         // showCollapseAll: true,
       }),
-      vscode.commands.registerCommand('wikibonsai.refresh.panel.zombies', () => {
-        if (getConfigProperty('wikibonsai.panel.zombies.enabled', true)) {
+      vscode.commands.registerCommand('tendr.refresh.panel.zombies', () => {
+        if (getConfigProperty('tendr.panel.zombies.enabled', true)) {
           zombieTreeDataProvider.refresh();
         }
       }),
       // commands for zombies in all treeview panels (and quickpick items, etc.)
-      vscode.commands.registerCommand('wikibonsai.resurrect', (treeItem: NoDocTreeItem) => {
+      vscode.commands.registerCommand('tendr.resurrect', (treeItem: NoDocTreeItem) => {
         treeItem.createDoc();
       }),
-      vscode.commands.registerCommand('wikibonsai.resurrect.tmpl', (treeItem: NoDocTreeItem) => {
+      vscode.commands.registerCommand('tendr.resurrect.tmpl', (treeItem: NoDocTreeItem) => {
         wizard.open(treeItem.filename());
       }),
       // wikirefs
@@ -479,24 +479,24 @@ export const activate = async (context: vscode.ExtensionContext) => {
       ),
       // sync (for refactors)
       // todo: sync #tags
-      vscode.commands.registerCommand('wikibonsai.sync.wikirefs', (oldFilename: string, newFilename: string) => {
+      vscode.commands.registerCommand('tendr.sync.wikirefs', (oldFilename: string, newFilename: string) => {
         return commands.syncWikiRefs(oldFilename, newFilename);
       }),
-      vscode.commands.registerCommand('wikibonsai.sync.reftypes', (oldRefType: string, newRefType: string) => {
+      vscode.commands.registerCommand('tendr.sync.reftypes', (oldRefType: string, newRefType: string) => {
         return commands.syncRefTypes(oldRefType, newRefType);
       }),
       // syntax highlights (:caml:: + #tags + [[wikirefs]])
       vscode.window.onDidChangeActiveTextEditor((editor: vscode.TextEditor | undefined) => {
-        if (getConfigProperty('wikibonsai.syntax-highlight.enabled', true)
+        if (getConfigProperty('tendr.syntax-highlight.enabled', true)
         && editor
         && vscode.window.activeTextEditor
         ) {
-          vscode.commands.executeCommand('wikibonsai.vscode.executeDecorationProvider', editor);
+          vscode.commands.executeCommand('tendr.vscode.executeDecorationProvider', editor);
         }
       }),
       // only update decorations when changes are happening in the active editor
       vscode.workspace.onDidChangeTextDocument((event: vscode.TextDocumentChangeEvent) => {
-        if (getConfigProperty('wikibonsai.syntax-highlight.enabled', true)
+        if (getConfigProperty('tendr.syntax-highlight.enabled', true)
         && event
         && vscode.window.activeTextEditor
         && (event.document === vscode.window.activeTextEditor.document)
@@ -507,15 +507,15 @@ export const activate = async (context: vscode.ExtensionContext) => {
         //       while the console or output channel is selected
         && (event.document.uri.toString().includes(wsDir.toString()))
         ) {
-          vscode.commands.executeCommand('wikibonsai.vscode.executeDecorationProvider', vscode.window.activeTextEditor);
+          vscode.commands.executeCommand('tendr.vscode.executeDecorationProvider', vscode.window.activeTextEditor);
         }
       }),
       // wizard
-      vscode.commands.registerCommand('wikibonsai.open.wizard', () => {
+      vscode.commands.registerCommand('tendr.open.wizard', () => {
         wizard.open();
       }),
       // vscode 'override'
-      vscode.commands.registerCommand('wikibonsai.vscode.executeDecorationProvider', (editor: vscode.TextEditor) => {
+      vscode.commands.registerCommand('tendr.vscode.executeDecorationProvider', (editor: vscode.TextEditor) => {
         if (editor) {
           return commands.executeDecoratorProvider(editor);
         }
@@ -531,12 +531,12 @@ export const activate = async (context: vscode.ExtensionContext) => {
     // re-initialize index
     index.init();
     // syntax highlights
-    vscode.commands.executeCommand('wikibonsai.vscode.executeDecorationProvider', vscode.window.activeTextEditor);
+    vscode.commands.executeCommand('tendr.vscode.executeDecorationProvider', vscode.window.activeTextEditor);
   }, 1000);
 
   vscode.window.showInformationMessage(
     ts.emoji + ' ' +
-    'wikibonsai ready for tending' + ' ' +
+    'tendr ready for tending' + ' ' +
     WATER + ' ' + PRUNE
   );
 

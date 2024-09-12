@@ -78,31 +78,31 @@ export class ConfigProvider {
       this.doc = data.doc;
       this.lint = data.lint;
       // sync vscode configs
-      const curAttrEngine: string = getConfigProperty('wikibonsai.attrs.engine', 'caml');
+      const curAttrEngine: string = getConfigProperty('tendr.attrs.engine', 'caml');
       if (this.garden.attrs !== curAttrEngine) {
-        updateConfigProperty('wikibonsai.attrs.engine', this.garden.attrs.toLowerCase());
+        updateConfigProperty('tendr.attrs.engine', this.garden.attrs.toLowerCase());
       }
-      const curRoot: string = getConfigProperty('wikibonsai.bonsai.root', 'i.bonsai');
+      const curRoot: string = getConfigProperty('tendr.bonsai.root', 'i.bonsai');
       if (this.garden.root !== curRoot) {
-        updateConfigProperty('wikibonsai.bonsai.root', this.garden.root);
+        updateConfigProperty('tendr.bonsai.root', this.garden.root);
       }
       // lint options
       // todo: update bonsai opts too...
-      const curLintIndentKind: string = getConfigProperty('wikibonsai.lint.indentKind', 'space');
+      const curLintIndentKind: string = getConfigProperty('tendr.lint.indentKind', 'space');
       if (this.lint.indent_kind !== curLintIndentKind) {
-        updateConfigProperty('wikibonsai.lint.indentKind', this.lint.indent_kind);
+        updateConfigProperty('tendr.lint.indentKind', this.lint.indent_kind);
       }
-      const curLintIndentSize: number = getConfigProperty('wikibonsai.lint.indentSize', 2);
+      const curLintIndentSize: number = getConfigProperty('tendr.lint.indentSize', 2);
       if (this.lint.indent_size !== curLintIndentSize) {
-        updateConfigProperty('wikibonsai.lint.indentSize', this.lint.indent_size);
+        updateConfigProperty('tendr.lint.indentSize', this.lint.indent_size);
       }
-      const curLintMkdnBullet: boolean = getConfigProperty('wikibonsai.lint.mkdnBullet', true);
+      const curLintMkdnBullet: boolean = getConfigProperty('tendr.lint.mkdnBullet', true);
       if (this.lint.mkdn_bullet !== curLintMkdnBullet) {
-        updateConfigProperty('wikibonsai.lint.mkdnBullet', this.lint.mkdn_bullet);
+        updateConfigProperty('tendr.lint.mkdnBullet', this.lint.mkdn_bullet);
       }
-      const curLintWikiLink: boolean = getConfigProperty('wikibonsai.lint.wikiLink', true);
+      const curLintWikiLink: boolean = getConfigProperty('tendr.lint.wikiLink', true);
       if (this.lint.wikilink !== curLintWikiLink) {
-        updateConfigProperty('wikibonsai.lint.wikiLink', this.lint.wikilink);
+        updateConfigProperty('tendr.lint.wikiLink', this.lint.wikilink);
       }
     } catch (e: any) {
       logger.error(e);
@@ -116,7 +116,7 @@ export class ConfigProvider {
       logger.error('no workspace directory found');
       return;
     }
-    const configFileName: string = getConfigProperty('wikibonsai.file.config', DEFAULT_CONFIG_FILE);
+    const configFileName: string = getConfigProperty('tendr.file.config', DEFAULT_CONFIG_FILE);
     const configFileVscUris: vscode.Uri[] | undefined = await vscode.workspace.findFiles('**/**/' + configFileName);
     if (!configFileVscUris || (configFileVscUris.length === 0)) { return; }
     return configFileVscUris[0].toString();

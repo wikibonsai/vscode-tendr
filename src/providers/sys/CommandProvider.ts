@@ -70,7 +70,7 @@ export class CommandProvider {
   }
 
   public async openDoc(vscUri: vscode.Uri): Promise<void> {
-    const configCol: string = getConfigProperty('wikibonsai.file.open.loc', 'one');
+    const configCol: string = getConfigProperty('tendr.file.open.loc', 'one');
     const column: number = colDescrToNum[configCol] || vscode.ViewColumn.One;
     vscode.window.showTextDocument(vscUri, {
       // preserveFocus: false,
@@ -113,7 +113,7 @@ export class CommandProvider {
     // auto-init from 'default' doctype
     // (if no 'default' doctype is found,
     //  'AttributesProvider' should automatically init
-    //  from wikibonsai attr default)
+    //  from tendr attr default)
     if (!payload.type) {
       payload.type = NODE.TYPE.DEFAULT;
       if (this.types.typeOpts) {
@@ -139,7 +139,7 @@ export class CommandProvider {
     wsedit.createFile(newVscUri, { ignoreIfExists: true, overwrite: false });
     await vscode.workspace.applyEdit(wsedit);
     // open
-    vscode.commands.executeCommand('wikibonsai.open.file', newVscUri);
+    vscode.commands.executeCommand('tendr.open.file', newVscUri);
     // wikiref symbol rename: update other zombie wikirefs that match the given 'filename'
     // get nodes that need updating
     let node: Node | undefined;
@@ -148,7 +148,7 @@ export class CommandProvider {
     }
     if (!node) {
       // if user changed filename midway through operation
-      // in 'wikibonsai.name.file', check for prior filename
+      // in 'tendr.name.file', check for prior filename
       if (payload.filenameFromZombie) {
         node = this.index.find('filename', payload.filenameFromZombie);
       } else {
@@ -163,7 +163,7 @@ export class CommandProvider {
       }
     }
     // todo: only perform if affix includes a ':const'...
-    if (getConfigProperty('wikibonsai.wikiref.affix-rename.enabled', false)) {
+    if (getConfigProperty('tendr.wikiref.affix-rename.enabled', false)) {
       if (affixedFilename && unfixedFilename && (affixedFilename !== unfixedFilename)) {
         const battrsUris = this.index.backattrs(node.id, 'uri');
         const blinksUris = this.index.backlinks(node.id, 'uri');
@@ -233,7 +233,7 @@ export class CommandProvider {
         const payload: any = JSON.parse(wikiDocLink.target.query);
         const node: any = this.index.find('filename', payload.filename);
         await vscode.commands.executeCommand(
-          'wikibonsai.create.file',
+          'tendr.create.file',
           {
             id: node.id,
             filename: payload.filename,
@@ -247,7 +247,7 @@ export class CommandProvider {
     logger.debug('CommandProvider.executeDecoratorProvider()');
     this.camlTextDecorationProvider.updateDecorations(editor);
     this.wikiRefDecorationProvider.updateDecorations(editor);
-    if (getConfigProperty('wikibonsai.tag.enabled', true)){
+    if (getConfigProperty('tendr.tag.enabled', true)){
       this.tagDecorationProvider.updateDecorations(editor);
     }
   }
@@ -325,7 +325,7 @@ export class CommandProvider {
 
   public async syncBonsai(): Promise<void> {
     logger.debug('CommandProvider.syncBonsai() -- start');
-    if (!getConfigProperty('wikibonsai.bonsai.sync.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.bonsai.sync.enabled', true)) { return; }
     vscode.window.showInformationMessage('building bonsai...' + SEED);
     // flush tree
     this.index.flushRelFams();
@@ -352,21 +352,21 @@ export class CommandProvider {
     const visibleEditors: readonly vscode.TextEditor[] = vscode.window.visibleTextEditors;
     for (const editor of visibleEditors) {
       // active editor docs
-      vscode.commands.executeCommand('wikibonsai.vscode.executeDecorationProvider', editor);
+      vscode.commands.executeCommand('tendr.vscode.executeDecorationProvider', editor);
       vscode.commands.executeCommand('vscode.executeLinkProvider', editor.document.uri);
     }
     // follow active editor treeviews; views that change on active editor changes
-    vscode.commands.executeCommand('wikibonsai.refresh.panel.ancestors');
-    vscode.commands.executeCommand('wikibonsai.refresh.panel.children');
-    vscode.commands.executeCommand('wikibonsai.refresh.panel.backrefs');
-    vscode.commands.executeCommand('wikibonsai.refresh.panel.forerefs');
+    vscode.commands.executeCommand('tendr.refresh.panel.ancestors');
+    vscode.commands.executeCommand('tendr.refresh.panel.children');
+    vscode.commands.executeCommand('tendr.refresh.panel.backrefs');
+    vscode.commands.executeCommand('tendr.refresh.panel.forerefs');
     // follow file changes treeviews; views that change on file changes
-    vscode.commands.executeCommand('wikibonsai.refresh.panel.bonsai');
-    vscode.commands.executeCommand('wikibonsai.refresh.panel.danglers');
-    vscode.commands.executeCommand('wikibonsai.refresh.panel.zombies');
+    vscode.commands.executeCommand('tendr.refresh.panel.bonsai');
+    vscode.commands.executeCommand('tendr.refresh.panel.danglers');
+    vscode.commands.executeCommand('tendr.refresh.panel.zombies');
     // 
-    if (getConfigProperty('wikibonsai.graph.ctrls.autosync.enabled', false)) {
-      vscode.commands.executeCommand('wikibonsai.sync.graph');
+    if (getConfigProperty('tendr.graph.ctrls.autosync.enabled', false)) {
+      vscode.commands.executeCommand('tendr.sync.graph');
     }
     // todo:
     // - update 'setContext' from 'extension.ts'

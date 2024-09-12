@@ -2,11 +2,11 @@ import * as vscode from 'vscode';
 import { Utils } from 'vscode-uri';
 
 import { EXT_MD, VSCODE_GLOB_MEDIA } from './const';
-// import { WikiBonsaiCommands } from './commands';
+// import { TendrCommands } from './commands';
 
 
 // todo: wrap command execution so type check applies to commands
-// export function execute(command: WikiBonsaiCommands, val?: any) {
+// export function execute(command: TendrCommands, val?: any) {
 //   return vscode.commands.executeCommand(command, val);
 // }
 

@@ -58,7 +58,7 @@ export class FileWatcherProvider {
 
   // todo: can't figure out how to actually use the cancellationToken...
   // public async handleWillCreate(e: vscode.FileWillCreateEvent): Promise<vscode.CancellationToken | void> {
-  //   if (!getConfigProperty('wikibonsai.file.sync.enabled', true)) { return; }
+  //   if (!getConfigProperty('tendr.file.sync.enabled', true)) { return; }
   //   logger.debug('FileWatcherProvider.handleWillCreate()');
   //   const fileVscUris: readonly vscode.Uri[] = e.files;
   //   for (let vscUri of fileVscUris) {
@@ -83,7 +83,7 @@ export class FileWatcherProvider {
   // }
 
   public async handleCreate(e: vscode.FileCreateEvent): Promise<void> {
-    if (!getConfigProperty('wikibonsai.file.sync.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.file.sync.enabled', true)) { return; }
     logger.debug('FileWatcherProvider.handleCreate()');
     const fileVscUris: readonly vscode.Uri[] = e.files;
     let successfullyCreated: boolean = false;
@@ -209,12 +209,12 @@ export class FileWatcherProvider {
       }
     }
     if (successfullyCreated) {
-      vscode.commands.executeCommand('wikibonsai.sync.gui');
+      vscode.commands.executeCommand('tendr.sync.gui');
     }
   }
 
   public async handleRename(e: vscode.FileRenameEvent): Promise<void> {
-    if (!getConfigProperty('wikibonsai.file.sync.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.file.sync.enabled', true)) { return; }
     logger.debug('FileWatcherProvider.handleRename()');
     const fileVscUris: readonly any[] = e.files;
     for (const uriInfo of fileVscUris) {
@@ -248,7 +248,7 @@ export class FileWatcherProvider {
       // media changes
       if (wikirefs.isMedia(newFileNameWithExt)) {
         this.index.cacheMedia[newFileNameWithExt] = getAbsPathInWorkspaceForMedia(newVscUri);
-        await vscode.commands.executeCommand('wikibonsai.sync.wikirefs', oldFileNameWithExt, newFileNameWithExt);
+        await vscode.commands.executeCommand('tendr.sync.wikirefs', oldFileNameWithExt, newFileNameWithExt);
         return;
       ////
       // filename changes
@@ -311,7 +311,7 @@ export class FileWatcherProvider {
             this.index.cacheContent[newFilename] = docText;
           }
         }
-        await vscode.commands.executeCommand('wikibonsai.sync.wikirefs', oldFilename, newFilename);
+        await vscode.commands.executeCommand('tendr.sync.wikirefs', oldFilename, newFilename);
       ////
       // handle directory-name change
       } else if (fs.lstatSync(newVscUri.fsPath).isDirectory()) {
@@ -336,8 +336,8 @@ export class FileWatcherProvider {
   // fires on 'vscode.window.onDidChangeActiveTextEditor' (see extension.ts)
   // primarily handles view time ('vtime', 'vdate') updates.
   public async handleDidView(e: any): Promise<void> {
-    if (!getConfigProperty('wikibonsai.file.sync.enabled', true)
-    || !getConfigProperty('wikibonsai.attrs.vtime.enabled', true)
+    if (!getConfigProperty('tendr.file.sync.enabled', true)
+    || !getConfigProperty('tendr.attrs.vtime.enabled', true)
     ) {
       return;
     }
@@ -365,7 +365,7 @@ export class FileWatcherProvider {
 
   // primarily handles modified time ('mtime', 'mdate') updates
   public async handleWillSave(e: vscode.TextDocumentWillSaveEvent): Promise<(vscode.TextEdit[] | void) | void> {
-    if (!getConfigProperty('wikibonsai.file.sync.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.file.sync.enabled', true)) { return; }
     logger.debug('FileWatcherProvider.handleWillSave()');
     // todo: if it's a filename change, only change that and nothing else.
     const vscUri: vscode.Uri = e.document.uri;
@@ -377,10 +377,10 @@ export class FileWatcherProvider {
     //       but this is fine since 'handleCreate()' will populate the initial
     //       attribute values
     if (!this.lockWillSave && e.reason === vscode.TextDocumentSaveReason.Manual) {
-      const mdateOn: boolean = getConfigProperty('wikibonsai.attrs.mdate.enabled', true);
-      const vdateOn: boolean = getConfigProperty('wikibonsai.attrs.vdate.enabled', true);
-      const mtimeOn: boolean = getConfigProperty('wikibonsai.attrs.mtime.enabled', true);
-      const vtimeOn: boolean = getConfigProperty('wikibonsai.attrs.vtime.enabled', true);
+      const mdateOn: boolean = getConfigProperty('tendr.attrs.mdate.enabled', true);
+      const vdateOn: boolean = getConfigProperty('tendr.attrs.vdate.enabled', true);
+      const mtimeOn: boolean = getConfigProperty('tendr.attrs.mtime.enabled', true);
+      const vtimeOn: boolean = getConfigProperty('tendr.attrs.vtime.enabled', true);
       const times: string[] = [];
       if (mdateOn) { times.push(ATTR_MDATE); }
       if (vdateOn) { times.push(ATTR_VDATE); }
@@ -397,7 +397,7 @@ export class FileWatcherProvider {
   }
 
   public async handleDidSave(e: vscode.TextDocument): Promise<void> {
-    if (!getConfigProperty('wikibonsai.file.sync.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.file.sync.enabled', true)) { return; }
     logger.debug('FileWatcherProvider.handleDidSave()');
     const vscUri: vscode.Uri = e.uri;
     const uri: string = vscUri.toString();
@@ -414,7 +414,7 @@ export class FileWatcherProvider {
       // reresolve types
       this.types.build();
       this.index.refreshNodeTypes(this.attrs, this.types);
-      vscode.commands.executeCommand('wikibonsai.sync.gui');
+      vscode.commands.executeCommand('tendr.sync.gui');
       logger.debug('FileWatcherProvider.handleDidSave() -- finished saving doctype file');
       return;
     // media file
@@ -457,7 +457,7 @@ export class FileWatcherProvider {
         const attrPayload: any = await this.attrs.load(docText);
         const cleanContent: string = attrPayload.content.replace(/^\n*/, '');
         const updated: boolean = await this.bonsai.update(filename, cleanContent);
-        if (updated) { vscode.commands.executeCommand('wikibonsai.refresh.panel.bonsai'); }
+        if (updated) { vscode.commands.executeCommand('tendr.refresh.panel.bonsai'); }
         else { logger.debug('FileWatcherProvider.handleDidSave() -- unable to update tree'); }
       }
       // web
@@ -478,7 +478,7 @@ export class FileWatcherProvider {
       //   // rebuild tree
       //   await this.bonsai.update(docText, filename);
       // }
-      vscode.commands.executeCommand('wikibonsai.sync.gui');
+      vscode.commands.executeCommand('tendr.sync.gui');
       logger.debug('FileWatcherProvider.handleDidSave() -- finished saving mkdn file');
       return;
     } else {
@@ -489,7 +489,7 @@ export class FileWatcherProvider {
   }
 
   public async handleWillDelete(e: vscode.FileWillDeleteEvent): Promise<void> {
-    if (!getConfigProperty('wikibonsai.file.sync.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.file.sync.enabled', true)) { return; }
     logger.debug('FileWatcherProvider.handleDelete()');
     const fileVscUris: readonly any[] = e.files;
     for (const vscUri of fileVscUris) {
@@ -536,7 +536,7 @@ export class FileWatcherProvider {
         }
       }
     }
-    vscode.commands.executeCommand('wikibonsai.sync.gui');
+    vscode.commands.executeCommand('tendr.sync.gui');
     return;
   }
 }

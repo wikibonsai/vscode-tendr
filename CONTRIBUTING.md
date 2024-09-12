@@ -15,9 +15,9 @@ src
 
 ## Convention
 
-`vscode-wikibonsai` abides by the [OO paradigm](https://en.wikipedia.org/wiki/Object-oriented_programming) because the vscode plugin API encourages the use of Provider classes that oversee the interactions between vscode and plugins. That said, as much functionality as possible is modularized into other packages and follows the [FP paradigm](https://en.wikipedia.org/wiki/Functional_programming) due to [its benefits in reduced complexity](https://www.youtube.com/watch?v=I845O57ZSy4&t=844s).
+`vscode-tendr` abides by the [OO paradigm](https://en.wikipedia.org/wiki/Object-oriented_programming) because the vscode plugin API encourages the use of Provider classes that oversee the interactions between vscode and plugins. That said, as much functionality as possible is modularized into other packages and follows the [FP paradigm](https://en.wikipedia.org/wiki/Functional_programming) due to [its benefits in reduced complexity](https://www.youtube.com/watch?v=I845O57ZSy4&t=844s).
 
-So in the end, `vscode-wikibonsai` acts as an OO-style adapter between vscode provider classes and FP-style mini-services.
+So in the end, `vscode-tendr` acts as an OO-style adapter between vscode provider classes and FP-style mini-services.
 
 ## Commits
 
@@ -28,7 +28,7 @@ See [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
 Clone repo:
 
 ```
-$ git clone git@github.com:wikibonsai/vscode-wikibonsai.git
+$ git clone git@github.com:wikibonsai/vscode-tendr.git
 ```
 
 Install deps:

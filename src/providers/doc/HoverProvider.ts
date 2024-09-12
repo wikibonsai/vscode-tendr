@@ -20,7 +20,7 @@ export class WikiRefHoverProvider implements vscode.HoverProvider {
     // eslint-disable-next-line
     token: vscode.CancellationToken,
   ): Promise<vscode.Hover | undefined> {
-    if (!getConfigProperty('wikibonsai.wikiref.hover-preview.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.wikiref.hover-preview.enabled', true)) { return; }
     let filename: string | undefined;
     // todo: checkout 'TextLine.text' (see note on 'getWordRangeAtPosition')
     // attr / link

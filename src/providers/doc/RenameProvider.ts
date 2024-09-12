@@ -27,7 +27,7 @@ export class RenameProvider implements vscode.RenameProvider {
     // eslint-disable-next-line
     token: vscode.CancellationToken,
   ): Promise<vscode.WorkspaceEdit | undefined> {
-    if (!getConfigProperty('wikibonsai.wikiref.refactor.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.wikiref.refactor.enabled', true)) { return; }
     // position must be on a word
     const fileNameRange = document.getWordRangeAtPosition(position, wikirefs.RGX.GET.FILENAME);
     const refTypeRange = document.getWordRangeAtPosition(position, wikirefs.RGX.GET.REFTYPE);
@@ -53,7 +53,7 @@ export class RenameProvider implements vscode.RenameProvider {
       if (node.kind === NODE.KIND.ZOMBIE) {
         const success: boolean = this.index.edit(node.id, 'filename', newName);
         if (!success) { logger.error(`RenameProvider.provideRenameEdits() -- unable to update filename for zombie node from '${filename}' to ${newName}`); }
-        await vscode.commands.executeCommand('wikibonsai.sync.wikirefs', filename, newName);
+        await vscode.commands.executeCommand('tendr.sync.wikirefs', filename, newName);
         return undefined;
       // default case -- rename file; 'FileWatcherProvider' will handle wikirefs sync and node update
       } else {
@@ -78,7 +78,7 @@ export class RenameProvider implements vscode.RenameProvider {
         return undefined;
       }
       const reftype: string = (refTypeMatch && refTypeMatch[1]) ? refTypeMatch[1] : refTypeMatch[2];
-      await vscode.commands.executeCommand('wikibonsai.sync.reftypes', reftype.trim(), newName);
+      await vscode.commands.executeCommand('tendr.sync.reftypes', reftype.trim(), newName);
       return undefined;
     }
   }
@@ -89,7 +89,7 @@ export class RenameProvider implements vscode.RenameProvider {
     // eslint-disable-next-line
     token: vscode.CancellationToken,
   ): Promise<vscode.Range | undefined> {
-    if (!getConfigProperty('wikibonsai.wikiref.refactor.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.wikiref.refactor.enabled', true)) { return; }
     // doc must be saved
     if (document.isDirty) {
       logger.warn('RenameProvider.provideRenameEdits() -- cannot rename link in unsaved document');

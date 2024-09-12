@@ -46,8 +46,8 @@ export class IndexProvider extends Caudex {
     logger.debug('creating IndexProvider...');
     const indexOpts = {
       nanoid: {
-        alphabet: getConfigProperty('wikibonsai.attrs.id.alpha', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'),
-        size: getConfigProperty('wikibonsai.attrs.id.size', 21),
+        alphabet: getConfigProperty('tendr.attrs.id.alpha', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'),
+        size: getConfigProperty('tendr.attrs.id.size', 21),
       },
       uniqKeys: ['uri', 'filename'],
       zombieKey: 'filename',

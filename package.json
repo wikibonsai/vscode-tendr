@@ -1,10 +1,10 @@
 {
-  "name": "vscode-wikibonsai",
-  "displayName": "WikiBonsai",
-  "version": "0.0.7",
+  "name": "vscode-tendr",
+  "displayName": "tendr",
+  "version": "0.0.8",
   "description": "PKM tooling for semantically inclined digital gardeners (with [[wikirefs]], semantic trees, and graphs).",
   "license": "GPL-3.0",
-  "icon": "icons/wikibonsai-light-nobg.png",
+  "icon": "icons/tendr.png",
   "author": {
     "name": "manunamz",
     "email": "manuanmz@pm.me"
@@ -12,7 +12,7 @@
   "publisher": "manunamz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wikibonsai/vscode-wikibonsai"
+    "url": "https://github.com/wikibonsai/vscode-tendr"
   },
   "engines": {
     "vscode": "^1.72.2"
@@ -87,14 +87,14 @@
   "contributes": {
     "markdown.markdownItPlugins": true,
     "configuration": {
-      "title": "wikibonsai",
+      "title": "tendr",
       "properties": {
-        "wikibonsai.debug.enabled": {
+        "tendr.debug.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle debug features (mostly logging and commands to trigger logging)"
         },
-        "wikibonsai.attrs.caml.opts.format": {
+        "tendr.attrs.caml.opts.format": {
           "enum": [
             "pad",
             "pretty",
@@ -108,17 +108,17 @@
           "default": "pretty",
           "description": "select bonsai species to cultivate"
         },
-        "wikibonsai.attrs.caml.opts.render.enabled": {
+        "tendr.attrs.caml.opts.render.enabled": {
           "type": "boolean",
           "default": false,
           "description": "render caml attributes (including wikiattrs) in markdown preview (changing this setting will require a vscode restart)"
         },
-        "wikibonsai.attrs.caml.opts.prefix": {
+        "tendr.attrs.caml.opts.prefix": {
           "type": "boolean",
           "default": true,
           "description": "toggle colon prefix for caml attributes (ex with: :key::value; ex without: key::value)"
         },
-        "wikibonsai.attrs.engine": {
+        "tendr.attrs.engine": {
           "enum": [
             "caml",
             "yaml"
@@ -130,27 +130,27 @@
           "default": "caml",
           "description": "the engine that handles attributes"
         },
-        "wikibonsai.attrs.id.alpha": {
+        "tendr.attrs.id.alpha": {
           "type": "string",
           "default": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
           "description": "what characters to use when generating a document's attribute 'id'"
         },
-        "wikibonsai.attrs.id.size": {
+        "tendr.attrs.id.size": {
           "type": "number",
           "default": 21,
           "description": "what number of characters to use when generating a document's attribute 'id'"
         },
-        "wikibonsai.bonsai.root": {
+        "tendr.bonsai.root": {
           "type": "string",
           "default": "i.bonsai",
           "description": "filename for the markdown file that is the root of the bonsai."
         },
-        "wikibonsai.bonsai.sync.enabled": {
+        "tendr.bonsai.sync.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle bonsai build command on/off"
         },
-        "wikibonsai.emoji.tree": {
+        "tendr.emoji.tree": {
           "type": "string",
           "enum": [
             "🎋",
@@ -167,67 +167,67 @@
           "default": "🎋",
           "description": "select bonsai species to cultivate"
         },
-        "wikibonsai.file.config": {
+        "tendr.file.config": {
           "type": "string",
           "default": "config.toml",
           "description": "toml (or yaml) file for garden configurations"
         },
-        "wikibonsai.file.doc-types": {
+        "tendr.file.doc-types": {
           "type": "string",
           "default": "t.doc.toml",
           "description": "toml (or yaml) file for document type declarations"
         },
-        "wikibonsai.file.name.opts.id.alpha": {
+        "tendr.file.name.opts.id.alpha": {
           "type": "string",
           "default": "abcdefghijklmnopqrstuvwxyz0123456789",
           "description": "what characters to use when generating a filename 'id'"
         },
-        "wikibonsai.file.name.opts.id.size": {
+        "tendr.file.name.opts.id.size": {
           "type": "number",
           "default": 6,
           "description": "what number of characters to use when generating a filename 'id'"
         },
-        "wikibonsai.file.open.loc": {
+        "tendr.file.open.loc": {
           "type": "string",
           "default": "one",
           "description": "which window panel to open file in"
         },
-        "wikibonsai.file.sync.enabled": {
+        "tendr.file.sync.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle file sync (you probably don't want to turn this off unless you're debugging)"
         },
-        "wikibonsai.lint.indentKind": {
+        "tendr.lint.indentKind": {
           "type": "string",
           "default": "space",
           "description": "what kind of indentation to use for markdown lists when linting semantic tree / knowledge bonsai"
         },
-        "wikibonsai.lint.indentSize": {
+        "tendr.lint.indentSize": {
           "type": "number",
           "default": 2,
           "description": "what size of indentation to use for markdown lists when linting semantic tree / knowledge bonsai"
         },
-        "wikibonsai.lint.mkdnBullet": {
+        "tendr.lint.mkdnBullet": {
           "type": "boolean",
           "default": true,
           "description": "toggle markdown bullet lists when linting semantic tree / knowledge bonsai"
         },
-        "wikibonsai.lint.wikiLink": {
+        "tendr.lint.wikiLink": {
           "type": "boolean",
           "default": true,
           "description": "toggle wiki links when linting semantic tree / knowledge bonsai"
         },
-        "wikibonsai.graph.coords.tree": {
+        "tendr.graph.coords.tree": {
           "type": "string",
           "default": "coords-tree.json",
           "description": "json file that stores node coordinate data for tree graph"
         },
-        "wikibonsai.graph.coords.web": {
+        "tendr.graph.coords.web": {
           "type": "string",
           "default": "coords-web.json",
           "description": "json file that stores node coordinate data for web graph"
         },
-        "wikibonsai.graph.ctrls.dim": {
+        "tendr.graph.ctrls.dim": {
           "type": "string",
           "enum": [
             "2d",
@@ -242,47 +242,47 @@
           "default": "2d",
           "description": "select which dimension to render the graph in"
         },
-        "wikibonsai.graph.ctrls.fix.enabled": {
+        "tendr.graph.ctrls.fix.enabled": {
           "type": "boolean",
           "default": false,
           "description": "toggle active ability to fix nodes to position in graph"
         },
-        "wikibonsai.graph.ctrls.follow.enabled": {
+        "tendr.graph.ctrls.follow.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle active node following of doc from the active editor in graph"
         },
-        "wikibonsai.graph.ctrls.autosync.enabled": {
+        "tendr.graph.ctrls.autosync.enabled": {
           "type": "boolean",
           "default": false,
           "description": "toggle graph data autosync"
         },
-        "wikibonsai.graph.enabled": {
+        "tendr.graph.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle graphs"
         },
-        "wikibonsai.graph.open-loc": {
+        "tendr.graph.open-loc": {
           "type": "string",
           "default": "beside",
           "description": "which multiplexer panel to open graph in"
         },
-        "wikibonsai.graph.sync.enabled": {
+        "tendr.graph.sync.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle on/off auto-update graph data on file changes"
         },
-        "wikibonsai.graph.tree.enabled": {
+        "tendr.graph.tree.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle tree graph"
         },
-        "wikibonsai.graph.web.enabled": {
+        "tendr.graph.web.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle web graph"
         },
-        "wikibonsai.log.level": {
+        "tendr.log.level": {
           "type": "string",
           "enum": [
             "none",
@@ -303,57 +303,57 @@
           "default": "info",
           "description": "select log level"
         },
-        "wikibonsai.panel.bonsai.enabled": {
+        "tendr.panel.bonsai.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle bonsai treeview panel"
         },
-        "wikibonsai.panel.ancestors.enabled": {
+        "tendr.panel.ancestors.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle document ancestors treeview panel"
         },
-        "wikibonsai.panel.children.enabled": {
+        "tendr.panel.children.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle document children treeview panel"
         },
-        "wikibonsai.panel.forerefs.enabled": {
+        "tendr.panel.forerefs.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle document forward references treeview panel"
         },
-        "wikibonsai.panel.backrefs.enabled": {
+        "tendr.panel.backrefs.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle document backward references treeview panel"
         },
-        "wikibonsai.panel.danglers.enabled": {
+        "tendr.panel.danglers.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle dangling documents treeview panel"
         },
-        "wikibonsai.panel.zombies.enabled": {
+        "tendr.panel.zombies.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle zombie links treeview panel"
         },
-        "wikibonsai.wizard.enabled": {
+        "tendr.wizard.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "toggle wikibonsai's custom command wizard (for searching and creating)"
+          "description": "toggle tendr's custom command wizard (for searching and creating)"
         },
-        "wikibonsai.syntax-highlight.enabled": {
+        "tendr.syntax-highlight.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle syntax highlighting"
         },
-        "wikibonsai.tag.enabled": {
+        "tendr.tag.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle #tag functionality (useful to toggle off if #tag syntax is used in another extension)"
         },
-        "wikibonsai.tag.open-doc": {
+        "tendr.tag.open-doc": {
           "enum": [
             "index",
             "entry"
@@ -365,37 +365,37 @@
           "default": "index",
           "description": "select which document to open when clicking on a #tag -- the index/trunk doc or entry/leaf doc"
         },
-        "wikibonsai.tag.open-loc": {
+        "tendr.tag.open-loc": {
           "type": "string",
           "default": "one",
           "description": "which multiplex panel to open #tag document in"
         },
-        "wikibonsai.wikiref.affix-rename.enabled": {
+        "tendr.wikiref.affix-rename.enabled": {
           "type": "boolean",
           "default": false,
           "description": "todo"
         },
-        "wikibonsai.wikiref.completion.enabled": {
+        "tendr.wikiref.completion.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle tab completion for [[wikirefs]]"
         },
-        "wikibonsai.wikiref.hover-preview.enabled": {
+        "tendr.wikiref.hover-preview.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle hover preview on [[wikirefs]]"
         },
-        "wikibonsai.wikiref.goto.enabled": {
+        "tendr.wikiref.goto.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle cmd/ctrl+click on [[wikirefs]] to open document"
         },
-        "wikibonsai.wikiref.refactor.enabled": {
+        "tendr.wikiref.refactor.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle document rename refactor from [[wikiref]] text"
         },
-        "wikibonsai.wikiref.type.completion.enabled": {
+        "tendr.wikiref.type.completion.enabled": {
           "type": "boolean",
           "default": true,
           "description": "toggle tab completion for :types::"
@@ -408,303 +408,303 @@
         "win": "ctrl+k",
         "linux": "ctrl+k",
         "key": "ctrl+k",
-        "command": "wikibonsai.open.wizard"
+        "command": "tendr.open.wizard"
       }
     ],
     "commands": [
       {
-        "command": "wikibonsai.debug.dump.bonsai",
-        "title": "wikibonsai: dump bonsai to .json file"
+        "command": "tendr.debug.dump.bonsai",
+        "title": "tendr: dump bonsai to .json file"
       },
       {
-        "command": "wikibonsai.debug.dump.index",
-        "title": "wikibonsai: dump index to .json file"
+        "command": "tendr.debug.dump.index",
+        "title": "tendr: dump index to .json file"
       },
       {
-        "command": "wikibonsai.debug.print.index",
-        "title": "wikibonsai: print link index in console"
+        "command": "tendr.debug.print.index",
+        "title": "tendr: print link index in console"
       },
       {
-        "command": "wikibonsai.debug.lint.bonsai",
-        "title": "wikibonsai: lint index docs / bonsai files"
+        "command": "tendr.debug.lint.bonsai",
+        "title": "tendr: lint index docs / bonsai files"
       },
       {
-        "command": "wikibonsai.debug.print.bonsai",
-        "title": "wikibonsai: print bonsai in console"
+        "command": "tendr.debug.print.bonsai",
+        "title": "tendr: print bonsai in console"
       },
       {
-        "command": "wikibonsai.debug.reset.index",
-        "title": "wikibonsai: clear index and rebuild from files"
+        "command": "tendr.debug.reset.index",
+        "title": "tendr: clear index and rebuild from files"
       },
       {
-        "command": "wikibonsai.create.file",
-        "title": "wikibonsai: create new document",
+        "command": "tendr.create.file",
+        "title": "tendr: create new document",
         "icon": {
           "light": "icons/light/add.svg",
           "dark": "icons/dark/add.svg"
         }
       },
       {
-        "command": "wikibonsai.create.file.bulk",
-        "title": "wikibonsai: create new documents from zombies"
+        "command": "tendr.create.file.bulk",
+        "title": "tendr: create new documents from zombies"
       },
       {
-        "command": "wikibonsai.file.name",
-        "title": "wikibonsai: name new document"
+        "command": "tendr.file.name",
+        "title": "tendr: name new document"
       },
       {
-        "command": "wikibonsai.open.graph.tree",
-        "title": "wikibonsai: open tree graph",
+        "command": "tendr.open.graph.tree",
+        "title": "tendr: open tree graph",
         "icon": {
           "light": "icons/graph-tree.svg",
           "dark": "icons/graph-tree.svg"
         }
       },
       {
-        "command": "wikibonsai.open.graph.web",
-        "title": "wikibonsai: open web graph",
+        "command": "tendr.open.graph.web",
+        "title": "tendr: open web graph",
         "icon": {
           "light": "icons/graph-web.svg",
           "dark": "icons/graph-web.svg"
         }
       },
       {
-        "command": "wikibonsai.open.wizard",
-        "title": "wikibonsai: search and create files from the wikibonsai wizard"
+        "command": "tendr.open.wizard",
+        "title": "tendr: search and create files from the tendr wizard"
       },
       {
-        "command": "wikibonsai.refresh.panel.bonsai",
-        "title": "wikibonsai: refresh bonsai panel",
+        "command": "tendr.refresh.panel.bonsai",
+        "title": "tendr: refresh bonsai panel",
         "icon": {
           "light": "icons/light/refresh.svg",
           "dark": "icons/dark/refresh.svg"
         }
       },
       {
-        "command": "wikibonsai.refresh.panel.ancestors",
-        "title": "wikibonsai: refresh ancestors panel",
+        "command": "tendr.refresh.panel.ancestors",
+        "title": "tendr: refresh ancestors panel",
         "icon": {
           "light": "icons/light/refresh.svg",
           "dark": "icons/dark/refresh.svg"
         }
       },
       {
-        "command": "wikibonsai.refresh.panel.children",
-        "title": "wikibonsai: refresh children panel",
+        "command": "tendr.refresh.panel.children",
+        "title": "tendr: refresh children panel",
         "icon": {
           "light": "icons/light/refresh.svg",
           "dark": "icons/dark/refresh.svg"
         }
       },
       {
-        "command": "wikibonsai.refresh.panel.forerefs",
-        "title": "wikibonsai: refresh forerefs panel",
+        "command": "tendr.refresh.panel.forerefs",
+        "title": "tendr: refresh forerefs panel",
         "icon": {
           "light": "icons/light/refresh.svg",
           "dark": "icons/dark/refresh.svg"
         }
       },
       {
-        "command": "wikibonsai.refresh.panel.backrefs",
-        "title": "wikibonsai: refresh backrefs panel",
+        "command": "tendr.refresh.panel.backrefs",
+        "title": "tendr: refresh backrefs panel",
         "icon": {
           "light": "icons/light/refresh.svg",
           "dark": "icons/dark/refresh.svg"
         }
       },
       {
-        "command": "wikibonsai.refresh.panel.danglers",
-        "title": "wikibonsai: refresh danglers panel",
+        "command": "tendr.refresh.panel.danglers",
+        "title": "tendr: refresh danglers panel",
         "icon": {
           "light": "icons/light/refresh.svg",
           "dark": "icons/dark/refresh.svg"
         }
       },
       {
-        "command": "wikibonsai.refresh.panel.zombies",
-        "title": "wikibonsai: refresh zombies panel",
+        "command": "tendr.refresh.panel.zombies",
+        "title": "tendr: refresh zombies panel",
         "icon": {
           "light": "icons/light/refresh.svg",
           "dark": "icons/dark/refresh.svg"
         }
       },
       {
-        "command": "wikibonsai.resurrect",
-        "title": "wikibonsai: create doc",
+        "command": "tendr.resurrect",
+        "title": "tendr: create doc",
         "icon": {
           "light": "icons/light/add.svg",
           "dark": "icons/dark/add.svg"
         }
       },
       {
-        "command": "wikibonsai.resurrect.tmpl",
-        "title": "wikibonsai: create doc from template",
+        "command": "tendr.resurrect.tmpl",
+        "title": "tendr: create doc from template",
         "icon": {
           "light": "icons/light/add-circle.svg",
           "dark": "icons/dark/add-circle.svg"
         }
       },
       {
-        "command": "wikibonsai.sync.bonsai",
-        "title": "wikibonsai: sync bonsai",
+        "command": "tendr.sync.bonsai",
+        "title": "tendr: sync bonsai",
         "icon": {
           "light": "icons/light/sync.svg",
           "dark": "icons/dark/sync.svg"
         }
       },
       {
-        "command": "wikibonsai.toggle.graph.ctrls.dim",
-        "title": "wikibonsai: update graph dimensions"
+        "command": "tendr.toggle.graph.ctrls.dim",
+        "title": "tendr: update graph dimensions"
       },
       {
-        "command": "wikibonsai.toggle.graph.ctrls.fix",
-        "title": "wikibonsai: toggle on/off fixed nodes in graph"
+        "command": "tendr.toggle.graph.ctrls.fix",
+        "title": "tendr: toggle on/off fixed nodes in graph"
       },
       {
-        "command": "wikibonsai.toggle.graph.ctrls.follow",
-        "title": "wikibonsai: toggle on/off active doc following in graph"
+        "command": "tendr.toggle.graph.ctrls.follow",
+        "title": "tendr: toggle on/off active doc following in graph"
       }
     ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "wikibonsai-explorer",
-          "title": "wikibonsai",
-          "icon": "icons/wikibonsai.svg"
+          "id": "tendr-explorer",
+          "title": "tendr",
+          "icon": "icons/tendr.svg"
         }
       ]
     },
     "menus": {
       "editor/context": [
         {
-          "command": "wikibonsai.create.file.bulk",
-          "when": "editorHasSelection && resourceFilename in wikibonsai.bonsaiTrunkFiles"
+          "command": "tendr.create.file.bulk",
+          "when": "editorHasSelection && resourceFilename in tendr.bonsaiTrunkFiles"
         }
       ],
       "view/title": [
         {
-          "command": "wikibonsai.open.graph.tree",
-          "when": "view == wikibonsai.panel.bonsai",
+          "command": "tendr.open.graph.tree",
+          "when": "view == tendr.panel.bonsai",
           "group": "navigation@1"
         },
         {
-          "command": "wikibonsai.open.graph.web",
-          "when": "view == wikibonsai.panel.bonsai",
+          "command": "tendr.open.graph.web",
+          "when": "view == tendr.panel.bonsai",
           "group": "navigation@2"
         },
         {
-          "command": "wikibonsai.sync.bonsai",
-          "when": "view == wikibonsai.panel.bonsai",
+          "command": "tendr.sync.bonsai",
+          "when": "view == tendr.panel.bonsai",
           "group": "navigation@3"
         },
         {
-          "command": "wikibonsai.refresh.panel.bonsai",
-          "when": "view == wikibonsai.panel.bonsai",
+          "command": "tendr.refresh.panel.bonsai",
+          "when": "view == tendr.panel.bonsai",
           "group": "navigation@4"
         },
         {
-          "command": "wikibonsai.refresh.panel.ancestors",
-          "when": "view == wikibonsai.panel.ancestors",
+          "command": "tendr.refresh.panel.ancestors",
+          "when": "view == tendr.panel.ancestors",
           "group": "navigation"
         },
         {
-          "command": "wikibonsai.refresh.panel.children",
-          "when": "view == wikibonsai.panel.children",
+          "command": "tendr.refresh.panel.children",
+          "when": "view == tendr.panel.children",
           "group": "navigation"
         },
         {
-          "command": "wikibonsai.refresh.panel.forerefs",
-          "when": "view == wikibonsai.panel.forerefs",
+          "command": "tendr.refresh.panel.forerefs",
+          "when": "view == tendr.panel.forerefs",
           "group": "navigation"
         },
         {
-          "command": "wikibonsai.refresh.panel.backrefs",
-          "when": "view == wikibonsai.panel.backrefs",
+          "command": "tendr.refresh.panel.backrefs",
+          "when": "view == tendr.panel.backrefs",
           "group": "navigation"
         },
         {
-          "command": "wikibonsai.refresh.panel.danglers",
-          "when": "view == wikibonsai.panel.danglers",
+          "command": "tendr.refresh.panel.danglers",
+          "when": "view == tendr.panel.danglers",
           "group": "navigation"
         },
         {
-          "command": "wikibonsai.refresh.panel.zombies",
-          "when": "view == wikibonsai.panel.zombies",
+          "command": "tendr.refresh.panel.zombies",
+          "when": "view == tendr.panel.zombies",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
-          "command": "wikibonsai.resurrect",
+          "command": "tendr.resurrect",
           "when": "viewItem == zombie",
           "group": "inline@2"
         },
         {
-          "command": "wikibonsai.resurrect.tmpl",
+          "command": "tendr.resurrect.tmpl",
           "when": "viewItem == zombie",
           "group": "inline@1"
         }
       ]
     },
     "views": {
-      "wikibonsai-explorer": [
+      "tendr-explorer": [
         {
-          "id": "wikibonsai.panel.bonsai",
+          "id": "tendr.panel.bonsai",
           "name": "🎋 bonsai"
         },
         {
-          "id": "wikibonsai.panel.ancestors",
+          "id": "tendr.panel.ancestors",
           "name": "⬆️ ancestors"
         },
         {
-          "id": "wikibonsai.panel.children",
+          "id": "tendr.panel.children",
           "name": "⬇️ children"
         },
         {
-          "id": "wikibonsai.panel.forerefs",
+          "id": "tendr.panel.forerefs",
           "name": "➡️ fore refs"
         },
         {
-          "id": "wikibonsai.panel.backrefs",
+          "id": "tendr.panel.backrefs",
           "name": "⬅️ back refs"
         },
         {
-          "id": "wikibonsai.panel.danglers",
+          "id": "tendr.panel.danglers",
           "name": "⏺ dangling docs"
         },
         {
-          "id": "wikibonsai.panel.zombies",
+          "id": "tendr.panel.zombies",
           "name": "🧟 zombie refs"
         }
       ]
     },
     "viewsWelcome": [
       {
-        "view": "wikibonsai.panel.bonsai",
+        "view": "tendr.panel.bonsai",
         "contents": "no bonsai found."
       },
       {
-        "view": "wikibonsai.panel.ancestors",
+        "view": "tendr.panel.ancestors",
         "contents": "Has no ancestors or not in bonsai."
       },
       {
-        "view": "wikibonsai.panel.children",
+        "view": "tendr.panel.children",
         "contents": "Has no children or not in bonsai."
       },
       {
-        "view": "wikibonsai.panel.forerefs",
+        "view": "tendr.panel.forerefs",
         "contents": "No fore(ward) references found."
       },
       {
-        "view": "wikibonsai.panel.backrefs",
+        "view": "tendr.panel.backrefs",
         "contents": "No back(ward) references found."
       },
       {
-        "view": "wikibonsai.panel.danglers",
+        "view": "tendr.panel.danglers",
         "contents": "No danglers found."
       },
       {
-        "view": "wikibonsai.panel.zombies",
+        "view": "tendr.panel.zombies",
         "contents": "No zombies found."
       }
     ],
@@ -741,6 +741,8 @@
     "second brain",
     "semantic tree",
     "taxonomy",
+    "tendr",
+    "tender",
     "tree",
     "web",
     "wiki",

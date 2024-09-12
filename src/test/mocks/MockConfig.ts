@@ -17,7 +17,7 @@ export class MockConfig implements vscode.WorkspaceConfiguration {
     // getter
     Object.defineProperties(this, Object.getOwnPropertyDescriptors(workspaceSettings));
     this.map = new Map<string, any>(Object.entries(workspaceSettings));
-    this.wrapped = vscode.workspace.getConfiguration('wikibonsai'); // intentionally using vscode API directly.
+    this.wrapped = vscode.workspace.getConfiguration('tendr'); // intentionally using vscode API directly.
   }
 
   // tslint:disable: no-any

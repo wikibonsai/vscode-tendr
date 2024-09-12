@@ -123,7 +123,7 @@ export class TypeProvider {
       logger.error('no workspace directory found');
       return;
     }
-    const docTypeFileName: string = getConfigProperty('wikibonsai.file.doc-types', DEFAULT_DOCTYPE_FILE);
+    const docTypeFileName: string = getConfigProperty('tendr.file.doc-types', DEFAULT_DOCTYPE_FILE);
     const docTypeFileVscUris: vscode.Uri[] | undefined = await vscode.workspace.findFiles('**/**/' + docTypeFileName);
     if (!docTypeFileVscUris || (docTypeFileVscUris.length === 0)) { return; }
     return docTypeFileVscUris[0].toString();
@@ -136,8 +136,8 @@ export class TypeProvider {
   // properties
 
   private getRgxIDFormat() {
-    const alphabet: string = getConfigProperty('wikibonsai.file.name.opts.id.alpha', 'abcdefghijklmnopqrstuvwxyz0123456789');
-    const size: number = getConfigProperty('wikibonsai.file.name.opts.id.size', 6);
+    const alphabet: string = getConfigProperty('tendr.file.name.opts.id.alpha', 'abcdefghijklmnopqrstuvwxyz0123456789');
+    const size: number = getConfigProperty('tendr.file.name.opts.id.size', 6);
     return new RegExp('[' + alphabet + ']' + '{' + String(size) + '}');
   }
 
@@ -325,7 +325,7 @@ export class TypeProvider {
   }
 
   public async fillPlaceholderData(str: string): Promise<string> {
-    const id: string = await vscode.commands.executeCommand('wikibonsai.genID');
+    const id: string = await vscode.commands.executeCommand('tendr.genID');
     const now = luxon.DateTime.local(luxon.DateTime.now());
     /* eslint-disable indent */
     return str.replace(/(?::id)/, id)

@@ -4,56 +4,56 @@
 // - configs are verb.first. (as opposed to configs which are noun.first.)
 
 
-export type WikiBonsaiCommands = 
+export type TendrCommands = 
   ////
   // debug commands
   // dump
-  | 'wikibonsai.debug.dump.index'
-  | 'wikibonsai.debug.dump.bonsai'
+  | 'tendr.debug.dump.index'
+  | 'tendr.debug.dump.bonsai'
   // print
-  | 'wikibonsai.debug.print.index'
-  | 'wikibonsai.debug.print.bonsai'
-  | 'wikibonsai.debug.lint.bonsai'
+  | 'tendr.debug.print.index'
+  | 'tendr.debug.print.bonsai'
+  | 'tendr.debug.lint.bonsai'
   // reset
-  | 'wikibonsai.debug.reset.index'
+  | 'tendr.debug.reset.index'
   ////
   // other commands
   // (includes both commands meant to be accessible to the end-user
   //  and commands that need to be programmatically executable internally;
   //  there's no good way to separate these as far as i can tell)
   // create
-  | 'wikibonsai.create.file'
-  | 'wikibonsai.create.file.bulk'
+  | 'tendr.create.file'
+  | 'tendr.create.file.bulk'
   // generate id
-  | 'wikibonsai.genID'
+  | 'tendr.genID'
   // name
-  | 'wikibonsai.name.file'
+  | 'tendr.name.file'
   // open
-  | 'wikibonsai.open.file'
-  | 'wikibonsai.open.graph.tree'
-  | 'wikibonsai.open.graph.web'
-  | 'wikibonsai.open.wizard'
+  | 'tendr.open.file'
+  | 'tendr.open.graph.tree'
+  | 'tendr.open.graph.web'
+  | 'tendr.open.wizard'
   // toggle
-  | 'wikibonsai.toggle.graph.ctrls.dim'
-  | 'wikibonsai.toggle.graph.ctrls.fix'
-  | 'wikibonsai.toggle.graph.ctrls.follow'
+  | 'tendr.toggle.graph.ctrls.dim'
+  | 'tendr.toggle.graph.ctrls.fix'
+  | 'tendr.toggle.graph.ctrls.follow'
   // refresh
-  | 'wikibonsai.refresh.panel.bonsai'
-  | 'wikibonsai.refresh.panel.ancestors'
-  | 'wikibonsai.refresh.panel.children'
-  | 'wikibonsai.refresh.panel.forerefs'
-  | 'wikibonsai.refresh.panel.backrefs'
-  | 'wikibonsai.refresh.panel.danglers'
-  | 'wikibonsai.refresh.panel.zombies'
+  | 'tendr.refresh.panel.bonsai'
+  | 'tendr.refresh.panel.ancestors'
+  | 'tendr.refresh.panel.children'
+  | 'tendr.refresh.panel.forerefs'
+  | 'tendr.refresh.panel.backrefs'
+  | 'tendr.refresh.panel.danglers'
+  | 'tendr.refresh.panel.zombies'
   // 'resurrect' (create doc from zombie [[ref]] in treeview panel)
-  | 'wikibonsai.resurrect.tmpl'
-  | 'wikibonsai.resurrect'
+  | 'tendr.resurrect.tmpl'
+  | 'tendr.resurrect'
   // sync
-  | 'wikibonsai.sync.bonsai'
-  | 'wikibonsai.sync.graph'
-  | 'wikibonsai.sync.gui'
-  | 'wikibonsai.sync.reftypes'
-  | 'wikibonsai.sync.wikirefs'
+  | 'tendr.sync.bonsai'
+  | 'tendr.sync.graph'
+  | 'tendr.sync.gui'
+  | 'tendr.sync.reftypes'
+  | 'tendr.sync.wikirefs'
   // vscode
-  | 'wikibonsai.vscode.executeDecorationProvider'
+  | 'tendr.vscode.executeDecorationProvider'
   ;

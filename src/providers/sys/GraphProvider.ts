@@ -62,17 +62,17 @@ export abstract class GraphProvider {
           embed: true,
         },
       },
-      dim: getConfigProperty('wikibonsai.graph.ctrls.dim', '2d'),
-      autosync: getConfigProperty('wikibonsai.graph.ctrls.autosync.enabled', false),
+      dim: getConfigProperty('tendr.graph.ctrls.dim', '2d'),
+      autosync: getConfigProperty('tendr.graph.ctrls.autosync.enabled', false),
       // actions
-      fix: getConfigProperty('wikibonsai.graph.ctrls.fix.enabled', false),
-      follow: getConfigProperty('wikibonsai.graph.ctrls.follow.enabled', true),
+      fix: getConfigProperty('tendr.graph.ctrls.fix.enabled', false),
+      follow: getConfigProperty('tendr.graph.ctrls.follow.enabled', true),
     };
   }
 
   public async draw(context: vscode.ExtensionContext, panelTitle: string): Promise<void> {
     // build webview
-    const configCol: string = getConfigProperty('wikibonsai.graph.open-loc', 'beside');
+    const configCol: string = getConfigProperty('tendr.graph.open-loc', 'beside');
     const column: number = colDescrToNum[configCol] || vscode.ViewColumn.Beside;
     // if panel exists, don't create a new one
     if (this.panel) {
@@ -115,7 +115,7 @@ export abstract class GraphProvider {
       // chaining commands so that we can
       // convert the string uri to a vscode uri
       const vscUri: vscode.Uri = vscode.Uri.parse(message.payload);
-      vscode.commands.executeCommand('wikibonsai.open.file', vscUri);
+      vscode.commands.executeCommand('tendr.open.file', vscUri);
       return;
     }
     case MSG_CREATE_NODE: {
@@ -135,7 +135,7 @@ export abstract class GraphProvider {
           filename: filename,
         };
       }
-      vscode.commands.executeCommand('wikibonsai.create.file', payload);
+      vscode.commands.executeCommand('tendr.create.file', payload);
       return;
     }
     case MSG_SAVE_COORDS: {
@@ -143,27 +143,27 @@ export abstract class GraphProvider {
       return;
     }
     case MSG_SYNC_TREE: {
-      vscode.commands.executeCommand('wikibonsai.graph.show.tree');
+      vscode.commands.executeCommand('tendr.graph.show.tree');
       return;
     }
     case MSG_SYNC_WEB: {
-      vscode.commands.executeCommand('wikibonsai.graph.show.web');
+      vscode.commands.executeCommand('tendr.graph.show.web');
       return;
     }
     case MSG_UPDATE_DIM: {
-      vscode.commands.executeCommand('wikibonsai.toggle.graph.ctrls.dim', message.payload);
+      vscode.commands.executeCommand('tendr.toggle.graph.ctrls.dim', message.payload);
       return;
     }
     case MSG_UPDATE_FIX: {
-      vscode.commands.executeCommand('wikibonsai.toggle.graph.ctrls.fix', message.payload);
+      vscode.commands.executeCommand('tendr.toggle.graph.ctrls.fix', message.payload);
       return;
     }
     case MSG_UPDATE_FOLLOW: {
-      vscode.commands.executeCommand('wikibonsai.toggle.graph.ctrls.follow', message.payload);
+      vscode.commands.executeCommand('tendr.toggle.graph.ctrls.follow', message.payload);
       return;
     }
     case MSG_UPDATE_SYNC: {
-      vscode.commands.executeCommand('wikibonsai.toggle.graph.ctrls.sync', message.payload);
+      vscode.commands.executeCommand('tendr.toggle.graph.ctrls.sync', message.payload);
       return;
     }
     default: {
@@ -275,10 +275,10 @@ export class GraphTreeProvider extends GraphProvider {
   public panelTitle: string = ts.emoji + ' Tree';
 
   public async draw(context: vscode.ExtensionContext): Promise<void> {
-    if (!getConfigProperty('wikibonsai.graph.tree.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.graph.tree.enabled', true)) { return; }
     await super.draw(context, this.panelTitle);
     if (!this.panel) { return; }
-    const coordFileName: string = getConfigProperty('wikibonsai.graph.coords.tree', 'coords-tree.json');
+    const coordFileName: string = getConfigProperty('tendr.graph.coords.tree', 'coords-tree.json');
     const ctrlOpts: any = this.ctrlConfigs();
     // todo: removed 'Function' return type -- keep an eye on this
     const kindOpts: Record<string, (string)> = {};
@@ -316,7 +316,7 @@ export class GraphTreeProvider extends GraphProvider {
   // message handling
 
   public async postUpdateData() {
-    const coordFileName: string = getConfigProperty('wikibonsai.graph.coords.tree', 'coords-tree.json');
+    const coordFileName: string = getConfigProperty('tendr.graph.coords.tree', 'coords-tree.json');
     const data = await this.genTreeData(coordFileName);
     this.post(MSG_UPDATE_DATA, data);
   }
@@ -399,11 +399,11 @@ export class GraphWebProvider extends GraphProvider {
   public panelTitle: string = WEB + ' Web';
 
   public async draw(context: vscode.ExtensionContext): Promise<void> {
-    if (!getConfigProperty('wikibonsai.graph.web.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.graph.web.enabled', true)) { return; }
     await super.draw(context, this.panelTitle);
     if (!this.panel) { return; }
     // todo: is there a race condition here? do we need to wait for the panel somehow? (i thought the prior line did that...)
-    const coordFileName: string = getConfigProperty('wikibonsai.graph.coords.web', 'coords-web.json');
+    const coordFileName: string = getConfigProperty('tendr.graph.coords.web', 'coords-web.json');
     const ctrlOpts: any = this.ctrlConfigs();
     // todo: removed 'Function' return type -- keep an eye on this
     const kindOpts: Record<string, (string)> = {};
@@ -441,7 +441,7 @@ export class GraphWebProvider extends GraphProvider {
   // message handling
 
   public async postUpdateData() {
-    const coordFileName: string = getConfigProperty('wikibonsai.graph.coords.web', 'coords-web.json');
+    const coordFileName: string = getConfigProperty('tendr.graph.coords.web', 'coords-web.json');
     const data = await this.genWebData(coordFileName);
     this.post(MSG_UPDATE_DATA, data);
   }

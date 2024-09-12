@@ -56,7 +56,7 @@ export class CreateDocQuickPickItem implements BaseQuickPickItem {
     // give user a chance to (re)name file before creating
     const startText: string = zombieText ? zombieText : '';
     const inputText: string = await vscode.commands.executeCommand(
-      'wikibonsai.name.file',
+      'tendr.name.file',
       {
         createFrom: this.label,
         startValue: startText,
@@ -79,7 +79,7 @@ export class CreateDocQuickPickItem implements BaseQuickPickItem {
     if (zombieText && (zombieText.length !== 0) && (zombieText !== inputText)) {
       payload.filenameFromZombie = zombieText;
     }
-    vscode.commands.executeCommand('wikibonsai.create.file', payload);
+    vscode.commands.executeCommand('tendr.create.file', payload);
   }
 }
 
@@ -115,7 +115,7 @@ export class DocQuickPickItem implements BaseQuickPickItem {
   }
 
   public selected() {
-    vscode.commands.executeCommand('wikibonsai.open.file', this.vscUri);
+    vscode.commands.executeCommand('tendr.open.file', this.vscUri);
   }
 }
 
@@ -146,7 +146,7 @@ export class NoDocQuickPickItem implements BaseQuickPickItem {
 
   public createDoc(): void {
     vscode.commands.executeCommand(
-      'wikibonsai.create.file',
+      'tendr.create.file',
       {
         id: this.nodeID,
         filename: this.filename(),

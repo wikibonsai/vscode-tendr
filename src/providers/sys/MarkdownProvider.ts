@@ -57,7 +57,7 @@ export class MarkdownProvider {
   public optsCaml(): any {
     return {
       attrs: {
-        render: getConfigProperty('wikibonsai.attrs.caml.opts.render.enabled', false),
+        render: getConfigProperty('tendr.attrs.caml.opts.render.enabled', false),
       },
     };
   }

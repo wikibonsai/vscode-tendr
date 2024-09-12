@@ -15,7 +15,7 @@ export class WikiRefLinkProvider implements vscode.DocumentLinkProvider {
   }
 
   private buildDocLink(fnameText: string, range: vscode.Range): vscode.DocumentLink | undefined {
-    if (!getConfigProperty('wikibonsai.wikiref.goto.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.wikiref.goto.enabled', true)) { return; }
     let docLink: vscode.DocumentLink;
     // file uri
     const node: Node | undefined = this.index.find('filename', fnameText);
@@ -25,7 +25,7 @@ export class WikiRefLinkProvider implements vscode.DocumentLinkProvider {
       docLink = new vscode.DocumentLink(
         range,
         // 🦨
-        vscode.Uri.parse('command:wikibonsai.create.file').with({
+        vscode.Uri.parse('command:tendr.create.file').with({
           query: JSON.stringify({
             filename: fnameText,
           }),
@@ -44,7 +44,7 @@ export class WikiRefLinkProvider implements vscode.DocumentLinkProvider {
     // eslint-disable-next-line
     token: vscode.CancellationToken,
   ): Promise<vscode.DocumentLink[]> {
-    if (!getConfigProperty('wikibonsai.wikiref.goto.enabled', true)) { return []; }
+    if (!getConfigProperty('tendr.wikiref.goto.enabled', true)) { return []; }
     const docLinks: vscode.DocumentLink[] = [];
     for (const payload of wikirefs.scan(document.getText())) {
       if (payload.kind === wikirefs.CONST.WIKI.ATTR) {

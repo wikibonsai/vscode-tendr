@@ -59,13 +59,13 @@ export class DocTreeItem extends BaseTreeItem {
     super(label, collapsibleState);
     // todo: vscode wants treeview items to use the built-in 'vscode.open' command here so behavior is consistent across extensions...
     this.command = {
-      // command: 'wikibonsai.open.file',
+      // command: 'tendr.open.file',
       command: 'vscode.open',
       arguments: [
         vscode.Uri.parse(this.uri),
         { selection: new vscode.Range(0, 0, 0, 0) }
       ],
-      title: 'wikibonsai:open-rel',
+      title: 'tendr:open-rel',
     };
     // this.collapsibleState = collapsibleState;
     // todo: Utils.joinPath()
@@ -101,7 +101,7 @@ export class NoDocTreeItem extends BaseTreeItem {
 
   public createDoc(): void {
     vscode.commands.executeCommand(
-      'wikibonsai.create.file',
+      'tendr.create.file',
       {
         id: this.nodeID,
         filename: this.filename(),

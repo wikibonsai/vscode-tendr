@@ -16,7 +16,7 @@ export class WikiRefCompletionProvider implements vscode.CompletionItemProvider 
   }
 
   public async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position): Promise<vscode.CompletionItem[]> {
-    if (!getConfigProperty('wikibonsai.wikiref.completion.enabled', true)) { return []; }
+    if (!getConfigProperty('tendr.wikiref.completion.enabled', true)) { return []; }
     const linePrefix = document.lineAt(position).text.slice(0, position.character);
     const isWikiRef = linePrefix.match(/\[\[/);
     if (!isWikiRef) { return []; }
@@ -60,7 +60,7 @@ export class RefTypeCompletionProvider implements vscode.CompletionItemProvider 
   }
 
   public async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position): Promise<vscode.CompletionItem[]> {
-    if (!getConfigProperty('wikibonsai.wikiref.type.completion.enabled', true)) { return []; }
+    if (!getConfigProperty('tendr.wikiref.type.completion.enabled', true)) { return []; }
     const text = document.lineAt(position).text;
     const linePrefix = text.slice(0, position.character);
     // todo: this will only work for prefixed, padded/pretty styled caml attrs...

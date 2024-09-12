@@ -30,7 +30,7 @@ export class WizProvider {
 
   public async open(filename?: string) {
     logger.debug('WizProvider.open()');
-    if (!getConfigProperty('wikibonsai.wizard.enabled', true)) { return; }
+    if (!getConfigProperty('tendr.wizard.enabled', true)) { return; }
     const quickPick = vscode.window.createQuickPick();
     if (filename) { quickPick.value = filename; }
     quickPick.placeholder = 'begin typing to search by "filename" or select a method of file creation below';

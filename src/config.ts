@@ -9,111 +9,111 @@ import * as vscode from 'vscode';
 
 // config types
 
-export type WikiBonsaiAttrs = 
-  | 'wikibonsai.attrs.caml.opts.format'
-  | 'wikibonsai.attrs.caml.opts.render.enabled'
-  | 'wikibonsai.attrs.caml.opts.prefix'
-  | 'wikibonsai.attrs.engine'
-  | 'wikibonsai.attrs.id.alpha'
-  | 'wikibonsai.attrs.id.size'
+export type TendrAttrs = 
+  | 'tendr.attrs.caml.opts.format'
+  | 'tendr.attrs.caml.opts.render.enabled'
+  | 'tendr.attrs.caml.opts.prefix'
+  | 'tendr.attrs.engine'
+  | 'tendr.attrs.id.alpha'
+  | 'tendr.attrs.id.size'
   // enabled
-  | 'wikibonsai.attrs.mdate.enabled'
-  | 'wikibonsai.attrs.mtime.enabled'
-  | 'wikibonsai.attrs.vdate.enabled'
-  | 'wikibonsai.attrs.vtime.enabled'
+  | 'tendr.attrs.mdate.enabled'
+  | 'tendr.attrs.mtime.enabled'
+  | 'tendr.attrs.vdate.enabled'
+  | 'tendr.attrs.vtime.enabled'
   ;
 
-export type WikiBonsaiBonsai = 
-  | 'wikibonsai.bonsai.root'
+export type TendrBonsai = 
+  | 'tendr.bonsai.root'
   // enabled
-  | 'wikibonsai.bonsai.sync.enabled'
+  | 'tendr.bonsai.sync.enabled'
   ;
 
-export type WikiBonsaiFile = 
-  | 'wikibonsai.file.config'
-  | 'wikibonsai.file.doc-types'
-  | 'wikibonsai.file.name.opts.id.alpha'
-  | 'wikibonsai.file.name.opts.id.size'
-  | 'wikibonsai.file.open.loc'
+export type TendrFile = 
+  | 'tendr.file.config'
+  | 'tendr.file.doc-types'
+  | 'tendr.file.name.opts.id.alpha'
+  | 'tendr.file.name.opts.id.size'
+  | 'tendr.file.open.loc'
   // enabled
-  | 'wikibonsai.file.sync.enabled'
+  | 'tendr.file.sync.enabled'
   ;
 
-export type WikiBonsaiLint = 
-  | 'wikibonsai.lint.indentKind'
-  | 'wikibonsai.lint.indentSize'
-  | 'wikibonsai.lint.mkdnBullet'
-  | 'wikibonsai.lint.wikiLink'
+export type TendrLint = 
+  | 'tendr.lint.indentKind'
+  | 'tendr.lint.indentSize'
+  | 'tendr.lint.mkdnBullet'
+  | 'tendr.lint.wikiLink'
   ;
   
-export type WikiBonsaiGraph = 
-  | 'wikibonsai.graph.ctrls.dim'
-  | 'wikibonsai.graph.open-loc'
-  | 'wikibonsai.graph.coords.tree'
-  | 'wikibonsai.graph.coords.web'
+export type TendrGraph = 
+  | 'tendr.graph.ctrls.dim'
+  | 'tendr.graph.open-loc'
+  | 'tendr.graph.coords.tree'
+  | 'tendr.graph.coords.web'
   // enabled
-  | 'wikibonsai.graph.ctrls.autosync.enabled'
-  | 'wikibonsai.graph.ctrls.fix.enabled'
-  | 'wikibonsai.graph.ctrls.follow.enabled'
-  | 'wikibonsai.graph.ctrls.autosync.enabled'
-  | 'wikibonsai.graph.enabled'
-  | 'wikibonsai.graph.tree.enabled'
-  | 'wikibonsai.graph.web.enabled'
+  | 'tendr.graph.ctrls.autosync.enabled'
+  | 'tendr.graph.ctrls.fix.enabled'
+  | 'tendr.graph.ctrls.follow.enabled'
+  | 'tendr.graph.ctrls.autosync.enabled'
+  | 'tendr.graph.enabled'
+  | 'tendr.graph.tree.enabled'
+  | 'tendr.graph.web.enabled'
   ;
 
-export type WikiBonsaiTag =
-  | 'wikibonsai.tag.open-doc'
-  | 'wikibonsai.tag.open-loc'
+export type TendrTag =
+  | 'tendr.tag.open-doc'
+  | 'tendr.tag.open-loc'
   // enabled
-  | 'wikibonsai.tag.enabled'
+  | 'tendr.tag.enabled'
   ;
 
-export type WikiBonsaiTreeViewPanels = 
+export type TendrTreeViewPanels = 
   // enabled
-  | 'wikibonsai.panel.ancestors.enabled'
-  | 'wikibonsai.panel.bonsai.enabled'
+  | 'tendr.panel.ancestors.enabled'
+  | 'tendr.panel.bonsai.enabled'
   // todo: auto-open active doc in bonsai treeview
-  // | 'wikibonsai.panel.bonsai.follow.enabled'
-  | 'wikibonsai.panel.backrefs.enabled'
-  | 'wikibonsai.panel.children.enabled'
-  | 'wikibonsai.panel.forerefs.enabled'
-  | 'wikibonsai.panel.danglers.enabled'
-  | 'wikibonsai.panel.zombies.enabled'
+  // | 'tendr.panel.bonsai.follow.enabled'
+  | 'tendr.panel.backrefs.enabled'
+  | 'tendr.panel.children.enabled'
+  | 'tendr.panel.forerefs.enabled'
+  | 'tendr.panel.danglers.enabled'
+  | 'tendr.panel.zombies.enabled'
   ;
 
-export type WikiBonsaiWikiRefs = 
+export type TendrWikiRefs = 
   // enabled
-  | 'wikibonsai.wikiref.affix-rename.enabled'
-  | 'wikibonsai.wikiref.completion.enabled'
-  | 'wikibonsai.wikiref.goto.enabled'
-  | 'wikibonsai.wikiref.hover-preview.enabled'
-  | 'wikibonsai.wikiref.refactor.enabled'
-  | 'wikibonsai.wikiref.type.completion.enabled'
+  | 'tendr.wikiref.affix-rename.enabled'
+  | 'tendr.wikiref.completion.enabled'
+  | 'tendr.wikiref.goto.enabled'
+  | 'tendr.wikiref.hover-preview.enabled'
+  | 'tendr.wikiref.refactor.enabled'
+  | 'tendr.wikiref.type.completion.enabled'
   ;
 
-export type WikiBonsaiConfigs = 
-  | WikiBonsaiAttrs
-  | WikiBonsaiBonsai
-  | WikiBonsaiLint
-  | 'wikibonsai.debug.enabled'
-  | 'wikibonsai.emoji.tree'
-  | WikiBonsaiFile
-  | WikiBonsaiGraph
-  | 'wikibonsai.log.level'
-  | WikiBonsaiTag
-  | WikiBonsaiTreeViewPanels
-  | 'wikibonsai.syntax-highlight.enabled'
-  | WikiBonsaiWikiRefs
-  | 'wikibonsai.wizard.enabled'
+export type TendrConfigs = 
+  | TendrAttrs
+  | TendrBonsai
+  | TendrLint
+  | 'tendr.debug.enabled'
+  | 'tendr.emoji.tree'
+  | TendrFile
+  | TendrGraph
+  | 'tendr.log.level'
+  | TendrTag
+  | TendrTreeViewPanels
+  | 'tendr.syntax-highlight.enabled'
+  | TendrWikiRefs
+  | 'tendr.wizard.enabled'
   ;
 
 // functions
 
-export function getConfigProperty<T>(property: WikiBonsaiConfigs, fallback: T): T {
+export function getConfigProperty<T>(property: TendrConfigs, fallback: T): T {
   return vscode.workspace.getConfiguration().get(property, fallback);
 }
 
-export async function updateConfigProperty<T>(property: WikiBonsaiConfigs, value: T,): Promise<void> {
+export async function updateConfigProperty<T>(property: TendrConfigs, value: T,): Promise<void> {
   return vscode.workspace.getConfiguration().update(property, value);
 }
 
@@ -121,7 +121,7 @@ export async function updateConfigProperty<T>(property: WikiBonsaiConfigs, value
 // interface Fn<T> {
 //   (): T;
 // }
-// export function when<R>(configKey: WikiBonsaiConfigs, cbs: Fn<R> | Fn<R>[]): undefined | R | (undefined | R)[] {
+// export function when<R>(configKey: TendrConfigs, cbs: Fn<R> | Fn<R>[]): undefined | R | (undefined | R)[] {
 //   const enableStr: string = '.enabled';
 //   const isEnableConfig: boolean = (configKey.indexOf(enableStr) === (configKey.length - enableStr.length));
 //   if (isEnableConfig) {

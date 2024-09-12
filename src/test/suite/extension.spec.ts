@@ -6,9 +6,9 @@ import * as vscode from 'vscode';
 // import * as myExtension from '../../extension';
 
 
-const EXTENSION_ID = 'manunamz.vscode-wikibonsai';
+const EXTENSION_ID = 'manunamz.vscode-tendr';
 
-describe('vscode-wikibonsai extension', () => {
+describe('vscode-tendr extension', () => {
 
   it('in extensions list', () => {
     console.log('extensions: ', vscode.extensions);

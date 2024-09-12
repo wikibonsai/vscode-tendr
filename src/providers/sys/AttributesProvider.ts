@@ -72,7 +72,7 @@ export class AttributesProvider {
   // accessors
 
   private async getEngine(): Promise<any> {
-    const engineType: string = getConfigProperty('wikibonsai.attrs.engine', ATTR_ENGINE_CAML);
+    const engineType: string = getConfigProperty('tendr.attrs.engine', ATTR_ENGINE_CAML);
     if (engineType === ATTR_ENGINE_CAML) { return caml; }
     if (engineType === ATTR_ENGINE_YAML) { return yaml; }
     logger.info('No attributes engine specified, please set to "caml" or "yaml" in settings');
@@ -113,7 +113,7 @@ export class AttributesProvider {
   public async init(vscUri: vscode.Uri, id?: string): Promise<[any, string] | undefined> {
     logger.debug('AttributesProvider.init()');
     const engine = await this.getEngine();
-    if (!id) { id = await vscode.commands.executeCommand('wikibonsai.genID'); }
+    if (!id) { id = await vscode.commands.executeCommand('tendr.genID'); }
     const date: string = printISONowDate();
     const timestamp: string = printISONowTimestamp();
     const unslugifiedFileName: string = getFilename(vscUri).replaceAll('-', ' ');
@@ -228,8 +228,8 @@ export class AttributesProvider {
     }
     if (engine === caml) {
       const opts = {
-        prefix: getConfigProperty('wikibonsai.attrs.caml.opts.prefix', true),
-        format: getConfigProperty('wikibonsai.attrs.caml.opts.format', 'pretty'),
+        prefix: getConfigProperty('tendr.attrs.caml.opts.prefix', true),
+        format: getConfigProperty('tendr.attrs.caml.opts.format', 'pretty'),
         listFormat: 'mkdn',
       };
       attrStr = engine.dump(attrData, opts);
@@ -241,7 +241,7 @@ export class AttributesProvider {
   }
 
   public async load(text: string): Promise<AttrData | undefined> {
-    const engineType: string = getConfigProperty('wikibonsai.attrs.engine', 'caml');
+    const engineType: string = getConfigProperty('tendr.attrs.engine', 'caml');
     const camlData: any = caml.load(text);
     const camlLessContent: string = camlData.content ? camlData.content : text;
     const yamlData: any = (text.substring(0,4) === '---\n') ? matter(camlLessContent) : { data: {}, content: camlLessContent };
